@@ -24,7 +24,7 @@
     "mongoose": "^4.7.1",
     "nodemon": "^1.11.0",
     "readline": "0.0.x",
+    "twitter": "^1.5.0",
     "require": "^2.4.20",
-    "twitter": "^1.5.0"
   }
 }
