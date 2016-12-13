@@ -6,6 +6,10 @@ angular.module('newsgate.nav', [])
     $scope.hideNav = State.hideNav;
   });
 
+  /* 
+    See https://docs.angularjs.org/api/ng/service/$anchorScroll for more on this
+  */
+
   $scope.gotoAnchor = function(x) {
   	var newHash = 'anchor' + x;
     console.log(x);
