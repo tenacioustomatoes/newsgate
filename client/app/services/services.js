@@ -31,7 +31,7 @@ angular.module('newsgate.services', [])
       State.hideNav = false;
 
       // work around for googleTrends to use hardcoded data
-      if (false) {
+      if (true) {
         if (toggle) {
           Data.google = dataSet1;
           toggle = false;
