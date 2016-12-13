@@ -1,3 +1,9 @@
+/*
+Alchemy Language API
+
+for more information see https://www.ibm.com/watson/developercloud/alchemy-language/api/v1/?node
+
+*/
 var watson = require('watson-developer-cloud');
 var watsonKey = require('./watson_api_key.js');
 var alchemy_language = watson.alchemy_language({
@@ -19,7 +25,6 @@ module.exports.getTitle = function(req, res, next) {
 			res.compoundContent = res.compoundContent || {};
 			res.compoundContent['title'] = response;
 			next();
-	  	//res.send(response);
 	})
 };
 
