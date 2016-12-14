@@ -17,8 +17,8 @@
 	"content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      // "css": ["mystyles.css"],
-      "js": ["jquery.min.js", "contentScript.js"]
+      "css": ["bootstrap.min.css"],
+      "js": ["jquery.min.js", "bootstrap.min.js", "contentScript.js"]
     }
   ]
 }
