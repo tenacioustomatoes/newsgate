@@ -30,4 +30,12 @@ module.exports = function (app, express) {
   app.post('/apitest', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
   app.get('/twitter', twitterSearch.getTweetsOnTopic);
+
+
+// -----------------
+// Handle routes for watson's emotions and sentiment
+// -----------------
+  app.get('/api/watson/emotions', watsonController.getEmotions);
+  app.get('/api/watson/sentiment', watsonController.getSentiment);
+
 };
