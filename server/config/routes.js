@@ -19,11 +19,11 @@ module.exports = function (app, express) {
   var apiArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getTitle,
                 watsonController.getKeywords, twitterSearch.getTweetsOnTopic, googleTrends.getGoogleTrends];
 
-  app.post('/api', apiArr, function(req,res,next){
+  app.post('/api', apiArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
 
-  app.post('/api/ext', newsController.isFakeNews , function(req,res,next){
+  app.post('/api/ext', newsController.isFakeNews, function(req, res, next) {
     res.json(res.compoundContent);
   });
 
@@ -35,7 +35,7 @@ module.exports = function (app, express) {
 // -----------------
 // Handle routes for watson's emotions and sentiment
 // -----------------
-  var popupArr = [watsonController.getEmotions,watsonController.getSentiment];
+  var popupArr = [watsonController.getEmotions, watsonController.getSentiment];
   
   app.get('/api/popup', popupArr, function(req, res, next) {
     res.json(res.compoundContent);
