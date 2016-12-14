@@ -24,17 +24,13 @@ module.exports = function (app, express) {
   app.post('/api', apiArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
-  
-  
-  app.post('/api/links', [expanderController.expandURL, 
-                          watsonController.getTitle,
-                          watsonController.getKeywords, 
-                          linkController.saveToDB], 
-                          function (req, res, next) {
-                            res.json(res.body);
-                          });
+
+  var linkArr = [expanderController.expandURL, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
 
 
+  app.post('/api/links', linkArr, function (req, res, next) {
+    res.json(res.body);
+  });
 
   app.post('/api/ext', newsController.isFakeNews, function(req, res, next) {
     res.json(res.compoundContent);
@@ -49,9 +45,9 @@ module.exports = function (app, express) {
 // -----------------
 // Handles popup routes for watson's emotions and sentiment
 // -----------------
-  var popupArr = [watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
+  var popupArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
 
-  app.get('/api/popup', popupArr, function(req, res, next) {
+  app.post('/api/popup', popupArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
 
