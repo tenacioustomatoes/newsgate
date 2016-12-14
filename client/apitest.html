@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" ng-app="newsgate">
+  <head>
+    <meta charset="utf-8">
+    <title>NewsGate</title>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <script src="lib/underscore/underscore.js"></script>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/d3/d3.js"></script>
+    <script src="node_modules/d3-interpolate-path/build/d3-interpolate-path.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/ngtweet/dist/ngtweet.min.js"></script>
+    <base href="/" />
+  </head>
+  <body twitter-widget-initialize>
+
+    <div id="app" ng-controller="MainController">
+      <div id="mainContainer" ng-controller="NavController" ng-class="{'vert-center': !isLoaded, 'vert-center-disabled': isLoaded}">
+        <div>
+          <div class="centerHeader" ng-class="{'loaded-header-disable': !isLoaded, 'loaded-header': isLoaded}" ng-hide="isLoaded">NewsGate</div>
+        </div>
+        <div>
+          <div ng-include="'/app/submit/submit2.html'"></div>
+        </div>
+      </div>
+
+      <div ng-view></div>
+    </div>
+
+    <script src="app/main/main.js"></script>
+    <script src="app/titlebar/titlebar.js"></script>
+    <script src="app/nav/nav.js"></script>
+    <script src="app/submit/submit.js"></script>
+    <script src="app/tweets/tweets.js"></script>
+    <script src="app/trends/trends.js"></script>
+    <script src="app/bubble/bubble.js"></script>
+    <script src="app/services/services.js"></script>
+    <script src="app/app.js"></script>
+  </body>
+</html>

@@ -7,6 +7,11 @@ angular.module('newsgate.submit', [])
     Response.sendLink($scope.inputLink);
   }
 
+  $scope.saveLink = function() {
+    console.log('Saving Link:', $scope.inputLink);
+    Response.saveLink($scope.inputLink);
+  }
+
   $rootScope.$on('updateSpinner', function() {
     console.log('updating spinner!');
     $scope.hideSpinner = State.hideSpinner;
