@@ -41,8 +41,6 @@ var __filterKeywords = function(keywords) {
 		var solutations = /\b(m[rs]s*)\b\.*/gi;
 		newkeyword.text = newkeyword.text.replace(solutations, ''); //get rid of mr. and mrs. 
 		newkeyword.text = newkeyword.text.trim()
-		console.log(keyword, 'in map keyword')
-		console.log(newkeyword, 'in map newkeyword')
 		
 		return newkeyword;
 	})
