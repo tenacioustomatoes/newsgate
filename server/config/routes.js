@@ -3,6 +3,7 @@ var newsController = require('../controllers/newsController.js');
 var watsonController = require('../watson/watsonController.js');
 var biasController = require('../bias/biasController.js');
 var linkController = require('../controllers/linkController.js')
+var linkController = require('../controllers/linkController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
 
