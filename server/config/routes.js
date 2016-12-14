@@ -44,7 +44,7 @@ module.exports = function (app, express) {
 // -----------------
   var popupArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
 
-  app.post('/api/popup', popupArr, function(req, res, next) {
+  app.post('/api/popover', popupArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
 

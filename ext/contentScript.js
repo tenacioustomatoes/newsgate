@@ -3,7 +3,7 @@ $(document).ready(function() {
   $('a').hover(function() {
     var hoverUrl = $(this).attr('href').match(/page=(.*)/)[1];
     $.ajax({
-      url: 'http://localhost:8000/api/popup',
+      url: 'http://localhost:8000/api/popover',
       type: 'POST',
       data: {'url': hoverUrl},
       dataType: 'json'
