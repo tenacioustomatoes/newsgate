@@ -18,13 +18,15 @@ module.exports.getTitle = function(req, res, next) {
 	}
 
 	alchemy_language.title(parameters, function (err, response) {
-	  if (err)
+	  if (err) {
 	    console.log('error:', err);
-	  else
+	  }
+	  else {
 	    console.log(JSON.stringify(response, null, 2));
 			res.compoundContent = res.compoundContent || {};
 			res.compoundContent['title'] = response;
 			next();
+		}
 	})
 };
 
@@ -36,9 +38,11 @@ module.exports.getKeywords = function(req, res, next) {
 	alchemy_language.keywords(parameters, function (err, response) {
 	  if (err)
 	    console.log('error:', err);
-	  else
+	  else {
 	  	res.compoundContent['keywords'] = response;
-		next();
+			next();
 	    console.log(JSON.stringify(response, null, 2));
+	    console.log('watson key words ________----------')
+	  }
 	})
 }

@@ -51,10 +51,25 @@ angular.module('newsgate.services', [])
     console.log('CLIENT SEND MESSAGE:', message);
   };
 
+  var saveLink = function(url) {
+    let apiPath = '/api/links';
+    let message = {
+      url: url
+    };
+
+    $http.post(
+        urlHost.concat(apiPath),
+        message
+    ).then((res) => {
+      console.log(res);
+    })
+  }
   return {
-    sendLink: sendLink
+    sendLink: sendLink,
+    saveLink: saveLink
   };
 })
+
 .factory('Data', function() {
 
   // var dataSet1 = dataSet1[0];
