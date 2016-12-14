@@ -1,8 +1,8 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 
 	"name": "newsgate",
-	"description": "news insights", 
+	"description": "news insights",
 	"version": "1.0",
 
 	"browser_action": {
@@ -10,16 +10,23 @@
 		"default_popup": "popup.html"
 	},
 	"permissions": [
-		"activeTab", 
+		"activeTab",
 		"https://ajax.googleapis.com/"
 	],
-	"content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+	"content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+	"content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": ["bootstrap.min.css"],
+      "js": ["jquery.min.js", "bootstrap.min.js", "contentScript.js"]
+    }
+  ]
 }
 
 	// "background":
  //    {
  //        "scripts": ["jquery.min.js"]
- //    }, 
+ //    },
 	// "content_scripts": [{
 	// 	"js": ["jquery.min.js", "popup.js"],
 	// 	"matches": [ "http://*/*", "https://*/*"]

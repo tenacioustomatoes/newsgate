@@ -7,6 +7,7 @@ angular.module('newsgate', [
   'newsgate.bubble',
   'newsgate.tweets',
   'newsgate.nav',
+  'newsgate.bias',
   'ngRoute'
 ])
 .config(function($routeProvider) {
@@ -28,6 +29,10 @@ angular.module('newsgate', [
   .when('/tweets', {
     templateUrl : 'app/tweets/tweets.html',
     controller: 'TweetsController'
+  })
+  .when('/bias', {
+    templateUrl : 'app/bias/bias.html',
+    controller: 'BiasController'
   });
 
 })
