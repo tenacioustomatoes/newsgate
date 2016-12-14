@@ -2,6 +2,7 @@ var expanderController = require('../controllers/expanderController.js');
 var newsController = require('../controllers/newsController.js');
 var watsonController = require('../watson/watsonController.js');
 var biasController = require('../bias/biasController.js');
+var linkController = require('../controllers/linkController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
 
@@ -23,6 +24,17 @@ module.exports = function (app, express) {
   app.post('/api', apiArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
+  
+  
+  app.post('/api/links', [expanderController.expandURL, 
+                          watsonController.getTitle,
+                          watsonController.getKeywords, 
+                          linkController.saveToDB], 
+                          function (req, res, next) {
+                            res.json(res.body);
+                          });
+
+
 
   app.post('/api/ext', newsController.isFakeNews, function(req, res, next) {
     res.json(res.compoundContent);
