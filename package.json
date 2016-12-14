@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/api-spec.js",
     "reset": "mongo newsgate --eval \"db.dropDatabase()\"",
     "blacklist": "node blacklist/loadBlacklist.js",
     "blacklist:update": "node blacklist/updateBlacklist.js"
@@ -23,8 +23,11 @@
   "dependencies": {
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "chai-things": "^0.2.0",
     "express": "^4.14.0",
     "google-trends-api": "^3.0.1",
+    "mocha": "^3.2.0",
     "mongoose": "^4.7.1",
     "nodemon": "^1.11.0",
     "readline": "0.0.x",
