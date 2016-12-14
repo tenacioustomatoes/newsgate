@@ -20,15 +20,21 @@ angular.module('newsgate.bias', [])
 
   //should be fired when query is set off
   $scope.searchBias = function(url) {
-    url = 'cnn.com';
+    url = 'cbs.com';
+    url = url.toLowerCase();
     $http.get('/bias')
       .then(function(res) {
         $scope.biasData = res.data[0];
         console.log('bias data',$scope.biasData);
+        console.log($scope.biasData[url]);
         if ($scope.biasData[url]) {
-          console.log('rating',rating[$scope.biasData[url]]);
+          console.log('Rating: ',rating[$scope.biasData[url]]);
+        } else {
+          console.log('Bias rating not avaliable.')
         }
       });
   };
+
+  $scope.searchBias();
 
 });
