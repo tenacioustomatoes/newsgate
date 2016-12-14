@@ -33,13 +33,20 @@ module.exports.getKeywords = function(req, res, next) {
 
 var __filterKeywords = function(keywords) {
 	var outputKeywords = [];
-	outputKeywords = keywords.map(keyword => {
-
-		var newkeyword = keyword.toLowerCase();
+	outputKeywords = keywords.slice(0,5);
+	outputKeywords = outputKeywords.map(keyword => {
+		var newkeyword = {};
+		newkeyword.relevance = keyword.relevance;
+		newkeyword.text = keyword.text.toLowerCase();
+		var solutations = /\b(m[rs]s*)\b\.*/gi;
+		newkeyword.text = newkeyword.text.replace(solutations, ''); //get rid of mr. and mrs. 
+		newkeyword.text = newkeyword.text.trim()
+		console.log(keyword, 'in map keyword')
+		console.log(newkeyword, 'in map newkeyword')
+		
 		return newkeyword;
 	})
 	//outputKeywords = keywords.filter(keyword => keyword.relevance > 0.75)
-	outputKeywords = keywords.slice(0,5);
 	return outputKeywords;
 }
 
@@ -47,11 +54,12 @@ module.exports.saveToDB = function(req, res, next) {
 	console.log('in save to DB');
 
 	console.log('res body ->>>>>>>>', res.compoundContent)
-	
+	var filtered = __filterKeywords(res.compoundContent['keywords'].keywords);
+	console.log('filtered ********', filtered);
 	var linkData = {
 		url: req.body.url, 
 		title: res.compoundContent.title.title, 
-		keywords: __filterKeywords(res.compoundContent['keywords'].keywords)
+		keywords: filtered
 	}
 	console.log('linkDATA!!!!', linkData);
 	var newLinkSave = new SavedLink(linkData);
