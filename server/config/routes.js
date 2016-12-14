@@ -35,7 +35,10 @@ module.exports = function (app, express) {
 // -----------------
 // Handle routes for watson's emotions and sentiment
 // -----------------
-  app.get('/api/watson/emotions', watsonController.getEmotions);
-  app.get('/api/watson/sentiment', watsonController.getSentiment);
+  app.get('/api/popup', [watsonController.getEmotions,
+                        watsonController.getSentiment
+                        ], function(req, res, next) {
+    res.json(res.compoundContent);
+  });
 
 };
