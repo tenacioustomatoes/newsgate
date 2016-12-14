@@ -58,8 +58,8 @@ module.exports.getKeywords = function(req, res, next) {
 // Detect emotions implied in plain text, on a webpage, or in HTML content.
 // https://www.ibm.com/watson/developercloud/alchemy-language/api/v1/?node#emotion_analysis
 
-// Response: 
-// docEmotions: Object containing emotion keys and score values (0.0 to 1.0). 
+// Response:
+// docEmotions: Object containing emotion keys and score values (0.0 to 1.0).
 	// If a score is above 0.5, then the text can be classified as conveying the corresponding emotion.
 // -----------------
 
@@ -83,7 +83,7 @@ module.exports.getEmotions = function(req, res, next) {
 // Analyze the overall sentiment of a webpage, HTML, or plain text.
 // https://www.ibm.com/watson/developercloud/alchemy-language/api/v1/?node#sentiment
 
-// Response: 
+// Response:
 // docSentiment: Object containing document-level sentiment information
 	// mixed	1 indicates that the sentiment is both positive and negative
 	// score	Sentiment strength (0.0 == neutral)
