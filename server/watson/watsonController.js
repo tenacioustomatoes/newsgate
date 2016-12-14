@@ -10,6 +10,10 @@ var alchemy_language = watson.alchemy_language({
 	api_key: watsonKey.watsonKey
 });
 
+// -----------------
+// Extract the page title from a webpage or HTML.
+// https://www.ibm.com/watson/developercloud/alchemy-language/api/v1/?node#title_extraction
+// -----------------
 
 module.exports.getTitle = function(req, res, next) {
 	console.log('request body', req.body.url);
@@ -28,6 +32,11 @@ module.exports.getTitle = function(req, res, next) {
 	})
 };
 
+// -----------------
+// Extract keywords from a webpage, HTML, or plain text.
+// https://www.ibm.com/watson/developercloud/alchemy-language/api/v1/?node#keywords
+// -----------------
+
 module.exports.getKeywords = function(req, res, next) {
 	var parameters = {
 		url: req.body.url
@@ -42,12 +51,6 @@ module.exports.getKeywords = function(req, res, next) {
 	    console.log(JSON.stringify(response, null, 2));
 	})
 }
-
-
-
-// -----------------
-// Paige's Addition:
-// -----------------
 
 // -----------------
 // Detect emotions implied in plain text, on a webpage, or in HTML content.
