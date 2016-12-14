@@ -11,11 +11,9 @@ module.exports = function (app, express) {
 /*  This middlware builds the response object starting with the URL expansion
   and tacking on the successive API calls by calling the controllers' next()
   function.
-
   You'll likely want to improve upon this by creating different endpoints with
   different middleware pipes e.g. a pipe to just poll the blacklist, or a pipe
   just for talking to Watson and so forth.
-
 */
 
   var apiArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getTitle,
