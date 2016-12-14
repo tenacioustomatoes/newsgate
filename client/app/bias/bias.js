@@ -27,7 +27,7 @@ angular.module('newsgate.bias', [])
   //should be fired when query is set off
   $scope.searchBias = function(url) {
     //checks url against urls in biased list
-    console.log(url);
+    console.log('url',url);
     // for (var data in $scope.biasData) {
     //   console.log(data);
     //   if (data === $scope.biasData) {
