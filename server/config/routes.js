@@ -33,7 +33,7 @@ module.exports = function (app, express) {
 
 
 // -----------------
-// Handle routes for watson's emotions and sentiment
+// Handles popup routes for watson's emotions and sentiment
 // -----------------
   var popupArr = [watsonController.getEmotions, watsonController.getSentiment];
   
