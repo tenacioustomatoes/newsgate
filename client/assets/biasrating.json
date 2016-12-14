@@ -1,4 +1,4 @@
-//allbias ratings (far left, left, center, right, far right)
+//allsides ratings (far left, left, center, right, far right)
 
 var biasRatings = {
   "ABC News": 2,
