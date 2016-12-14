@@ -1,19 +1,20 @@
 var expanderController = require('../controllers/expanderController.js');
 var newsController = require('../controllers/newsController.js');
 var watsonController = require('../watson/watsonController.js');
-var linkController = require('../controllers/linkController.js')
+var biasController = require('../bias/biasController.js');
+var linkController = require('../controllers/linkController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
 
 module.exports = function (app, express) {
 
 /*  This middlware builds the response object starting with the URL expansion
-  and tacking on the successive API calls by calling the controllers' next() 
+  and tacking on the successive API calls by calling the controllers' next()
   function.
 
-  You'll likely want to improve upon this by creating different endpoints with 
+  You'll likely want to improve upon this by creating different endpoints with
   different middleware pipes e.g. a pipe to just poll the blacklist, or a pipe
-  just for talking to Watson and so forth. 
+  just for talking to Watson and so forth.
 
 */
 
@@ -42,13 +43,14 @@ module.exports = function (app, express) {
   app.post('/apitest', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
   app.get('/twitter', twitterSearch.getTweetsOnTopic);
+  app.get('/bias', biasController.getData);
 
 
 // -----------------
 // Handles popup routes for watson's emotions and sentiment
 // -----------------
-  var popupArr = [watsonController.getEmotions, watsonController.getSentiment];
-  
+  var popupArr = [watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
+
   app.get('/api/popup', popupArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
