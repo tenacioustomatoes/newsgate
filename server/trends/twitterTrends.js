@@ -18,6 +18,7 @@ exports.getTweetsOnTopic = function(req, res, next) {
 
   var _filterKeywords = function(keywords) {
     var outputKeywords = [];
+    if (keywords.length > 0) {
     outputKeywords = keywords.slice(0, 2);
     outputKeywords = outputKeywords.map(keyword => {
       var newkeyword = {};
@@ -31,6 +32,7 @@ exports.getTweetsOnTopic = function(req, res, next) {
 
       return newkeyword;
     });
+  }
     //outputKeywords = keywords.filter(keyword => keyword.relevance > 0.75)
     return outputKeywords;
   };
@@ -42,13 +44,9 @@ exports.getTweetsOnTopic = function(req, res, next) {
 
   domain = domain.slice(0, -4);
 
-  console.log(_filterKeywords(res.compoundContent.keywords.keywords));
   var query = _filterKeywords(res.compoundContent.keywords.keywords).map(function(keyword) {
     return keyword.text;
   });
-
-
-  console.log('query', query);
 
   query = query.join(' ');
   query = query.replace(/ /g, ' OR ');
