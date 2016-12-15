@@ -22,7 +22,7 @@ angular.module('newsgate.bias', [])
   $scope.searchBias = function(url) {
     url = 'cbs.com';
     url = url.toLowerCase();
-    $http.get('/bias')
+    $http.get('/api/bias')
       .then(function(res) {
         $scope.biasData = res.data[0];
         console.log('bias data',$scope.biasData);
@@ -35,6 +35,6 @@ angular.module('newsgate.bias', [])
       });
   };
 
-  $scope.searchBias();
+  // $scope.searchBias();
 
 });
