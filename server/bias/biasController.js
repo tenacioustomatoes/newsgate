@@ -38,7 +38,7 @@ module.exports = {
       }
 
     } else {
-      res.sendJSON.response(res, 404, {
+      res.sendJSONresponse(res, 404, {
         'message': 'no url in request'
       });
     }
