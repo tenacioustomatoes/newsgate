@@ -35,7 +35,7 @@ module.exports = function (app, express) {
   app.post('/api/test', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
   app.get('/api/twitter', twitterSearch.getTweetsOnTopic);
-  app.get('/api//bias', biasController.getData);
+  app.get('/api/bias', biasController.getData);
 
 
 // -----------------
