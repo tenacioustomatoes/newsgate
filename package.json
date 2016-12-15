@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "reset": "mongo newsgate --eval \"db.dropDatabase()\"",
     "blacklist": "node blacklist/loadBlacklist.js",
-    "blacklist:update": "node blacklist/updateBlacklist.js"
+    "blacklist:update": "node blacklist/updateBlacklist.js",
+    "allbias:scrape": "node allbiasscraper.js"
   },
   "repository": {
     "type": "git",
