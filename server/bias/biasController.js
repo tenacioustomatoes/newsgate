@@ -1,17 +1,14 @@
 var biasData = require('./biasrating.json');
 var url = require('url');
 
+var sendJSONresponse = function (res, status, content) {
+  res.status(status);
+  res.json(content);
+};
+
 module.exports = {
   getData: function (req, res, next) {
-
-    var rating = {
-      '0': 'Far Left',
-      '1': 'Left',
-      '2': 'Center',
-      '3': 'Right',
-      '4': 'Far Right'
-    };
-
+    console.log('Getting Bias Rating');
 
     if (req.body.url) {
       var domain = req.body.url.replace(/^https?:\/\//, ''); // replace http and https
@@ -20,25 +17,25 @@ module.exports = {
       domain = domain.split('/')[0]; //Get the domain and only the domain
 
       if (domain) {
-        var biasResult = (biasData[0][domain] === undefined) ? null : rating[biasData[0][domain]];
+        var biasResult = (biasData[domain] === undefined) ? null : [biasData[domain].rating];
 
         var response = {
           'url': domain,
-          'status': 'OK',
+          'status': (biasResult === null) ? '' : 'OK',
           'bias': biasResult
         };
-
+        console.log(biasData[domain].rating);
         res.compoundContent['bias'] = response; // how does this work?
         next();
 
       } else {
-        res.sendJSONresponse(res, 404, {
+        sendJSONresponse(res, 404, {
           'message': domain + ' is a malformed url'
         });
       }
 
     } else {
-      res.sendJSONresponse(res, 404, {
+      sendJSONresponse(res, 404, {
         'message': 'no url in request'
       });
     }
