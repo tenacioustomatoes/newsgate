@@ -16,8 +16,7 @@ module.exports = function (app, express) {
   just for talking to Watson and so forth.
 */
 
-  var apiArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getTitle,
-                watsonController.getKeywords, twitterSearch.getTweetsOnTopic, googleTrends.getGoogleTrends];
+  var apiArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getTitle, watsonController.getKeywords, twitterSearch.getTweetsOnTopic, googleTrends.getGoogleTrends];
 
   app.post('/api', apiArr, function(req, res, next) {
     res.json(res.compoundContent);
@@ -33,10 +32,10 @@ module.exports = function (app, express) {
     res.json(res.compoundContent);
   });
 
-  app.post('/apitest', watsonController.getTitle);
+  app.post('/api/test', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
-  app.get('/twitter', twitterSearch.getTweetsOnTopic);
-  app.get('/bias', biasController.getData);
+  app.get('/api/twitter', twitterSearch.getTweetsOnTopic);
+  app.get('/api//bias', biasController.getData);
 
 
 // -----------------

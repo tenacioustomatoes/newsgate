@@ -1,6 +1,11 @@
 var biasData = require('./biasrating.json');
 var url = require('url');
 
+var sendJSONresponse = function (res, status, content) {
+  res.status(status);
+  res.json(content);
+};
+
 module.exports = {
   getData: function (req, res, next) {
 
@@ -32,13 +37,13 @@ module.exports = {
         next();
 
       } else {
-        res.sendJSONresponse(res, 404, {
+        sendJSONresponse(res, 404, {
           'message': domain + ' is a malformed url'
         });
       }
 
     } else {
-      res.sendJSON.response(res, 404, {
+      sendJSONresponse(res, 404, {
         'message': 'no url in request'
       });
     }
