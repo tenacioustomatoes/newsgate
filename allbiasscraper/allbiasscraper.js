@@ -66,7 +66,7 @@ var options = { method: 'GET',
           });
 
           //write to file
-          fs.writeFile('biasRatings.json', JSON.stringify(data), function (err) {
+          fs.writeFile('../server/bias/biasrating.json', JSON.stringify(data), function (err) {
             if (err) throw new Error(error);
             console.log('Writing to file...');
           });
