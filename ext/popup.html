@@ -32,19 +32,44 @@
 <html>
   <head>
   <style>
-    .list-group-item{
-      display: flex;
-      font-size: 8px;
+    body {
+      font-family: arial;
+      font-size: 12pt;
+      margin: 0;
+      padding: 0;
+      color: #06477D;
     }
+
+  ul {
+    list-style-type: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    text-align: center;
+    padding: 5px 20px;
+  }
+
+  li:hover {
+    background: #06477D;
+    color: white;
+  }
+
   </style>
     <link rel="stylesheet" href="bootstrap.full.min.css" />
     <script src="bootstrap.full.js"></script>
   <body>
-  <!-- <div> -->
-<div class="list-group">
-  <a href="" class="list-group-item active">NewsGate</a>
-  <a href="#" class="list-group-item">Report Card</a>
-  <a href="#" class="list-group-item">Saved Links</a>
-  </body>
+<html>
+<body>
+    <ul>
+        <li id="all">All</li>
+        <li id="title">Name</li>
+        <li id="artist">Artist</li>
+        <li id="album">Album</li>
+        <li id="art">Artwork</li>
+    </ul>
+</body>
 </html>
 
