@@ -5,6 +5,16 @@ angular.module('newsgate.services', [])
 .factory('Response', function($http, $rootScope, $location, Data, State) {
   var urlHost = 'http://localhost:8000';
   var toggle = true;
+  window.LinkStorage = [];
+  LinkStorage = JSON.parse(localStorage.getItem('LinkStorage'));
+  // chrome.storage.sync.get('LinkStorage', function(result) {
+  //   if (result) {
+  //     LinkStorage = JSON.parse(localStorage.getItem('LinkStorage'));
+  //   } else {
+  //     LinkStorage = [];
+  //   }
+  // });
+  
   var sendLink = function(url) {
     State.hideSpinner = false;
     State.hideNav = true;
@@ -61,7 +71,18 @@ angular.module('newsgate.services', [])
         urlHost.concat(apiPath),
         message
     ).then((res) => {
-      console.log(res);
+      console.log(res.data);
+      LinkStorage.push(res.data);
+      console.log('Link Storage -------->', LinkStorage);
+      localStorage.setItem('LinkStorage', JSON.stringify(LinkStorage))
+      var retrievedStorage = localStorage.getItem('LinkStorage')
+      console.log('retrieved storage--->', JSON.parse(retrievedStorage));
+      // chrome.storage.sync.set({'LinkStorage': JSON.stringify(LinkStorage)}, function () {
+      //   var retrievedStorage = localStorage.getItem('LinkStorage');
+      //   chrome.storage.sync.get('LinkStorage', function(result) {
+      //     console.log('retrieved storage--->', JSON.parse(result));
+      //   });
+      // })
     })
   }
   return {

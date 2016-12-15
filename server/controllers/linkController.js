@@ -48,6 +48,8 @@ var __filterKeywords = function(keywords) {
 	return outputKeywords;
 }
 
+
+
 module.exports.saveToDB = function(req, res, next) {
 	console.log('in save to DB');
 
@@ -62,6 +64,6 @@ module.exports.saveToDB = function(req, res, next) {
 	console.log('linkDATA!!!!', linkData);
 	var newLinkSave = new SavedLink(linkData);
   newLinkSave.save().then(err => {
-  	next();
+  	res.json(linkData);
   });
 }
