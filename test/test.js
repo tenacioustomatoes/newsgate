@@ -5,26 +5,24 @@ describe('Server Endpoints: ', function() {
 
   var hostname = 'http://127.0.0.1:8000';
 
-  describe('/API', function() {
+  const TIME_OUT = 12000;
 
-    var options = {
+  describe('/api', function() {
+
+    var nyTimes = {
       'uri': hostname + '/api',
       'method': 'POST',
-      'followAllRedirects': true
+      'followAllRedirects': true,
+      'json': {'url': 'http://www.nytimes.com/2016/12/15/opinion/to-understand-trump-learn-russian.html?action=click&pgtype=Homepage&clickSource=story-heading&module=opinion-c-col-left-region&region=opinion-c-col-left-region&WT.nav=opinion-c-col-left-region'}
     };
 
     var nyTimesRes = {};
-    var theOnionRes = {};
 
-
-    describe('testing real news site', function() {
+    describe('waiting for request response before starting tests', function() {
 
       before(function(done) {
 
-        this.timeout(10000);
-
-        var nyTimes = options;
-        nyTimes.json = {'url': 'http://www.nytimes.com/2016/12/15/opinion/to-understand-trump-learn-russian.html?action=click&pgtype=Homepage&clickSource=story-heading&module=opinion-c-col-left-region&region=opinion-c-col-left-region&WT.nav=opinion-c-col-left-region'};
+        this.timeout(TIME_OUT);
 
         request(nyTimes, function(err, res, body) {
           nyTimesRes = res;
@@ -32,56 +30,63 @@ describe('Server Endpoints: ', function() {
         });
       });
 
-      describe('testing fake news site', function() {
+      it('should only handle real urls, sending 404 for invalid URLs', function(done) {
 
-        before(function(done) {
+        var fakeUrl = {
+          'uri': hostname + '/api',
+          'method': 'POST',
+          'followAllRedirects': true,
+          'json': {'url': 'not a real url'}
+        };
 
-          this.timeout(10000);
+        request(fakeUrl, function(err, res, body) {
+          expect(res.statusCode).to.equal(404);
+          done();
+        });
 
-          var theOnion = options;
-          theOnion.json = {'url': 'http://www.theonion.com/infographic/can-trump-follow-through-his-campaign-promises-54792'};
+      });
 
-          request(theOnion, function(err, res, body) {
-            theOnionRes = res;
+      it('expand urls, and treat them as it would treat direct links', function(done) {
+
+        this.timeout(TIME_OUT);
+
+        var shortnedUrl = {
+          'uri': hostname + '/api',
+          'method': 'POST',
+          'followAllRedirects': true,
+          'json': {'url': 'nyti.ms/2hSE2MQ'}
+        };
+
+        var expandedUrl = {
+          'uri': hostname + '/api',
+          'method': 'POST',
+          'followAllRedirects': true,
+          'json': {'url': 'http://www.nytimes.com/2016/12/15/us/pew-study-obama-september-11.html?src=twr&smid=tw-nytimes&smtyp=cur'}
+        };
+
+        request(shortnedUrl, function(err1, res1, body1) {
+          request(expandedUrl, function(err2, res2, body2) {
+            //Set meta data equal, because this will very by request
+            res1.body.twitter = res2.body.twitter;
+            expect(res1.body).to.deep.equal(res2.body);
             done();
           });
         });
 
-        it('should only handle real urls, sending 404 for invalid URLs', function(done) {
+      });
 
-          var fakeOptions = options;
-          fakeOptions.json = {'url': 'not a real url'};
+      it('should detect fake news sites correctly', function(done) {
 
-          request(fakeOptions, function(err, res, body) {
-            expect(res.statusCode).to.equal(404);
-            done();
-          });
+        this.timeout(TIME_OUT);
 
-        });
+        var theOnion = {
+          'uri': hostname + '/api',
+          'method': 'POST',
+          'followAllRedirects': true,
+          'json': {'url': 'http://www.theonion.com/infographic/can-trump-follow-through-his-campaign-promises-54792'}
+        };
 
-        it('expand urls, and treat them as it would treat direct links', function(done) {
-
-          this.timeout(10000);
-
-          var shortnedUrlOptions = options;
-          shortnedUrlOptions.json = {'url': 'nyti.ms/2hSE2MQ'};
-
-          var expandedURLOptions = options;
-          expandedURLOptions.json = {'url': 'http://www.nytimes.com/2016/12/15/us/pew-study-obama-september-11.html?src=twr&smid=tw-nytimes&smtyp=cur'
-          };
-
-          request(shortnedUrlOptions, function(err1, res1, body1) {
-            request(expandedURLOptions, function(err2, res2, body2) {
-              //Set meta data equal, because this will very by request
-              res1.body.twitter = res2.body.twitter;
-              expect(res1.body).to.deep.equal(res2.body);
-              done();
-            });
-          });
-
-        });
-
-        it('should detect fake news sites correctly', function(done) {
+        request(theOnion, function(err, theOnionRes, body) {
 
           expect(nyTimesRes.body).to.have.property('fake');
           expect(nyTimesRes.body.fake.rating.score).to.equal(0);
@@ -89,51 +94,142 @@ describe('Server Endpoints: ', function() {
           expect(theOnionRes.body.fake.rating.score).to.equal(100);
 
           done();
-
         });
 
-        it('Watson should find the site\'s title', function(done) {
+      });
 
+      it('Watson should find the site\'s title', function(done) {
 
+        expect(nyTimesRes.body.title).to.have.property('status');
+        expect(nyTimesRes.body.title.status).to.equal('OK');
+        expect(nyTimesRes.body.title.title).to.be.a('string');
 
+        done();
+      });
 
-        //.title.status === ok
-        //.title.url = domain
-        //.title.tiltle exists
+      it('Watson should find the site\'s keywords', function(done) {
+
+       // .keywords.status === okay
+        expect(nyTimesRes.body.keywords).to.have.property('status');
+        expect(nyTimesRes.body.keywords.status).to.equal('OK');
+        expect(nyTimesRes.body.keywords.keywords).to.be.an('array');
+        nyTimesRes.body.keywords.keywords.forEach(function(keyword) {
+          expect(keyword.text).to.be.a('string');
+          expect(keyword.relevance).to.be.above(0);
+          expect(keyword.relevance).to.be.below(1);
+        });
+
+        done();
+      });
+
+      it('Twitter search should find tweets', function(done) {
+
+        expect(nyTimesRes.body.twitter.statuses).to.be.an('array');
+        expect(nyTimesRes.body.twitter.statuses.length).to.above(0);
+        nyTimesRes.body.twitter.statuses.forEach(function(tweet) {
+          expect(tweet.text).to.be.a('string');
+        });
+
+        done();
+      });
+
+      it('Google trends should return queries', function(done) {
+
+        expect(nyTimesRes.body.google).to.be.an('array');
+        expect(nyTimesRes.body.google.length).to.above(0);
+        nyTimesRes.body.google.forEach(function(query) {
+          expect(query.query).to.be.a('string');
+        });
+
+        done();
+      });
+    });
+  });
+
+  describe('/api/popover', function() {
+
+    describe('waiting for request response before starting tests', function() {
+
+      var waPost = {
+        'uri': hostname + '/api/popover',
+        'method': 'POST',
+        'followAllRedirects': true,
+        'json': {'url': 'https://www.washingtonpost.com/news/business/wp/2016/12/15/on-the-day-trump-said-hed-clarify-his-business-dealings-his-conflicts-of-interest-look-thornier-than-ever/?hpid=hp_hp-top-table-main_trumpbiz-1015a%3Ahomepage%2Fstory&utm_term=.fbbe3929e70f'}
+      };
+
+      var waPostRes = {};
+
+      before(function(done) {
+
+        this.timeout(TIME_OUT);
+
+        request(waPost, function(err, res, body) {
+          waPostRes = res;
+          done();
+        });
+      });
+
+      it('Watson should find the site\'s title', function(done) {
+
+        expect(waPostRes.body.title).to.have.property('status');
+        expect(waPostRes.body.title.status).to.equal('OK');
+        expect(waPostRes.body.title.title).to.be.a('string');
+
+        done();
+      });
+
+      it('should detect fake news sites correctly', function(done) {
+
+        this.timeout(TIME_OUT);
+
+        var theOnion = {
+          'uri': hostname + '/api',
+          'method': 'POST',
+          'followAllRedirects': true,
+          'json': {'url': 'http://www.theonion.com/infographic/can-trump-follow-through-his-campaign-promises-54792'}
+        };
+
+        request(theOnion, function(err, theOnionRes, body) {
+
+          expect(waPostRes.body).to.have.property('fake');
+          expect(waPostRes.body.fake.rating.score).to.equal(0);
+          expect(theOnionRes.body).to.have.property('fake');
+          expect(theOnionRes.body.fake.rating.score).to.equal(100);
 
           done();
         });
+      });
+      it('Watson should find a site\'s emotions', function(done) {
 
-        it('Watson should find the site\'s keywords', function(done) {
+        expect(waPostRes.body.emotions).to.have.property('status');
+        expect(waPostRes.body.emotions.status).to.equal('OK');
+        expect(waPostRes.body.emotions.docEmotions.anger).to.be.above(0);
+        expect(waPostRes.body.emotions.docEmotions.anger).to.be.below(1);
+        expect(waPostRes.body.emotions.docEmotions.disgust).to.be.above(0);
+        expect(waPostRes.body.emotions.docEmotions.disgust).to.be.below(1);
+        expect(waPostRes.body.emotions.docEmotions.fear).to.be.above(0);
+        expect(waPostRes.body.emotions.docEmotions.fear).to.be.below(1);
+        expect(waPostRes.body.emotions.docEmotions.joy).to.be.above(0);
+        expect(waPostRes.body.emotions.docEmotions.joy).to.be.below(1);
+        expect(waPostRes.body.emotions.docEmotions.sadness).to.be.above(0);
+        expect(waPostRes.body.emotions.docEmotions.sadness).to.be.below(1);
+        done();
+      });
 
-         // .keywords.status === okay
-         // .keywords.keywords is an array
-         // .keywords.keywords forEach
-         //   keyword.text is string
-         //   keyword.relavance is a number between 0 and 1
+      it('Watson should find a site\'s sentiment', function(done) {
 
-          done();
-        });
+        expect(waPostRes.body.sentiment).to.have.property('status');
+        expect(waPostRes.body.sentiment.status).to.equal('OK');
+        expect(waPostRes.body.sentiment.docSentiment.type).to.be.a('string');
+        done();
+      });
 
-        it('Twitter search should find tweets', function(done) {
+      it('should determine a new site\'s polical bias', function(done) {
 
-          // .twitter.statuses is a array
-          // .twitter.statuses has length > 0
-          // each .twitter.statuses.txt is a string of length > 0
-
-          done();
-        });
-
-        it('Google trends should return queries', function(done) {
-
-            //.google is an array
-            //.google length > 0
-            //.google each entry in array
-              // should have .query propery
-              // query should be a string
-              // query length should be > 0
-          done();
-        });
+        expect(waPostRes.body.bias).to.have.property('status');
+        expect(waPostRes.body.bias.status).to.equal('OK');
+        expect(waPostRes.body.bias.bias).to.exist;
+        done();
       });
     });
   });

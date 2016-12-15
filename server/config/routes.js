@@ -41,7 +41,7 @@ module.exports = function (app, express) {
 // -----------------
 // Handles popup routes for watson's emotions and sentiment
 // -----------------
-  var popupArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
+  var popupArr = [watsonController.getTitle, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
 
   app.post('/api/popover', popupArr, function(req, res, next) {
     res.json(res.compoundContent);
