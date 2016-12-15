@@ -1,7 +1,14 @@
 $(document).ready(function() {
   
-  $('a').hover(function() {
+  $('a').hoverIntent(function() {
     var hoverUrl = $(this).attr('href').match(/page=(.*)/)[1];
+    var popover = $('a').attr('data-toggle', 'popover').popover({
+        container: 'body',
+        content: loading,
+        trigger: 'hover',
+        placement: 'auto top'
+      });
+    
     $.ajax({
       url: 'http://localhost:8000/api/popover',
       type: 'POST',
@@ -10,12 +17,15 @@ $(document).ready(function() {
     })
 
     .done(function(json) {
-      $('a').attr('data-toggle', 'popover').popover({
-        container: 'body',
-        content: ENTER_JSON_DATA_HERE,
-        trigger: 'hover',
-        placement: 'auto top'
-      });
+
+
+
+      // $('a').attr('data-toggle', 'popover').popover({
+      //   container: 'body',
+      //   content: ENTER_JSON_DATA_HERE,
+      //   trigger: 'hover',
+      //   placement: 'auto top'
+      // });
     })
 
     .fail(function() {
