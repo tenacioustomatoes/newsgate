@@ -35,15 +35,24 @@ exports.getTweetsOnTopic = function(req, res, next) {
     return outputKeywords;
   };
 
+  var domain = req.body.url.replace(/^https?:\/\//, ''); // replace http and https
+  domain = domain.replace(/www.?/, ''); //replace www. or www
+
+  domain = domain.split('/')[0]; //Get the domain and only the domain
+
+  domain = domain.slice(0, -4);
+
   console.log(_filterKeywords(res.compoundContent.keywords.keywords));
-  var query = '';
-  _filterKeywords(res.compoundContent.keywords.keywords).forEach(function(keyword) {
-    query += keyword.text + ' ';
+  var query = _filterKeywords(res.compoundContent.keywords.keywords).map(function(keyword) {
+    return keyword.text;
   });
+
+  query.join(' OR ');
+  query += ' ' + domain;
 
   console.log('query', query);
 
-  twitter.getAsync('search/tweets', {q: query, result_type: 'popular', count: 10})
+  twitter.getAsync('search/tweets', {q: query, result_type: 'popular', count: 20})
   .then(function(data) {
     console.log(data);
     res.compoundContent['twitter'] = data;
