@@ -1,0 +1,15 @@
+.gifLoading {
+  height: 40%;
+  width: 40%;
+  display: block;
+  margin: 0 auto;
+}
+
+.popoverContent {
+  color: #06477D;
+}
+
+.gifLeaning {
+  height: 20px;
+  width: auto;
+}
