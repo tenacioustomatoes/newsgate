@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "reset": "mongo newsgate --eval \"db.dropDatabase()\"",
     "blacklist": "node blacklist/loadBlacklist.js",
-    "blacklist:update": "node blacklist/updateBlacklist.js"
+    "blacklist:update": "node blacklist/updateBlacklist.js",
+    "allbias:scrape": "node allbiasscraper.js"
   },
   "repository": {
     "type": "git",
@@ -32,5 +33,9 @@
     "require": "^2.4.20",
     "twitter": "^1.5.0",
     "watson-developer-cloud": "^2.13.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }
