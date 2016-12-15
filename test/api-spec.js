@@ -9,43 +9,29 @@ mongoose.Promise = Promise;
 
 chai.use(require('chai-things'));
 
-var options = { 
-  method: 'POST',
-  url: 'http://localhost:8000/api/links',
-  headers:  { 'content-type': 'application/json' },
-  body: { url: 'http://www.nytimes.com/2016/12/13/us/politics/russia-hack-election-dnc.html' },
-  json: true 
-};
 
-console.log('we are here outside');
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
-  console.log('in the call back for request');
-  console.log(body);
- // expect(123).to.equal(333);
+
+describe('NewsGate API', function () {
+
+
+
+  describe('/api/popover', function () {
+    it('should get some data after asking for some popup', function (done) {
+      var options = { 
+        method: 'POST',
+        url: 'http://localhost:8000/api/links',
+        headers:  { 'content-type': 'application/json' },
+        body: { url: 'http://www.nytimes.com/2016/12/13/us/politics/russia-hack-election-dnc.html' },
+        json: true 
+      };
+
+      console.log('we are here');
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        console.log('in the call back for request');
+        expect(123).to.equal(333);
+      });
+      done();
+    });
+  });
 });
-
-
-//describe('NewsGate API', function () {
-
-
-
-//   describe('/api/popover', function () {
-//     it('should get some data after asking for some popup', function () {
-//       var options = { 
-//         method: 'POST',
-//         url: 'http://localhost:8000/api/links',
-//         headers:  { 'content-type': 'application/json' },
-//         body: { url: 'http://www.nytimes.com/2016/12/13/us/politics/russia-hack-election-dnc.html' },
-//         json: true 
-//       };
-
-//       console.log('we are here');
-//       request(options, function (error, response, body) {
-//         if (error) throw new Error(error);
-//         console.log('in the call back for request');
-//         expect(123).to.equal(333);
-//       });
-//     });
-//   });
-//});

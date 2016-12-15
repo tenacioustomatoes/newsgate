@@ -7,6 +7,10 @@ angular.module('newsgate.services', [])
   var toggle = true;
   window.LinkStorage = [];
   LinkStorage = JSON.parse(localStorage.getItem('LinkStorage'));
+  // StorageArea.set({'LinkStorage2': 'blablabla'}, function () {
+  //   console.log('success!');
+  // })
+
   // chrome.storage.sync.get('LinkStorage', function(result) {
   //   if (result) {
   //     LinkStorage = JSON.parse(localStorage.getItem('LinkStorage'));
@@ -77,6 +81,10 @@ angular.module('newsgate.services', [])
       localStorage.setItem('LinkStorage', JSON.stringify(LinkStorage))
       var retrievedStorage = localStorage.getItem('LinkStorage')
       console.log('retrieved storage--->', JSON.parse(retrievedStorage));
+      StorageArea.set({'LinkStorage2': JSON.stringify(LinkStorage)}, function () {
+        console.log('success!');
+      })
+
       // chrome.storage.sync.set({'LinkStorage': JSON.stringify(LinkStorage)}, function () {
       //   var retrievedStorage = localStorage.getItem('LinkStorage');
       //   chrome.storage.sync.get('LinkStorage', function(result) {

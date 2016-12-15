@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 $(document).ready(function() {
 
   $('a').attr('data-toggle', 'popover').popover({
