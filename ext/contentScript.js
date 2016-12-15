@@ -1,32 +1,14 @@
-$(document).ready(function() {
-  
-  $('a').hover(function() {
-    var hoverUrl = $(this).attr('href').match(/page=(.*)/)[1];
-    $.ajax({
-      url: 'http://localhost:8000/api/popover',
-      type: 'POST',
-      data: {'url': hoverUrl},
-      dataType: 'json'
-    })
+ // $(document).ready(function() {
+ //   $('a').hover(
+ //     function(event) {
+ //       var href = $(this).attr('href');
+ //       $(this).attr('data-content', href);
+ //     });
 
-    .done(function(json) {
-      $('a').attr('data-toggle', 'popover').popover({
-        container: 'body',
-        content: ENTER_JSON_DATA_HERE,
-        trigger: 'hover',
-        placement: 'auto top'
-      });
-    })
-
-    .fail(function() {
-
-    });
-  });
-});
-
-
-
-// TODOS:
-  // delay popup: http://cherne.net/brian/resources/jquery.hoverIntent.html
-  // initial popup with 'analyzing'
-  // replace 'analyzing' with data
+ //   $('a').attr('data-toggle', 'popover').popover({
+ //     container: 'body',
+ //     content: 'test',
+ //     trigger: 'hover',
+ //     placement: 'auto top'
+ //   });
+ // });
