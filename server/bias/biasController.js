@@ -29,7 +29,7 @@ module.exports = {
 
         var response = {
           'url': domain,
-          'status': 'OK',
+          'status': (biasResult === null) ? '' : 'OK',
           'bias': biasResult
         };
 

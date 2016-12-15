@@ -15,7 +15,44 @@ twitter = Promise.promisifyAll(twitter);
 exports.getTweetsOnTopic = function(req, res, next) {
   // var keywords = res.compoundContent.title.title.slice(0,20);
   // console.log('twitter search titel: ', typeof res.compoundContent.title.title);
-  twitter.getAsync('search/tweets', {q: res.compoundContent.title.title, result_type: 'popular', count: 100})
+
+  var _filterKeywords = function(keywords) {
+    var outputKeywords = [];
+    outputKeywords = keywords.slice(0, 2);
+    outputKeywords = outputKeywords.map(keyword => {
+      var newkeyword = {};
+      newkeyword.relevance = keyword.relevance;
+      newkeyword.text = keyword.text.toLowerCase();
+      var solutations = /\b(m[rs]s*)\b\.*/gi;
+      newkeyword.text = newkeyword.text.replace(solutations, ''); //get rid of mr. and mrs.
+      newkeyword.text = newkeyword.text.trim();
+      console.log(keyword, 'in map keyword');
+      console.log(newkeyword, 'in map newkeyword');
+
+      return newkeyword;
+    });
+    //outputKeywords = keywords.filter(keyword => keyword.relevance > 0.75)
+    return outputKeywords;
+  };
+
+  var domain = req.body.url.replace(/^https?:\/\//, ''); // replace http and https
+  domain = domain.replace(/www.?/, ''); //replace www. or www
+
+  domain = domain.split('/')[0]; //Get the domain and only the domain
+
+  domain = domain.slice(0, -4);
+
+  console.log(_filterKeywords(res.compoundContent.keywords.keywords));
+  var query = _filterKeywords(res.compoundContent.keywords.keywords).map(function(keyword) {
+    return keyword.text;
+  });
+
+  query.join(' OR ');
+  query += ' ' + domain;
+
+  console.log('query', query);
+
+  twitter.getAsync('search/tweets', {q: query, result_type: 'popular', count: 20})
   .then(function(data) {
     console.log(data);
     res.compoundContent['twitter'] = data;

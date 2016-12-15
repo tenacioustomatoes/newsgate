@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $(document).ready(function() {
 
   $('a').attr('data-toggle', 'popover').popover({
@@ -73,4 +74,3 @@ $(document).ready(function() {
   // delay popup: http://cherne.net/brian/resources/jquery.hoverIntent.html
   // add loading gif
   // add emojis for emotions
-  // add sentiment, 
