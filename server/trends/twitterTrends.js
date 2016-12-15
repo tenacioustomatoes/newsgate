@@ -47,10 +47,15 @@ exports.getTweetsOnTopic = function(req, res, next) {
     return keyword.text;
   });
 
-  query.join(' OR ');
-  query += ' ' + domain;
 
   console.log('query', query);
+
+  query = query.join(' ');
+  query = query.replace(/ /g, ' OR ');
+  query += ' ' + domain;
+
+  console.log('joined query', query);
+
 
   twitter.getAsync('search/tweets', {q: query, result_type: 'popular', count: 20})
   .then(function(data) {
