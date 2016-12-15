@@ -16,5 +16,4 @@ angular.module('newsgate.submit', [])
     console.log('updating spinner!');
     $scope.hideSpinner = State.hideSpinner;
   });
-
 });
