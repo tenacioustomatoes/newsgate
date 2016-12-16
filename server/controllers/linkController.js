@@ -47,22 +47,17 @@ var __filterKeywords = function(keywords) {
   return outputKeywords;
 };
 
-
-
 module.exports.saveToDB = function(req, res, next) {
-  console.log('in save to DB');
 
-  console.log('res body ->>>>>>>>', res.compoundContent);
   var filtered = __filterKeywords(res.compoundContent['keywords'].keywords);
-  console.log('filtered ********', filtered);
   var linkData = {
     url: req.body.url,
     title: res.compoundContent.title.title,
     keywords: filtered
   };
-  console.log('linkDATA!!!!', linkData);
+
   var newLinkSave = new SavedLink(linkData);
   newLinkSave.save().then(err => {
-    res.json(linkData);
+    res.compoundContent['link'] = linkData;
   });
 };
