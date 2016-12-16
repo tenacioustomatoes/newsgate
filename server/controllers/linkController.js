@@ -1,35 +1,5 @@
 var SavedLink = require('../models/linkModel.js');
 
-module.exports.getTitle = function(req, res, next) {
-  var parameters = {
-    url: req.body.url
-  };
-  alchemy_language.title(parameters, function (err, response) {
-    if (err) {
-      console.log('error:', err);
-    } else {
-      res.compoundContent = res.compoundContent || {};
-      res.compoundContent['title'] = response;
-      next();
-    }
-  });
-};
-
-module.exports.getKeywords = function(req, res, next) {
-  var parameters = {
-    url: req.body.url
-  };
-
-  alchemy_language.keywords(parameters, function (err, response) {
-    if (err) {
-      console.log('error:', err);
-    } else {
-      res.compoundContent['keywords'] = response;
-      next();
-    }
-  });
-};
-
 var __filterKeywords = function(keywords) {
   var outputKeywords = [];
   outputKeywords = keywords.slice(0, 5);
@@ -59,5 +29,6 @@ module.exports.saveToDB = function(req, res, next) {
   var newLinkSave = new SavedLink(linkData);
   newLinkSave.save().then(err => {
     res.compoundContent['link'] = linkData;
+    next();
   });
 };

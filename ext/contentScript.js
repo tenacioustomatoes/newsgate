@@ -1,14 +1,14 @@
 $(document).ready(function() {
 
   // create popover
-  var gifUrl = chrome.extension.getURL("contentScriptAssets/spin.gif");
+  var gifUrl = chrome.extension.getURL('contentScriptAssets/spin.gif');
   $('a').attr('data-toggle', 'popover').popover({
     html: true,
     animation: true,
     container: 'body',
     trigger: 'manual',
     placement: 'auto top',
-    title: 'Quick Stats',
+    title: 'Article Quick Stats',
     content: '<img class="gifLoading" src="' + gifUrl + '"/>'
   })
   // keep popover open while hovering over popover
@@ -23,24 +23,31 @@ $(document).ready(function() {
         });
       }
     }, 500);
-  // slight delay on popover hide
+  // close popover on mouseleave
   }).on('mouseleave', function () {
     var $context = $(this);
+    // delay on popover hide, when not hovering over popover itself
     setTimeout(function () {
-      if (!$('.popover:hover').length) {
+      if ( !$('.popover:hover').length ) {
         $context.popover('hide');
       }
-    }, 300);
+    }, 200);
   });
 
   $('a').hover(
     function(e) {
       var $context = $(this);
       var hoverUrl = $(this).attr('href');
-      /*
+ 
+      // if not complete url, attach to domain
+      if (hoverUrl[0] === '/') {
+        console.log('hostname', window.location.hostname);
+        hoverUrl = window.location.hostname + hoverUrl;
+      }
+      
       // retrieve popover content 
       $.ajax({
-        url: 'http://localhost:8000/api/popover',
+        url: 'http://localhost:8000/api/popover/test',
         type: 'POST',
         data: {'url': hoverUrl},
         dataType: 'json'
@@ -50,25 +57,31 @@ $(document).ready(function() {
         console.log(json);
         content = '<div>';
 
-        // add report card to content
-        content += '<p><a>View Report Card</a></p>';
-
         // add bias to content
         var leaningGifs = {
           Right: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>',
           Left: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>'
         };
         var leaning = json.bias.bias;
-        content += '<p>' + 'Leaning: ' + '</p>' + leaningGifs[leaning];
+        content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
+
+        // add fake news to content
+        var fakeScore = json.fake.rating.score;
+        if ((json.fake.rating.score + '') === '0') {
+          var fake = 'nope';
+        } else if ((json.fake.rating.score + '') === '100') {
+          var fake = 'yes';
+        }
+        content += '<p>' + '<span class="popoverTitles">' + 'Fake News?: ' + '</span>' + fake + '</p>';
 
         // add emotions to content
         var emotions = json.emotions.docEmotions;
         var emos = {};
         for (var emo in emotions) {
-          console.log(emo, emotions[emo]);
+          // console.log(emo, emotions[emo]);
           emos[emo] = emotions[emo] > 0.5;
         }
-        content += '<p>' + 'Emotions: ';
+        content += '<p>' + '<span class="popoverTitles">' + 'Emotions: ' + '</span>';
         for (var emo in emos) {
           if (emos[emo]) {
             content += emo + ', ';
@@ -82,7 +95,10 @@ $(document).ready(function() {
 
         // add sentiment to content
         var sentiment = json.sentiment.docSentiment.type;
-        content += '<p>' + 'Sentiment: ' + sentiment + '</p>';
+        content += '<p>' + '<span class="popoverTitles">' + 'Sentiment: ' + '</span>' + sentiment +  '</p>';
+
+        // add report card to content
+        content += '<p><a>View Report Card</a><span class="heart"> ♥ </span></p>';
         content += '</div>';
         // console.log('content', content);
 
@@ -93,7 +109,7 @@ $(document).ready(function() {
       .fail(function() {
         console.log('post req failure');
       });
-      */
+      
     }
   );
 

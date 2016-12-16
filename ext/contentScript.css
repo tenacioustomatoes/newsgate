@@ -5,18 +5,25 @@
 
 .popover-title {
   font-weight: bold;
+  font-size: 16px;
 }
 
 .popover-content {
   color: #06477D;
 }
 
-/*.arrow {
-  border-right-color: red !important;
-}*/
+.popoverTitles {
+  font-weight: bold;
+}
+
+.heart {
+  color: fuchsia;
+  font-size: 22px;
+  margin: auto 3px auto 3px;
+}
 
 .gifLeaning {
-  height: 20px;
+  height: 20px; 
   width: auto;
 }
 

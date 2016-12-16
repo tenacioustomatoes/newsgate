@@ -67,20 +67,20 @@ module.exports.getKeywords = function(req, res, next) {
 // -----------------
 
 module.exports.getEmotions = function(req, res, next) {
-  var parameters = {
-    url: req.body.url
-  };
+	var parameters = {
+		url: req.body.url
+	};
 
-  alchemy_language.emotion(parameters, function (err, response) {
-    if (err) {
-      console.log('error', err);
-      res.status(404).json({error: err});
-    } else {
-      console.log(JSON.stringify(response, null, 2));
-      res.compoundContent['emotions'] = response; // how does this work?
-      next();
-    }
-  });
+	alchemy_language.emotion(parameters, function (err, response) {
+		if (err) {
+			console.log('error', err);
+			res.status(404).json({error: err});
+		} else {
+			console.log(JSON.stringify(response, null, 2));
+			res.compoundContent['emotions'] = response;
+			next();
+		}
+	});
 };
 
 // -----------------
@@ -95,20 +95,20 @@ module.exports.getEmotions = function(req, res, next) {
 // -----------------
 
 module.exports.getSentiment = function(req, res, next) {
-  var parameters = {
-    url: req.body.url
-  };
+	var parameters = {
+		url: req.body.url
+	};
 
-  alchemy_language.sentiment(parameters, function (err, response) {
-    if (err) {
-      console.log('error', err);
-      res.status(404).json({error: err});
+	alchemy_language.sentiment(parameters, function (err, response) {
+		if (err) {
+			console.log('error', err);
+			res.status(404).json({error: err});
 
-    } else {
-      console.log(JSON.stringify(response, null, 2));
-      res.compoundContent['sentiment'] = response; // how does this work?
-      next();
-    }
-  });
+		} else {
+			console.log(JSON.stringify(response, null, 2));
+			res.compoundContent['sentiment'] = response;
+			next();
+		}
+	});
 };
 

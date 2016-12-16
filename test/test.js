@@ -7,7 +7,7 @@ describe('Server Endpoints: ', function() {
 
   const TIME_OUT = 12000;
 
-  describe('/api', function() {
+  describe('/api - post', function() {
 
     var nyTimes = {
       'uri': hostname + '/api',
@@ -103,7 +103,7 @@ describe('Server Endpoints: ', function() {
         expect(nyTimesRes.body.title).to.have.property('status');
         expect(nyTimesRes.body.title.status).to.equal('OK');
         expect(nyTimesRes.body.title.title).to.be.a('string');
-        expect(nyTimesRes.body.title.title).to.be.above(0);
+        expect(nyTimesRes.body.title.title.length).to.be.above(0);
 
         done();
       });
@@ -147,7 +147,7 @@ describe('Server Endpoints: ', function() {
     });
   });
 
-  describe('/api/popover', function() {
+  describe('/api/popover - post', function() {
 
     describe('waiting for request response before starting tests', function() {
 
@@ -215,6 +215,7 @@ describe('Server Endpoints: ', function() {
         expect(waPostRes.body.emotions.docEmotions.joy).to.be.below(1);
         expect(waPostRes.body.emotions.docEmotions.sadness).to.be.above(0);
         expect(waPostRes.body.emotions.docEmotions.sadness).to.be.below(1);
+
         done();
       });
 
@@ -223,7 +224,9 @@ describe('Server Endpoints: ', function() {
         expect(waPostRes.body.sentiment).to.have.property('status');
         expect(waPostRes.body.sentiment.status).to.equal('OK');
         expect(waPostRes.body.sentiment.docSentiment.type).to.be.a('string');
+
         done();
+
       });
 
       it('should determine a new site\'s polical bias', function(done) {
@@ -235,7 +238,7 @@ describe('Server Endpoints: ', function() {
       });
     });
   });
-  describe('/api/links', function() {
+  describe('/api/links - post', function() {
 
     describe('waiting for request response before starting tests', function() {
 
@@ -271,7 +274,6 @@ describe('Server Endpoints: ', function() {
 
       it('Watson should find the site\'s keywords', function(done) {
 
-       // .keywords.status === okay
         expect(nprRes.body.keywords).to.have.property('status');
         expect(nprRes.body.keywords.status).to.equal('OK');
         expect(nprRes.body.keywords.keywords).to.be.an('array');
@@ -283,8 +285,52 @@ describe('Server Endpoints: ', function() {
 
         done();
       });
+
+      it('the link controller should return link properties', function(done) {
+
+        expect(nprRes.body.link).to.have.property('url');
+        expect(nprRes.body.link.url).to.equal(nprRes.body.title.url);
+        expect(nprRes.body.link).to.have.property('title');
+        expect(nprRes.body.link.title).to.equal(nprRes.body.title.title);
+        expect(nprRes.body.link.keywords).to.be.an('array');
+        nprRes.body.link.keywords.forEach(function(keyword) {
+          expect(keyword.text).to.be.a('string');
+          expect(keyword.relevance).to.be.above(0);
+          expect(keyword.relevance).to.be.below(1);
+        });
+
+        done();
+      });
     });
   });
+
+  describe('/api/links - get', function() {
+
+    describe('waiting for request response before starting tests', function() {
+
+      var npr = {
+        'uri': hostname + '/api/links',
+        'method': 'POST',
+        'followAllRedirects': true,
+        'json': {'url': 'http://www.npr.org/sections/parallels/2016/12/15/505571306/how-will-rex-tillerson-explain-exxon-mobils-foreign-policy'}
+      };
+
+      var nprRes = {};
+
+      before(function(done) {
+
+        this.timeout(TIME_OUT);
+
+        request(npr, function(err, res, body) {
+          nprRes = res;
+          done();
+        });
+      });
+
+      it('Watson should find the site\'s title', function(done) {
+
+        expect(nprRes.body.title).to.have.property('status');
+
 });
 
 
