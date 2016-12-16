@@ -304,6 +304,45 @@ describe('Server Endpoints: ', function() {
     });
   });
 
+  describe('/api/bias - post', function() {
+    describe('waiting for request response before starting tests', function() {
+
+      var usaToday = {
+        'uri': hostname + '/api/bias',
+        'method': 'POST',
+        'followAllRedirects': true,
+        'json': { 'url': 'http://www.usatoday.com/story/news/politics/2016/12/15/obama-threatens-retaliation-against-russia-election-hacking/95501584/'} 
+      };
+
+      var usaTodayRes = {};
+
+      before(function(done) {
+
+        this.timeout(TIME_OUT);
+
+        request(usaToday, function(err, res, body) {
+          usaTodayRes = res;
+          done();
+        });
+      });
+
+      it('should find if the site it biased', function(done) {
+        expect(usaTodayRes.body.bias).to.have.property('url');
+        expect(usaTodayRes.body.bias.url).to.be.a('string');
+        expect(usaTodayRes.body.bias).to.have.property('status');
+        expect(usaTodayRes.body.bias.status).to.be.a('string');
+        expect(usaTodayRes.body.bias.status).to.equal('OK');
+        expect(usaTodayRes.body.bias).to.have.property('bias');
+        expect(usaTodayRes.body.bias.bias).to.be.a('string');
+        expect(usaTodayRes.body.bias.bias.length).to.be.above(0);
+      });
+
+      done();
+
+
+    });
+  });
+
   // describe('/api/links - get', function() {
 
   //   describe('waiting for request response before starting tests', function() {
