@@ -37,6 +37,7 @@ $(document).ready(function() {
             console.log($context.popover('show'));
             $context.popover('show'); // this isn't working
             $('.popover').on('mouseleave', function () {
+              console.log('mouseleave');
               $context.popover('hide');
             });
           }
