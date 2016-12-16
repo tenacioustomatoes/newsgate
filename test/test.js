@@ -333,8 +333,8 @@ describe('Server Endpoints: ', function() {
         expect(usaTodayRes.body.bias.status).to.be.a('string');
         expect(usaTodayRes.body.bias.status).to.equal('OK');
         expect(usaTodayRes.body.bias).to.have.property('bias');
-        expect(usaTodayRes.body.bias.bias).to.be.a('string');
         expect(usaTodayRes.body.bias.bias.length).to.be.above(0);
+        expect(usaTodayRes.body.bias.bias[0]).to.be.a('string');
         done();
       });
 
