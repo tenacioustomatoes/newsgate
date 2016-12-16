@@ -103,6 +103,7 @@ describe('Server Endpoints: ', function() {
         expect(nyTimesRes.body.title).to.have.property('status');
         expect(nyTimesRes.body.title.status).to.equal('OK');
         expect(nyTimesRes.body.title.title).to.be.a('string');
+        expect(nyTimesRes.body.title.title).to.be.above(0);
 
         done();
       });
@@ -174,6 +175,7 @@ describe('Server Endpoints: ', function() {
         expect(waPostRes.body.title).to.have.property('status');
         expect(waPostRes.body.title.status).to.equal('OK');
         expect(waPostRes.body.title.title).to.be.a('string');
+        expect(waPostRes.body.title.title.length).to.be.above(0);
 
         done();
       });
@@ -229,6 +231,56 @@ describe('Server Endpoints: ', function() {
         expect(waPostRes.body.bias).to.have.property('status');
         expect(waPostRes.body.bias.status).to.equal('OK');
         expect(waPostRes.body.bias.bias).to.exist;
+        done();
+      });
+    });
+  });
+  describe('/api/links', function() {
+
+    describe('waiting for request response before starting tests', function() {
+
+      var npr = {
+        'uri': hostname + '/api/links',
+        'method': 'POST',
+        'followAllRedirects': true,
+        'json': {'url': 'http://www.npr.org/sections/parallels/2016/12/15/505571306/how-will-rex-tillerson-explain-exxon-mobils-foreign-policy'}
+      };
+
+      var nprRes = {};
+
+      before(function(done) {
+
+        this.timeout(TIME_OUT);
+
+        request(npr, function(err, res, body) {
+          nprRes = res;
+          done();
+        });
+      });
+
+      it('Watson should find the site\'s title', function(done) {
+
+        expect(nprRes.body.title).to.have.property('status');
+        expect(nprRes.body.title.status).to.equal('OK');
+        expect(nprRes.body.title.title).to.be.a('string');
+        expect(nprRes.body.title.title.length).to.be.above(0);
+
+
+        done();
+      });
+
+      it('Watson should find the site\'s keywords', function(done) {
+
+       // .keywords.status === okay
+        expect(nprRes.body.keywords).to.have.property('status');
+        expect(nprRes.body.keywords.status).to.equal('OK');
+        expect(nprRes.body.keywords.keywords).to.be.an('array');
+        nprRes.body.keywords.keywords.forEach(function(keyword) {
+          expect(keyword.text).to.be.a('string');
+          expect(keyword.relevance).to.be.above(0);
+          expect(keyword.relevance).to.be.below(1);
+        });
+
         done();
       });
     });
