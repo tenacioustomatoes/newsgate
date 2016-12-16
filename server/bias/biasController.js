@@ -9,7 +9,7 @@ var sendJSONresponse = function (res, status, content) {
 module.exports = {
   getData: function (req, res, next) {
     console.log('Getting Bias Rating');
-    console.log('in getData', req.body.url);
+
     if (req.body.url) {
       var domain = req.body.url.replace(/^https?:\/\//, ''); // replace http and https
       domain = domain.replace(/www.?/, ''); //replace www. or www
@@ -25,6 +25,7 @@ module.exports = {
           'bias': biasResult
         };
         console.log(biasData[domain].rating);
+        res.compoundContent = res.compoundContent || {};
         res.compoundContent['bias'] = response; // how does this work?
         next();
 
