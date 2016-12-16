@@ -7,9 +7,8 @@ const watsonTestController = require ('../watson/testDataController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
 const memoizedData = require('../controllers/memoizedDataController.js');
-var passport = require('passport');
-
-var Popover = memoizedData.popover;
+const passport = require('passport');
+const ensureAuthenication = require('../controllers/ensureAuthentication.js');
 
 module.exports = function (app, express) {
 
@@ -58,15 +57,15 @@ This middlware builds the response object starting with the URL expansion and ta
   // Links routes
   // -----------------
 
-  var linkArr = [ensureAuthenticated, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
+  var linkArr = [ensureAuthenication.authenticated, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
 
   app.post('/api/links', linkArr, function (req, res, next) {
     res.json(res.compoundContent);
   });
 
-  app.get('/api/links', [ensureAuthenticated, linkController.getLinks], function(req, res, next) {
-    res.json(res.compoundContent);
-  });
+  // app.get('/api/links', [ensureAuthenication.authenticated, linkController.getLinks], function(req, res, next) {
+  //   res.json(res.compoundContent);
+  // });
 
   // -----------------
   // Single controller routes

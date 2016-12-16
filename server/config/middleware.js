@@ -24,7 +24,7 @@ module.exports = function (app, express) {
   passport.use(new Strategy({
     clientID: facebookAPIKey.clientID,
     clientSecret: facebookAPIKey.clientSecret,
-    callbackURL: 'http://localhost:8000/auth/facebook/callback'
+    callbackURL: 'http://localhost:8000/auth/facebook/authenticated'
   },
   function(accessToken, refreshToken, profile, cb) {
     // In this example, the user's Facebook profile is supplied as the user
