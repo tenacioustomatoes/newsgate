@@ -24,10 +24,11 @@ module.exports.getTitle = function(req, res, next) {
 	alchemy_language.title(parameters, function (err, response) {
 	  if (err) {
 	    console.log('error:', err);
-	    res.status(400).json({error: err});
+	    res.status(404).json({error: err});
 	  } else {
 	    console.log(JSON.stringify(response, null, 2));
 			res.compoundContent = res.compoundContent || {};
+			req.body.url = response.url;
 			res.compoundContent['title'] = response;
 			next();
 		}
@@ -47,7 +48,7 @@ module.exports.getKeywords = function(req, res, next) {
 	alchemy_language.keywords(parameters, function (err, response) {
 	  if (err) {
 	    console.log('error:', err);
-    	res.status(400).json({error: err});
+    	res.status(404).json({error: err});
 	  } else {
 	    console.log(JSON.stringify(response, null, 2));
 	  	res.compoundContent['keywords'] = response;
@@ -73,7 +74,7 @@ module.exports.getEmotions = function(req, res, next) {
 	alchemy_language.emotion(parameters, function (err, response) {
 		if (err) {
 			console.log('error', err);
-			res.status(400).json({error: err});
+			res.status(404).json({error: err});
 		} else {
 			console.log(JSON.stringify(response, null, 2));
 			res.compoundContent['emotions'] = response; // how does this work?
@@ -101,7 +102,7 @@ module.exports.getSentiment = function(req, res, next) {
 	alchemy_language.sentiment(parameters, function (err, response) {
 		if (err) {
 			console.log('error', err);
-			res.status(400).json({error: err});
+			res.status(404).json({error: err});
 
 		} else {
 			console.log(JSON.stringify(response, null, 2));
