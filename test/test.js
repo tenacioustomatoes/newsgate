@@ -311,7 +311,7 @@ describe('Server Endpoints: ', function() {
         'uri': hostname + '/api/bias',
         'method': 'POST',
         'followAllRedirects': true,
-        'json': { 'url': 'http://www.usatoday.com/story/news/politics/2016/12/15/obama-threatens-retaliation-against-russia-election-hacking/95501584/'} 
+        'json': { 'url': 'http://www.usatoday.com/story/news/politics/2016/12/15/obama-threatens-retaliation-against-russia-election-hacking/95501584/'}
       };
 
       var usaTodayRes = {};
@@ -335,9 +335,9 @@ describe('Server Endpoints: ', function() {
         expect(usaTodayRes.body.bias).to.have.property('bias');
         expect(usaTodayRes.body.bias.bias).to.be.a('string');
         expect(usaTodayRes.body.bias.bias.length).to.be.above(0);
+        done();
       });
 
-      done();
 
 
     });
