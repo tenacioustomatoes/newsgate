@@ -7,6 +7,7 @@ const watsonTestController = require ('../watson/testDataController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
 const memoizedData = require('../controllers/memoizedDataController.js');
+var passport = require('passport')
 
 var Popover = memoizedData.popover;
 
@@ -32,6 +33,17 @@ module.exports = function (app, express) {
       res.send('false')
     }
   }
+
+  app.get('/auth/facebook',
+  passport.authenticate('facebook'),
+  function(req, res){});
+  app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/apitest.html' }),
+  function(req, res) {
+    console.log('im here')
+    res.json('success');
+  });
+
 ///
 
 
