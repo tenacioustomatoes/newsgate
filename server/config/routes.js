@@ -1,11 +1,14 @@
-var expanderController = require('../controllers/expanderController.js');
-var newsController = require('../controllers/newsController.js');
-var watsonController = require('../watson/watsonController.js');
-var biasController = require('../bias/biasController.js');
-var linkController = require('../controllers/linkController.js');
-var watsonTestController = require ('../watson/testDataController.js');
+const expanderController = require('../controllers/expanderController.js');
+const newsController = require('../controllers/newsController.js');
+const watsonController = require('../watson/watsonController.js');
+const biasController = require('../bias/biasController.js');
+const linkController = require('../controllers/linkController.js');
+const watsonTestController = require ('../watson/testDataController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
+const memoizedData = require('../controllers/memoizedDataController.js');
+
+var Popover = memoizedData.popover;
 
 module.exports = function (app, express) {
 
@@ -31,11 +34,14 @@ module.exports = function (app, express) {
   // Popover route
   // -----------------
 
-  var popupArr = [watsonController.getTitle, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
+  var popupArr = [watsonController.getTitle, memoizedData.readPopoverData, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData, memoizedData.recordPopoverData];
 
-  app.post('/api/popover', popupArr, function(req, res, next) {
+  app.post('/api/popover', popupArr, function(req, res, next, Popover) {
     res.json(res.compoundContent);
   });
+
+  // Dummy data for testing popover
+  app.post('/api/popover/test', watsonTestController.data);
 
   // -----------------
   // Links route
@@ -56,15 +62,5 @@ module.exports = function (app, express) {
   app.get('/api/bias', biasController.getData);
   app.get('/api/twitter', twitterSearch.getTweetsOnTopic);
 
-  // -----------------
-  // Handles popup routes for watson's emotions and sentiment
-  // -----------------
-  var popupArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
 
-  app.post('/api/popover', popupArr, function(req, res, next) {
-    res.json(res.compoundContent);
-  });
-
-  // Dummy data for testing popover
-  app.post('/api/popover/test', watsonTestController.data);
 };
