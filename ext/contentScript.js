@@ -13,16 +13,42 @@ $(document).ready(function() {
   })
   // keep popover open while hovering over popover
   .on('mouseenter', function () {
-    var $context = $(this);
-    // slight delay on popover show
-    setTimeout(function () {
-      if ( $context.is(':hover') ) {
-        $context.popover('show');
-        $('.popover').on('mouseleave', function () {
-          $context.popover('hide');
-        });
+    var $context = $('this');
+    var context = this;
+    // check if site is a news site
+    var hoverUrl = $(this).attr('href');
+    if (hoverUrl[0] === '/') {
+      console.log('hostname', window.location.hostname);
+      hoverUrl = window.location.hostname + hoverUrl;
+    }
+    $.ajax({
+      url: 'http://localhost:8000/api/bias',
+      type: 'POST',
+      data: {'url': hoverUrl},
+      dataType: 'json'
+    })
+
+    .done(function(json) {
+      if (json.bias.status === 'OK') {
+        // slight delay on popover show
+        setTimeout(function () {
+          // console.log( $('context:hover').length === 0 );
+          if ( $('context:hover').length === 0 ) {
+            console.log($context.popover('show'));
+            $context.popover('show'); // this isn't working
+            $('.popover').on('mouseleave', function () {
+              console.log('mouseleave');
+              $context.popover('hide');
+            });
+          }
+        }, 1000);
       }
-    }, 500);
+    })
+
+    .fail(function() {
+      console.log('post req failure');
+    });
+
   // close popover on mouseleave
   }).on('mouseleave', function () {
     var $context = $(this);
@@ -41,7 +67,6 @@ $(document).ready(function() {
  
       // if not complete url, attach to domain
       if (hoverUrl[0] === '/') {
-        console.log('hostname', window.location.hostname);
         hoverUrl = window.location.hostname + hoverUrl;
       }
       
@@ -54,7 +79,7 @@ $(document).ready(function() {
       })
 
       .done(function(json) {
-        console.log(json);
+        // console.log(json);
         content = '<div>';
         
         // add fake news to content
@@ -101,7 +126,6 @@ $(document).ready(function() {
         // add report card to content
         content += '<p><a>View Report Card</a><span class="heart"> ♥ </span></p>';
         content += '</div>';
-        // console.log('content', content);
 
         // set content to popover
         $context.attr('data-content', content).data('bs.popover').setContent();

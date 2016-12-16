@@ -86,7 +86,9 @@ module.exports = function (app, express) {
 
   app.post('/api/test', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
-  app.get('/api/bias', biasController.getData);
+  app.post('/api/bias', [biasController.getData], function (req, res, next) {
+    res.json(res.compoundContent);
+  });
   app.get('/api/twitter', twitterSearch.getTweetsOnTopic);
 
 
