@@ -18,6 +18,7 @@ var recordData = function(req, res, next, model) {
           console.log(err);
         }
         if (!data) {
+          console.log('no entry found, recording...');
           var newEntry = new model({url: lookupUrl, response: res.compoundContent});
 
           newEntry.save(function(err) {
@@ -44,9 +45,12 @@ var readData = function(req, res, next, model) {
         console.log(err);
       }
       if (data) {
+        console.log('found data on read');
+        console.log('resonding with', data.response);
         //found result in database
         res.json(data.response);
       } else {
+        console.log('did not found data on read');
         //did not find result
         next();
       }
