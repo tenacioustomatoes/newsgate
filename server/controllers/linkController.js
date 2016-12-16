@@ -18,14 +18,15 @@ var __filterKeywords = function(keywords) {
 };
 
 module.exports.saveToDB = function(req, res, next) {
-
   var filtered = __filterKeywords(res.compoundContent['keywords'].keywords);
   var linkData = {
+  	name: req.user.displayName,
+		fbID: req.user.id,
     url: req.body.url,
     title: res.compoundContent.title.title,
     keywords: filtered
   };
-
+	console.log('linkDATA!!!!', linkData);
   var newLinkSave = new SavedLink(linkData);
   newLinkSave.save().then(err => {
     res.compoundContent['link'] = linkData;

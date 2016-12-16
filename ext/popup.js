@@ -67,11 +67,43 @@ function getCurrentTabUrl(callback) {
 
 var saveLink = function() {
   console.log('in save link');
-  $('#SaveLink').text('Link Saved!')
+  getCurrentTabUrl(function(url) {
+    console.log(url)
+    $.ajax({
+      url: 'http://localhost:8000/api/links',
+      type: 'POST',
+      data: {'url': url},
+      dataType: 'json'
+    }).done(function(json) {
+      console.log(json)
+      $('#SaveLink').text('Link Saved!')
+    });
+  })
 }    
 
+var loginToFB = function() {
+  console.log('in fb login');
+  getCurrentTabUrl(function(url) {
+    $.ajax({
+      url: 'http://localhost:8000/auth/facebook',
+      type: 'GET',
+    }).done(function(results) {
+      if (results === 'success') {
+        console.log('signed in')
+        $('#login').toggle();
+        $('#logout').toggle();
+      } else {
+        console.log(results)
+      }
+    });
+  })
+}    
+
+
+
 $(document).ready(function() {
-  $('#SaveLink').on('click', saveLink); 
+  $('#SaveLink').on('click', saveLink);
+  $('#login').on('click', loginToFB);
 })
 
 //   // Most methods of the Chrome extension APIs are asynchronous. This means that
