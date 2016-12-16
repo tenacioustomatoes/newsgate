@@ -34,6 +34,8 @@ module.exports = function (app, express) {
     }
   }
 
+
+//////////////
   app.get('/auth/facebook',
   passport.authenticate('facebook'),
   function(req, res){});
@@ -41,11 +43,9 @@ module.exports = function (app, express) {
   passport.authenticate('facebook', { failureRedirect: '/apitest.html' }),
   function(req, res) {
     console.log('im here')
-    res.json('success');
+    res.json({status: 'success'});
   });
-
-///
-
+//////////////
 
   // -----------------
   // Main API route
@@ -75,7 +75,6 @@ module.exports = function (app, express) {
   // -----------------
 
   var linkArr = [ensureAuthenticated, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
-
   app.post('/api/links', linkArr, function (req, res, next) {
     res.json(res.compoundContent);
   });
@@ -83,11 +82,8 @@ module.exports = function (app, express) {
   // -----------------
   // Single controller routes
   // -----------------
-
   app.post('/api/test', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
   app.get('/api/bias', biasController.getData);
   app.get('/api/twitter', twitterSearch.getTweetsOnTopic);
-
-
 };
