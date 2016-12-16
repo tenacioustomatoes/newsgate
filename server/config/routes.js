@@ -24,7 +24,7 @@ module.exports = function (app, express) {
   // Main API route
   // -----------------
 
-  var apiArr = [watsonController.getTitle, newsController.isFakeNews, watsonController.getKeywords, twitterSearch.getTweetsOnTopic, googleTrends.getGoogleTrends];
+  var apiArr = [watsonController.getTitle, memoizedData.readAPIData, newsController.isFakeNews, watsonController.getKeywords, twitterSearch.getTweetsOnTopic, googleTrends.getGoogleTrends, memoizedData.recordAPIData];
 
   app.post('/api', apiArr, function(req, res, next) {
     res.json(res.compoundContent);
@@ -36,7 +36,7 @@ module.exports = function (app, express) {
 
   var popupArr = [watsonController.getTitle, memoizedData.readPopoverData, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData, memoizedData.recordPopoverData];
 
-  app.post('/api/popover', popupArr, function(req, res, next, Popover) {
+  app.post('/api/popover', popupArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
 
