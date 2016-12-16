@@ -57,6 +57,8 @@ module.exports.saveToDB = function(req, res, next) {
 	var filtered = __filterKeywords(res.compoundContent['keywords'].keywords);
 	console.log('filtered ********', filtered);
 	var linkData = {
+		name: req.user.displayName,
+		fbID: req.user.id,
 		url: req.body.url, 
 		title: res.compoundContent.title.title, 
 		keywords: filtered

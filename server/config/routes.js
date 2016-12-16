@@ -5,6 +5,7 @@ var biasController = require('../bias/biasController.js');
 var linkController = require('../controllers/linkController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
+var passport = require('passport')
 
 module.exports = function (app, express) {
 
@@ -16,13 +17,24 @@ module.exports = function (app, express) {
   just for talking to Watson and so forth.
 */
 
+  function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      console.log('autenticated!') 
+      console.log(req.user);
+      return next(); 
+    } else {
+      console.log('not authenticated')
+      res.send('false')
+    }
+  }
+
   var apiArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getTitle, watsonController.getKeywords, twitterSearch.getTweetsOnTopic, googleTrends.getGoogleTrends, biasController.getData];
 
   app.post('/api', apiArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
 
-  var linkArr = [expanderController.expandURL, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
+  var linkArr = [ensureAuthenticated, expanderController.expandURL, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
 
   app.post('/api/links', linkArr, function (req, res, next) {
     res.json(res.compoundContent);
@@ -37,6 +49,28 @@ module.exports = function (app, express) {
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
   app.get('/api/twitter', twitterSearch.getTweetsOnTopic);
   app.get('/api/bias', biasController.getData);
+  app.get('/login', passport.authenticate('facebook'));
+  app.get('/login/return', passport.authenticate('facebook', { failureRedirect: '/login' }),
+    function(req, res) {
+      res.send('true');
+    });
+  // app.get('/login', function(req, res) {
+  //   passport.authenticate('facebook');
+  //   res.send('login endpoint works')
+  // });
+  app.get('/auth/facebook',
+  passport.authenticate('facebook'),
+  function(req, res){});
+  app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/apitest.html' }),
+  function(req, res) {
+    console.log('im here')
+
+    res.json('success');
+    //res.redirect('/account');
+    //res.redirect('/account');
+  });
+
 
 
 // -----------------
