@@ -31,4 +31,10 @@ module.exports.saveToDB = function(req, res, next) {
     res.compoundContent['link'] = linkData;
     next();
   });
+
+  var getAllLinks = function() {
+    Link.find({}, function() {
+      // todo!!
+    });
+  };
 };

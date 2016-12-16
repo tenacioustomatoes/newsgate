@@ -13,16 +13,40 @@ $(document).ready(function() {
   })
   // keep popover open while hovering over popover
   .on('mouseenter', function () {
-    var $context = $(this);
-    // slight delay on popover show
-    setTimeout(function () {
-      if ( $context.is(':hover') ) {
-        $context.popover('show');
-        $('.popover').on('mouseleave', function () {
-          $context.popover('hide');
-        });
+    // check if site is a news site
+    var hoverUrl = $(this).attr('href');
+    if (hoverUrl[0] === '/') {
+      console.log('hostname', window.location.hostname);
+      hoverUrl = window.location.hostname + hoverUrl;
+    }
+    // console.log(hoverUrl);
+    $.ajax({
+      url: 'http://localhost:8000/api/bias',
+      type: 'POST',
+      data: {'url': hoverUrl},
+      dataType: 'json'
+    })
+
+    .done(function(json) {
+
+      if (json.bias.status === 'OK') {
+        var $context = $(this);
+        // slight delay on popover show
+        setTimeout(function () {
+          if ( $context.is(':hover') ) {
+            $context.popover('show');
+            $('.popover').on('mouseleave', function () {
+              $context.popover('hide');
+            });
+          }
+        }, 1000);
       }
-    }, 500);
+    })
+
+    .fail(function() {
+      console.log('post req failure');
+    });
+
   // close popover on mouseleave
   }).on('mouseleave', function () {
     var $context = $(this);
@@ -41,7 +65,6 @@ $(document).ready(function() {
  
       // if not complete url, attach to domain
       if (hoverUrl[0] === '/') {
-        console.log('hostname', window.location.hostname);
         hoverUrl = window.location.hostname + hoverUrl;
       }
       
