@@ -4,19 +4,26 @@ $(document).ready(function() {
   var gifUrl = chrome.extension.getURL("contentScriptAssets/spin.gif");
   $('a').attr('data-toggle', 'popover').popover({
     html: true,
+    animation: true,
     container: 'body',
-    content: '<img class="gifLoading" src="' + gifUrl + '"/>',
     trigger: 'manual',
-    placement: 'auto top'
+    placement: 'auto top',
+    title: 'Quick Stats',
+    content: '<img class="gifLoading" src="' + gifUrl + '"/>'
   })
   // keep popover open while hovering over popover
-  // and slight delay to popover hide
   .on('mouseenter', function () {
     var $context = $(this);
-    $context.popover('show');
-    $('.popover').on('mouseleave', function () {
-      $context.popover('hide');
-    });
+    // slight delay on popover show
+    setTimeout(function () {
+      if ( $context.is(':hover') ) {
+        $context.popover('show');
+        $('.popover').on('mouseleave', function () {
+          $context.popover('hide');
+        });
+      }
+    }, 500);
+  // slight delay on popover hide
   }).on('mouseleave', function () {
     var $context = $(this);
     setTimeout(function () {
@@ -30,8 +37,8 @@ $(document).ready(function() {
     function(e) {
       var $context = $(this);
       var hoverUrl = $(this).attr('href');
-
-      // retrieve popover content
+      /*
+      // retrieve popover content 
       $.ajax({
         url: 'http://localhost:8000/api/popover',
         type: 'POST',
@@ -41,7 +48,7 @@ $(document).ready(function() {
 
       .done(function(json) {
         console.log(json);
-        content = '<div class="popoverContent">';
+        content = '<div>';
 
         // add report card to content
         content += '<p><a>View Report Card</a></p>';
@@ -86,6 +93,7 @@ $(document).ready(function() {
       .fail(function() {
         console.log('post req failure');
       });
+      */
     }
   );
 
