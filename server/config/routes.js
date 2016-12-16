@@ -16,7 +16,6 @@ module.exports = function (app, express) {
 This middlware builds the response object starting with the URL expansion and tacking on the successive API calls by calling the controllers' next() function. You'll likely want to improve upon this by creating different endpoints with different middleware pipes e.g. a pipe to just poll the blacklist, or a pipe just for talking to Watson and so forth.
 */
 
-
   // -----------------
   // Facebook Authentication Routes
   // -----------------
@@ -26,9 +25,9 @@ This middlware builds the response object starting with the URL expansion and ta
 
   app.get('/auth/facebook/authenticated', passport.authenticate('facebook', { failureRedirect: '/login.html' }),
     function(req, res) {
-      res.send('success');
+      console.log('im here')
+     res.json({status: 'success'});
     });
-
 
   // -----------------
   // Main API route
@@ -70,13 +69,10 @@ This middlware builds the response object starting with the URL expansion and ta
   // -----------------
   // Single controller routes
   // -----------------
-
   app.post('/api/test', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
   app.post('/api/bias', [watsonController.getTitle, biasController.getData], function (req, res, next) {
     res.json(res.compoundContent);
   });
   app.get('/api/twitter', twitterSearch.getTweetsOnTopic);
-
-
 };
