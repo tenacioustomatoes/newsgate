@@ -311,7 +311,7 @@ describe('Server Endpoints: ', function() {
         'uri': hostname + '/api/bias',
         'method': 'POST',
         'followAllRedirects': true,
-        'json': { 'url': 'http://www.usatoday.com/story/news/politics/2016/12/15/obama-threatens-retaliation-against-russia-election-hacking/95501584/'} 
+        'json': { 'url': 'http://www.usatoday.com/story/news/politics/2016/12/15/obama-threatens-retaliation-against-russia-election-hacking/95501584/'}
       };
 
       var usaTodayRes = {};
@@ -333,42 +333,12 @@ describe('Server Endpoints: ', function() {
         expect(usaTodayRes.body.bias.status).to.be.a('string');
         expect(usaTodayRes.body.bias.status).to.equal('OK');
         expect(usaTodayRes.body.bias).to.have.property('bias');
-        expect(usaTodayRes.body.bias.bias).to.be.a('string');
         expect(usaTodayRes.body.bias.bias.length).to.be.above(0);
+        expect(usaTodayRes.body.bias.bias[0]).to.be.a('string');
+        done();
       });
-
-      done();
-
-
     });
   });
-
-  // describe('/api/links - get', function() {
-
-  //   describe('waiting for request response before starting tests', function() {
-
-  //     var npr = {
-  //       'uri': hostname + '/api/links',
-  //       'method': 'POST',
-  //       'followAllRedirects': true,
-  //       'json': {'url': 'http://www.npr.org/sections/parallels/2016/12/15/505571306/how-will-rex-tillerson-explain-exxon-mobils-foreign-policy'}
-  //     };
-
-  //     var nprRes = {};
-
-  //     before(function(done) {
-
-  //       this.timeout(TIME_OUT);
-
-  //       request(npr, function(err, res, body) {
-  //         nprRes = res;
-  //         done();
-  //       });
-  //     });
-
-  //     it('Watson should find the site\'s title', function(done) {
-
-  //       expect(nprRes.body.title).to.have.property('status');
 
 });
 

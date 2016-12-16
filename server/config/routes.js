@@ -25,9 +25,9 @@ module.exports = function (app, express) {
 /// facebook auth
   function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-      console.log('autenticated!') 
+      console.log('autenticated!')
       console.log(req.user);
-      return next(); 
+      return next();
     } else {
       console.log('not authenticated')
       res.send('false')
@@ -86,7 +86,7 @@ module.exports = function (app, express) {
 
   app.post('/api/test', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
-  app.post('/api/bias', [biasController.getData], function (req, res, next) {
+  app.post('/api/bias', [watsonController.getTitle, biasController.getData], function (req, res, next) {
     res.json(res.compoundContent);
   });
   app.get('/api/twitter', twitterSearch.getTweetsOnTopic);
