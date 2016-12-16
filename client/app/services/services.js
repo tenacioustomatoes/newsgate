@@ -91,11 +91,21 @@ angular.module('newsgate.services', [])
       //     console.log('retrieved storage--->', JSON.parse(result));
       //   });
       // })
+    }) 
+  }
+
+  var loginFB = function () {
+    console.log('in responses')
+    $http.get('http://localhost:8000/auth/facebook')
+    .then((res) => {
+      console.log(res)
     })
   }
+
   return {
     sendLink: sendLink,
-    saveLink: saveLink
+    saveLink: saveLink, 
+    loginFB: loginFB
   };
 })
 

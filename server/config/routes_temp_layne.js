@@ -1,15 +1,12 @@
-const expanderController = require('../controllers/expanderController.js');
-const newsController = require('../controllers/newsController.js');
-const watsonController = require('../watson/watsonController.js');
-const biasController = require('../bias/biasController.js');
-const linkController = require('../controllers/linkController.js');
-const watsonTestController = require ('../watson/testDataController.js');
+var expanderController = require('../controllers/expanderController.js');
+var newsController = require('../controllers/newsController.js');
+var watsonController = require('../watson/watsonController.js');
+var biasController = require('../bias/biasController.js');
+var linkController = require('../controllers/linkController.js');
+var watsonTestController = require ('../watson/testDataController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
-const memoizedData = require('../controllers/memoizedDataController.js');
 var passport = require('passport')
-
-var Popover = memoizedData.popover;
 
 module.exports = function (app, express) {
 
@@ -21,8 +18,6 @@ module.exports = function (app, express) {
   just for talking to Watson and so forth.
 */
 
-
-/// facebook auth
   function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
       console.log('autenticated!') 
@@ -33,18 +28,6 @@ module.exports = function (app, express) {
       res.send('false')
     }
   }
-
-  app.get('/auth/facebook',
-  passport.authenticate('facebook'),
-  function(req, res){});
-  app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/apitest.html' }),
-  function(req, res) {
-    console.log('im here')
-    res.json('success');
-  });
-
-///
 
 
   // -----------------
@@ -61,23 +44,33 @@ module.exports = function (app, express) {
   // Popover route
   // -----------------
 
-  var popupArr = [watsonController.getTitle, memoizedData.readPopoverData, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData, memoizedData.recordPopoverData];
+  var popupArr = [watsonController.getTitle, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
 
-  app.post('/api/popover', popupArr, function(req, res, next, Popover) {
+  app.post('/api/popover', popupArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
-
-  // Dummy data for testing popover
-  app.post('/api/popover/test', watsonTestController.data);
 
   // -----------------
   // Links route
   // -----------------
 
-  var linkArr = [ensureAuthenticated, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
-
+  var linkArr = [ensureAuthenticated, expanderController.expandURL, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
   app.post('/api/links', linkArr, function (req, res, next) {
     res.json(res.compoundContent);
+  });
+
+  // -----------------
+  // Facebook Auth routes
+  // -----------------
+
+  app.get('/auth/facebook',
+  passport.authenticate('facebook'),
+  function(req, res){});
+  app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/apitest.html' }),
+  function(req, res) {
+    console.log('im here')
+    res.json('success');
   });
 
   // -----------------
@@ -86,10 +79,18 @@ module.exports = function (app, express) {
 
   app.post('/api/test', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);
-  app.post('/api/bias', [biasController.getData], function (req, res, next) {
-    res.json(res.compoundContent);
-  });
+  app.get('/api/bias', biasController.getData);
   app.get('/api/twitter', twitterSearch.getTweetsOnTopic);
 
+  // -----------------
+  // Handles popup routes for watson's emotions and sentiment
+  // -----------------
 
+  app.post('/api/popover', popupArr, function(req, res, next) {
+    res.json(res.compoundContent);
+  });
+
+
+  // Dummy data for testing popover
+  app.post('/api/popover/test', watsonTestController.data);
 };
