@@ -2,14 +2,14 @@ var mongoose = require ('mongoose');
 
 var popoverSchema = new mongoose.Schema({
   url: { type: String, unique: true},
-  response: String
+  response: Object
 });
 
 var totalApiSchema = new mongoose.Schema({
   url: { type: String, unique: true},
-  response: String
+  response: Object
 });
 
-module.exports.memoizePopoverData = mongoose.model('MemoizedPopoverData', popoverSchema);
+module.exports.popover = mongoose.model('Popover', popoverSchema);
 
-module.exports.memoizeTotalApi = mongoose.model('MemoizedPopoverData', popoverSchema);
+module.exports.api = mongoose.model('API', totalApiSchema);
