@@ -24,7 +24,7 @@ module.exports = {
           'status': (biasResult === null) ? '' : 'OK',
           'bias': biasResult
         };
-        console.log(biasData[domain].rating);
+        res.compoundContent = res.compoundContent || {};
         res.compoundContent['bias'] = response; // how does this work?
         next();
 

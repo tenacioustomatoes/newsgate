@@ -304,32 +304,41 @@ describe('Server Endpoints: ', function() {
     });
   });
 
-  // describe('/api/links - get', function() {
+  describe('/api/bias - post', function() {
+    describe('waiting for request response before starting tests', function() {
 
-  //   describe('waiting for request response before starting tests', function() {
+      var usaToday = {
+        'uri': hostname + '/api/bias',
+        'method': 'POST',
+        'followAllRedirects': true,
+        'json': { 'url': 'http://www.usatoday.com/story/news/politics/2016/12/15/obama-threatens-retaliation-against-russia-election-hacking/95501584/'}
+      };
 
-  //     var npr = {
-  //       'uri': hostname + '/api/links',
-  //       'method': 'POST',
-  //       'followAllRedirects': true,
-  //       'json': {'url': 'http://www.npr.org/sections/parallels/2016/12/15/505571306/how-will-rex-tillerson-explain-exxon-mobils-foreign-policy'}
-  //     };
+      var usaTodayRes = {};
 
-  //     var nprRes = {};
+      before(function(done) {
 
-  //     before(function(done) {
+        this.timeout(TIME_OUT);
 
-  //       this.timeout(TIME_OUT);
+        request(usaToday, function(err, res, body) {
+          usaTodayRes = res;
+          done();
+        });
+      });
 
-  //       request(npr, function(err, res, body) {
-  //         nprRes = res;
-  //         done();
-  //       });
-  //     });
-
-  //     it('Watson should find the site\'s title', function(done) {
-
-  //       expect(nprRes.body.title).to.have.property('status');
+      it('should find if the site it biased', function(done) {
+        expect(usaTodayRes.body.bias).to.have.property('url');
+        expect(usaTodayRes.body.bias.url).to.be.a('string');
+        expect(usaTodayRes.body.bias).to.have.property('status');
+        expect(usaTodayRes.body.bias.status).to.be.a('string');
+        expect(usaTodayRes.body.bias.status).to.equal('OK');
+        expect(usaTodayRes.body.bias).to.have.property('bias');
+        expect(usaTodayRes.body.bias.bias.length).to.be.above(0);
+        expect(usaTodayRes.body.bias.bias[0]).to.be.a('string');
+        done();
+      });
+    });
+  });
 
 });
 
