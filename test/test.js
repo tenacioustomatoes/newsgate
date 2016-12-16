@@ -304,32 +304,32 @@ describe('Server Endpoints: ', function() {
     });
   });
 
-  describe('/api/links - get', function() {
+  // describe('/api/links - get', function() {
 
-    describe('waiting for request response before starting tests', function() {
+  //   describe('waiting for request response before starting tests', function() {
 
-      var npr = {
-        'uri': hostname + '/api/links',
-        'method': 'POST',
-        'followAllRedirects': true,
-        'json': {'url': 'http://www.npr.org/sections/parallels/2016/12/15/505571306/how-will-rex-tillerson-explain-exxon-mobils-foreign-policy'}
-      };
+  //     var npr = {
+  //       'uri': hostname + '/api/links',
+  //       'method': 'POST',
+  //       'followAllRedirects': true,
+  //       'json': {'url': 'http://www.npr.org/sections/parallels/2016/12/15/505571306/how-will-rex-tillerson-explain-exxon-mobils-foreign-policy'}
+  //     };
 
-      var nprRes = {};
+  //     var nprRes = {};
 
-      before(function(done) {
+  //     before(function(done) {
 
-        this.timeout(TIME_OUT);
+  //       this.timeout(TIME_OUT);
 
-        request(npr, function(err, res, body) {
-          nprRes = res;
-          done();
-        });
-      });
+  //       request(npr, function(err, res, body) {
+  //         nprRes = res;
+  //         done();
+  //       });
+  //     });
 
-      it('Watson should find the site\'s title', function(done) {
+  //     it('Watson should find the site\'s title', function(done) {
 
-        expect(nprRes.body.title).to.have.property('status');
+  //       expect(nprRes.body.title).to.have.property('status');
 
 });
 
