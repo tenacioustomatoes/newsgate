@@ -18,7 +18,7 @@ angular.module('newsgate.services', [])
   //     LinkStorage = [];
   //   }
   // });
-  
+
   var sendLink = function(url) {
     State.hideSpinner = false;
     State.hideNav = true;
@@ -45,15 +45,15 @@ angular.module('newsgate.services', [])
       State.hideNav = false;
 
       // work around for googleTrends to use hardcoded data
-      if (true) {
-        if (toggle) {
-          Data.google = dataSet1;
-          toggle = false;
-        } else {
-          Data.google = dataSet2;
-          toggle = true;
-        }
-      }
+      // if (true) {
+      //   if (toggle) {
+      //     Data.google = dataSet1;
+      //     toggle = false;
+      //   } else {
+      //     Data.google = dataSet2;
+      //     toggle = true;
+      //   }
+      // }
 
       $rootScope.$emit('updateSpinner');
       $rootScope.$emit('updateNav');
