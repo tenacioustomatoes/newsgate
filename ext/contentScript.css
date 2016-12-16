@@ -1,0 +1,28 @@
+.popover {
+  border: 2px solid #06477D;
+  color: #06477D;
+}
+
+.popover-title {
+  font-weight: bold;
+}
+
+.popover-content {
+  color: #06477D;
+}
+
+/*.arrow {
+  border-right-color: red !important;
+}*/
+
+.gifLeaning {
+  height: 20px;
+  width: auto;
+}
+
+.gifLoading {
+  height: 40%;
+  width: 40%;
+  display: block;
+  margin: 0 auto;
+}

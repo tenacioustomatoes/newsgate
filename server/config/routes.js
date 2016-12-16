@@ -25,12 +25,13 @@ module.exports = function (app, express) {
   var linkArr = [expanderController.expandURL, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
 
   app.post('/api/links', linkArr, function (req, res, next) {
-    res.json(res.body);
+    res.json(res.compoundContent);
   });
 
   app.post('/api/ext', newsController.isFakeNews, function(req, res, next) {
     res.json(res.compoundContent);
   });
+  //
 
   app.post('/api/test', watsonController.getTitle);
   app.get('/api/googleTrends', googleTrends.getGoogleTrends);

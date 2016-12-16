@@ -41,14 +41,14 @@ var __filterKeywords = function(keywords) {
 		var solutations = /\b(m[rs]s*)\b\.*/gi;
 		newkeyword.text = newkeyword.text.replace(solutations, ''); //get rid of mr. and mrs. 
 		newkeyword.text = newkeyword.text.trim()
-		console.log(keyword, 'in map keyword')
-		console.log(newkeyword, 'in map newkeyword')
 		
 		return newkeyword;
 	})
 	//outputKeywords = keywords.filter(keyword => keyword.relevance > 0.75)
 	return outputKeywords;
 }
+
+
 
 module.exports.saveToDB = function(req, res, next) {
 	console.log('in save to DB');
@@ -64,6 +64,6 @@ module.exports.saveToDB = function(req, res, next) {
 	console.log('linkDATA!!!!', linkData);
 	var newLinkSave = new SavedLink(linkData);
   newLinkSave.save().then(err => {
-  	next();
+  	res.json(linkData);
   });
 }

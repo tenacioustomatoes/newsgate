@@ -8,15 +8,7 @@ var sendJSONresponse = function (res, status, content) {
 
 module.exports = {
   getData: function (req, res, next) {
-
-    var rating = {
-      '0': 'Far Left',
-      '1': 'Left',
-      '2': 'Center',
-      '3': 'Right',
-      '4': 'Far Right'
-    };
-
+    console.log('Getting Bias Rating');
 
     if (req.body.url) {
       var domain = req.body.url.replace(/^https?:\/\//, ''); // replace http and https
@@ -25,14 +17,14 @@ module.exports = {
       domain = domain.split('/')[0]; //Get the domain and only the domain
 
       if (domain) {
-        var biasResult = (biasData[0][domain] === undefined) ? null : rating[biasData[0][domain]];
+        var biasResult = (biasData[domain] === undefined) ? null : [biasData[domain].rating];
 
         var response = {
           'url': domain,
           'status': (biasResult === null) ? '' : 'OK',
           'bias': biasResult
         };
-
+        console.log(biasData[domain].rating);
         res.compoundContent['bias'] = response; // how does this work?
         next();
 
