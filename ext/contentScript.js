@@ -56,6 +56,15 @@ $(document).ready(function() {
       .done(function(json) {
         console.log(json);
         content = '<div>';
+        
+        // add fake news to content
+        var fakeScore = json.fake.rating.score;
+        if ((json.fake.rating.score + '') === '0') {
+          var fake = 'nope';
+        } else if ((json.fake.rating.score + '') === '100') {
+          var fake = 'yes';
+        }
+        content += '<p>' + '<span class="popoverTitles">' + 'Fake News?: ' + '</span>' + fake + '</p>';
 
         // add bias to content
         var leaningGifs = {
@@ -65,14 +74,6 @@ $(document).ready(function() {
         var leaning = json.bias.bias;
         content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
 
-        // add fake news to content
-        var fakeScore = json.fake.rating.score;
-        if ((json.fake.rating.score + '') === '0') {
-          var fake = 'nope';
-        } else if ((json.fake.rating.score + '') === '100') {
-          var fake = 'yes';
-        }
-        content += '<p>' + '<span class="popoverTitles">' + 'Fake News?: ' + '</span>' + fake + '</p>';
 
         // add emotions to content
         var emotions = json.emotions.docEmotions;
