@@ -40,7 +40,7 @@ module.exports = function (app, express) {
   // Links route
   // -----------------
 
-  var linkArr = [expanderController.expandURL, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
+  var linkArr = [watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
 
   app.post('/api/links', linkArr, function (req, res, next) {
     res.json(res.compoundContent);
