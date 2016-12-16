@@ -1,6 +1,7 @@
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
+var facebookAPIKey = require('../trends/facebookAPIKey.js');
 
 
 
@@ -19,10 +20,10 @@ module.exports = function (app, express) {
   app.use(bodyParser.json());
   app.use(allowCrossDomain);
   app.use(express.static(__dirname + './../../client'));
-  
+
   passport.use(new Strategy({
-    clientID: 388576431479555,
-    clientSecret: '4dd0d25545adbbe176771a2748aa2420',
+    clientID: facebookAPIKey.clientID,
+    clientSecret: facebookAPIKey.clientSecret,
     callbackURL: 'http://localhost:8000/auth/facebook/callback'
   },
   function(accessToken, refreshToken, profile, cb) {

@@ -7,44 +7,28 @@ const watsonTestController = require ('../watson/testDataController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
 const memoizedData = require('../controllers/memoizedDataController.js');
-var passport = require('passport')
+var passport = require('passport');
 
 var Popover = memoizedData.popover;
 
 module.exports = function (app, express) {
 
-/*  This middlware builds the response object starting with the URL expansion
-  and tacking on the successive API calls by calling the controllers' next()
-  function.
-  You'll likely want to improve upon this by creating different endpoints with
-  different middleware pipes e.g. a pipe to just poll the blacklist, or a pipe
-  just for talking to Watson and so forth.
+/*
+This middlware builds the response object starting with the URL expansion and tacking on the successive API calls by calling the controllers' next() function. You'll likely want to improve upon this by creating different endpoints with different middleware pipes e.g. a pipe to just poll the blacklist, or a pipe just for talking to Watson and so forth.
 */
 
 
-/// facebook auth
-  function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      console.log('autenticated!')
-      console.log(req.user);
-      return next();
-    } else {
-      console.log('not authenticated')
-      res.send('false')
-    }
-  }
+  // -----------------
+  // Facebook Authentication Routes
+  // -----------------
 
-  app.get('/auth/facebook',
-  passport.authenticate('facebook'),
-  function(req, res){});
-  app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/apitest.html' }),
-  function(req, res) {
-    console.log('im here')
-    res.json('success');
+  app.get('/auth/facebook', passport.authenticate('facebook'), function(req, res) {
   });
 
-///
+  app.get('/auth/facebook/authenticated', passport.authenticate('facebook', { failureRedirect: '/login.html' }),
+    function(req, res) {
+      res.send('success');
+    });
 
 
   // -----------------
@@ -71,12 +55,16 @@ module.exports = function (app, express) {
   app.post('/api/popover/test', watsonTestController.data);
 
   // -----------------
-  // Links route
+  // Links routes
   // -----------------
 
   var linkArr = [ensureAuthenticated, watsonController.getTitle, watsonController.getKeywords, linkController.saveToDB];
 
   app.post('/api/links', linkArr, function (req, res, next) {
+    res.json(res.compoundContent);
+  });
+
+  app.get('/api/links', [ensureAuthenticated, linkController.getLinks], function(req, res, next) {
     res.json(res.compoundContent);
   });
 
