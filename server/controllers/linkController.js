@@ -59,5 +59,6 @@ module.exports.saveToDB = function(req, res, next) {
   var newLinkSave = new SavedLink(linkData);
   newLinkSave.save().then(err => {
     res.compoundContent['link'] = linkData;
+    next();
   });
 };
