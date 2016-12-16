@@ -31,8 +31,8 @@ angular.module('newsgate.trends', [])
       // define the margins and dimensions for the svg element
         // it is a D3 convention to define the margins in an object
       var margin = {top: 20, right: 20, bottom: 30, left: 50},
-          width = 960 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
+          width = 300 - margin.left - margin.right,
+          height = 200 - margin.top - margin.bottom;
 
       /////////////////////////////////////////////////////////////////////////
       // Define the scale for the axis
@@ -169,6 +169,8 @@ angular.module('newsgate.trends', [])
         // this is an artifact of attempting to fix rendering issues
         nextOldArea = drawnArea;
 
+
+        console.log('fatafstafstaftsfa', [data]);
 
         var path = svg.selectAll('.line').data([data]); // select our line path then add our data from the scope
         var pathLine = path.attr('d', valueLine).attr('d').slice(); // obtain the pathLine 'd' and make a copy
