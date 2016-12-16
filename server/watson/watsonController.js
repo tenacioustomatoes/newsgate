@@ -76,7 +76,7 @@ module.exports.getEmotions = function(req, res, next) {
 			res.status(400).json({error: err});
 		} else {
 			console.log(JSON.stringify(response, null, 2));
-			res.compoundContent['emotions'] = response; // how does this work?
+			res.compoundContent['emotions'] = response;
 			next();
 		}
 	});
@@ -105,7 +105,7 @@ module.exports.getSentiment = function(req, res, next) {
 
 		} else {
 			console.log(JSON.stringify(response, null, 2));
-			res.compoundContent['sentiment'] = response; // how does this work?
+			res.compoundContent['sentiment'] = response;
 			next();
 		}
 	});

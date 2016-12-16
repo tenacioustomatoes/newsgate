@@ -3,6 +3,7 @@ var newsController = require('../controllers/newsController.js');
 var watsonController = require('../watson/watsonController.js');
 var biasController = require('../bias/biasController.js');
 var linkController = require('../controllers/linkController.js');
+var watsonTestController = require ('../watson/testDataController.js');
 const googleTrends = require('../trends/googleTrends');
 const twitterSearch = require('../trends/twitterTrends');
 
@@ -38,13 +39,15 @@ module.exports = function (app, express) {
   app.get('/api/bias', biasController.getData);
 
 
-// -----------------
-// Handles popup routes for watson's emotions and sentiment
-// -----------------
+  // -----------------
+  // Handles popup routes for watson's emotions and sentiment
+  // -----------------
   var popupArr = [expanderController.expandURL, newsController.isFakeNews, watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
 
   app.post('/api/popover', popupArr, function(req, res, next) {
     res.json(res.compoundContent);
   });
 
+  // Dummy data for testing popover
+  app.post('/api/popover/test', watsonTestController.data);
 };
