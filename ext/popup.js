@@ -75,7 +75,8 @@ var saveLink = function() {
       data: {'url': url},
       dataType: 'json'
     }).done(function(results) {
-      if (results === 'false') {
+      console.log(results)
+      if (results === false) {
         console.log('please login');
       } else {
         console.log(results);
@@ -108,8 +109,29 @@ var saveLink = function() {
 // }
 
 var loginToFB = function() {
-  chrome.tabs.create({url: 'http://localhost:8000/login'});
-};
+//<<<<<<< HEAD
+  console.log('in fb login');
+  getCurrentTabUrl(function(url) {
+    $.ajax({
+      url: 'http://localhost:8000/login/facebook',
+      type: 'GET',
+    }).done(function(results) {
+      console.log(results)
+      if (results.status === 'success') {
+        console.log('signed in')
+        $('#login').toggle();
+        $('#logout').toggle();
+      } else {
+        chrome.tabs.create({url: 'http://localhost:8000/login/facebook'});
+        window.close(); // Note: window.close(), not this.close() 
+      }
+    });
+  })
+}    
+// =======
+//   chrome.tabs.create({url: 'http://localhost:8000/login'});
+// };
+//>>>>>>> a8674abc4571094fee32badb8ae88d1ef846a8e0
 
 
 
