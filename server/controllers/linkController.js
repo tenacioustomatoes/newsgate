@@ -43,12 +43,13 @@ module.exports = {
   getLinks: function(req, res, next) {
     if (req.user.id) {
       Link.find({fbID: req.user.id})
-      .exex(function(err, data) {
+      .exec(function(err, data) {
         if (err) {
           console.log(err);
         }
         if (data) {
           console.log('found link data', data);
+          res.compoundContent['link'] = data;
         }
       });
     } else {
