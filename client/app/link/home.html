@@ -14,19 +14,31 @@
 <br>
 
   <div ng-class='keywordsTab' ng-show='showkeyword'>
-    <div>Here are your top 8 keywords</div>
-    <div ng-class='showKeywords'></div>
-      <p ng-repeat='word in keywords | limitTo:8'>
+    <h2>Here are your top 8 keywords</h2>
+    <div ng-class='showKeywords'>
+      <div ng-repeat='word in keywords | limitTo:8 track by $index'>
+        <div ng-click="filterByKeyword(keywords[$index])">
         {{word.text}}
-      </p>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div ng-class='filteredLinks' ng-show='showfiltered'>
+      <div ng-repeat='link in filteredLinks track by $index'>
+        <div>{{link.title}}</div>
+        <div ng-click="goToLink(filteredLinks[$index].url);">{{link.url}}</div>
+      </div>
     </div>
   </div>
 
 
   <div ng-class='showLinks' ng-show='showlink'>
-  <div>Here are all your links</div>
-  <div ng-repeat='link in links'>
-    <div>{{link.title}}</div>
-    <div>{{link.url}}</div>
-  </div>
+    <div>Here are all your links</div>
+    <div ng-repeat='link in links'>
+      <div>{{link.title}}</div>
+      <div>{{link.url}}</div>
+    </div>
   </div>
