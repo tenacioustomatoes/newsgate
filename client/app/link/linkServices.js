@@ -3,13 +3,11 @@ angular.module('link.services', [])
   var getLinks = function () {
     return $http({
       method: 'GET',
-      //update links
-      url: 'http://localhost:8000/api/pokemon' //i'm using the escape option for server 
+      url: 'http://localhost:8000/api/links' //i'm using the escape option for server 
     }, function(response) {
       return response;
     })
   }
-
   return {
     getLinks: getLinks 
   }

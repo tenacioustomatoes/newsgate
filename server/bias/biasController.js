@@ -7,6 +7,7 @@ var sendJSONresponse = function (res, status, content) {
 };
 
 module.exports = {
+
   getData: function (req, res, next) {
     console.log('Getting Bias Rating');
 
@@ -20,6 +21,7 @@ module.exports = {
         var biasResult = (biasData[domain] === undefined) ? null : [biasData[domain].rating];
 
         var response = {
+          // 'fullUrl': req.body.url,
           'url': domain,
           'status': (biasResult === null) ? '' : 'OK',
           'bias': biasResult
@@ -39,5 +41,11 @@ module.exports = {
         'message': 'no url in request'
       });
     }
+  },
+
+  getAll: function (req, res) {
+    res.status(200).json({data: biasData});
   }
+
 };
+
