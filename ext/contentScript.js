@@ -12,8 +12,7 @@ $(document).ready(function() {
     type: 'GET'
   })
   .done(function(json) {
-    console.log('json', json);
-    console.log('json.data', json.data);
+    console.log('retrieved all json news sites');
     newsSites = json.data;
   })
   .fail(function() {
