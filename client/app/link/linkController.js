@@ -1,8 +1,10 @@
 angular.module('link.controllers', ['link.services'])
 .controller('HomeController', function($scope, LinkFactory, $location) {
   $scope.starter = 'hi from link controller!';
-  $scope.action = 'Show';
+  $scope.showlink = false
+  $scope.showkeyword = true
   $scope.link = [];
+  $scope.topKeywordNum = 8;
   $scope.getLinks = function() {
     LinkFactory.getLinks().then(response => {
       console.log(response.data.link)
@@ -11,19 +13,20 @@ angular.module('link.controllers', ['link.services'])
       $scope.keywords = response.data.link.map(link => {
         return link.keywords
       })
-
-      console.log()
+      $scope.keywords = [].concat.apply([], $scope.keywords)
+      console.log($scope.keywords)
     }) 
   }
-  $scope.showLinks = function() {
-    if ($scope.action === 'Show') {
-      $scope.action = 'Hide';
-    } else {
-      $scope.action = 'Show';
-    }
-    $scope.showLink = !$scope.showLink; 
+  $scope.showKeywords = function () {
+    $scope.showlink = false;
+    $scope.showkeyword = true;   
   }
-  var merged2 = [].concat(["$6"], ["$12"], ["$25"], ["$25"], ["$18"], ["$22"], ["$10"]);
+
+  $scope.showLinks = function() {
+    $scope.showlink = true;
+    $scope.showkeyword = false;      
+  }
+  //var merged2 = [].concat(["$6"], ["$12"], ["$25"], ["$25"], ["$18"], ["$22"], ["$10"]);
   $scope.getLinks();
 })
 
