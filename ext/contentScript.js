@@ -61,21 +61,14 @@ $(document).ready(function() {
       hoverUrl = window.location.hostname + hoverUrl;
     }
     flag = hoverUrl;
-    var $context = $(this); // refers to 'a' tag
+    var $context = $(this);
     var context = this;
 
-    // ---------------
-    // Refactor
-    // ---------------
-
-    // if it's a news site
+    // if it's a news site and still hovering over link, show popover
     if (isItNews(hoverUrl)) {
-      // wait one second
       setTimeout(function() {
-        // if the user is still hovering over the link
         var currHoverUrl = $context.attr('href');
         if (flag === hoverUrl) { 
-          // show the popover
           $context.popover('show');
           // hide popover when user stops hovering over popover
           $('.popover').on('mouseleave', function() {
@@ -84,44 +77,6 @@ $(document).ready(function() {
         }
       }, 500);
     }
-
-    // ---------------
-    // Old code
-    // ---------------
-
-    // check if domain is a news site
-    // $.ajax({
-    //   url: 'http://localhost:8000/api/bias',
-    //   type: 'POST',
-    //   data: {'url': hoverUrl},
-    //   dataType: 'json'
-    // })
-
-    // .done(function(json) {
-    //   // if it's a news site
-    //   if (json.bias.status === 'OK') {
-    //     // wait one second
-    //     setTimeout(function () {
-    //       // if user is still hovering over link
-    //       // console.log('flag: ', flag, 'json.bias.fullUrl: ', json.bias.fullUrl);
-    //       if (flag === json.bias.fullUrl) {
-    //         //show the popover
-    //         $context.popover('show');
-    //         // hide popover when user stops hovering over popover
-    //         $('.popover').on('mouseleave', function () {
-    //           // console.log('mouseleave popover');
-    //           $context.popover('hide');
-    //         });
-    //       }
-    //     }, 500);
-    //   }
-
-
-    // })
-
-    // .fail(function() {
-    //   console.log('post req failure');
-    // });
 
   // ---------------
   // Handles popover hide
@@ -145,12 +100,10 @@ $(document).ready(function() {
     function(e) {
       var $context = $(this);
       var hoverUrl = $(this).attr('href');
- 
       // if not complete url, attach to domain
       if (hoverUrl[0] === '/') {
         hoverUrl = window.location.hostname + hoverUrl;
       }
-      
       // retrieve popover content 
       $.ajax({
         url: 'http://localhost:8000/api/popover/test',
@@ -164,7 +117,6 @@ $(document).ready(function() {
       // ---------------
 
       .done(function(json) {
-        // console.log(json);
         content = '<div>';
         
         // add fake news to content
@@ -189,7 +141,6 @@ $(document).ready(function() {
         var emotions = json.emotions.docEmotions;
         var emos = {};
         for (var emo in emotions) {
-          // console.log(emo, emotions[emo]);
           emos[emo] = emotions[emo] > 0.5;
         }
         content += '<p>' + '<span class="popoverTitles">' + 'Emotions: ' + '</span>';
@@ -214,6 +165,26 @@ $(document).ready(function() {
 
         // set content to popover
         $context.attr('data-content', content).data('bs.popover').setContent();
+
+        // ---------------
+        // Handles adding fav link
+        // ---------------
+
+        $('.heart').on('click', function() {
+          $.ajax({
+            url: 'http://localhost:8000/api/links',
+            type: 'POST',
+            data: {url: hoverUrl},
+            dataType: 'json'
+          })
+          .done(function() {
+            console.log('completed post req to api/links');
+          })
+          .fail(function() {
+            console.log('failure on post req to api/links');
+          });
+        });
+
       })
 
       .fail(function() {
@@ -222,7 +193,6 @@ $(document).ready(function() {
       
     }
   );
-
 });
 
 
