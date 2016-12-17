@@ -136,7 +136,6 @@ $(document).ready(function() {
         var leaning = json.bias.bias;
         content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
 
-
         // add emotions to content
         var emotions = json.emotions.docEmotions;
         var emos = {};
