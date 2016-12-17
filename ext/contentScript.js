@@ -195,7 +195,7 @@ $(document).ready(function() {
             // ---------------
 
             $('.viewReportCard').on('click', function() {
-              chrome.tabs.create({url: 'http:localhost:8000/'});
+              window.open('http://localhost:8000/');
             });
 
           })
