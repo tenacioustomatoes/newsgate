@@ -8,6 +8,7 @@ angular.module('newsgate', [
   'newsgate.tweets',
   'newsgate.nav',
   'newsgate.bias',
+  'newsgate.link',
   'ngRoute'
 ])
 .config(function($routeProvider) {
@@ -34,7 +35,6 @@ angular.module('newsgate', [
     templateUrl : 'app/bias/bias.html',
     controller: 'BiasController'
   });
-
 })
 .run(['$anchorScroll', function($anchorScroll) {
   $anchorScroll.yOffset = 50;

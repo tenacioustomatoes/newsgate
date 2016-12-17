@@ -98,7 +98,7 @@ var loginToFB = function() {
         $('#login').toggle();
         $('#logout').toggle();
       } else {
-        chrome.tabs.create({url: 'http://localhost:8000/apitest.html'});
+        chrome.tabs.create({url: 'http://localhost:8000/auth/facebook'});
         window.close(); // Note: window.close(), not this.close() 
           //console.log(results)
       }
