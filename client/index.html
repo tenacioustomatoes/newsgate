@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>NewsGate</title>
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/styles.css" />
     <script src="lib/underscore/underscore.js"></script>
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/d3/d3.js"></script>
@@ -20,7 +20,7 @@
     <div id="app" ng-controller="MainController">
       <div id="mainContainer" ng-controller="NavController" ng-class="{'vert-center': !isLoaded, 'vert-center-disabled': isLoaded}">
         <div>
-          <div class="centerHeader" ng-class="{'loaded-header-disable': !isLoaded, 'loaded-header': isLoaded}" ng-hide="isLoaded">NewsGate</div>
+          <div class="centerHeader" ng-class="{'loaded-header-disable': !isLoaded, 'loaded-header': isLoaded}" >NewsGate</div>
         </div>
         <div>
           <div ng-include="'/app/submit/submit.html'"></div>
