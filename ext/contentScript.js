@@ -186,6 +186,14 @@ $(document).ready(function() {
           });
         });
 
+        // ---------------
+        // Handles viewing report card
+        // ---------------
+
+        $('.viewReportCard').on('click', function() {
+          chrome.tabs.create({url: 'http:localhost:8000/'});
+        });
+
       })
 
       .fail(function() {

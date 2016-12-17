@@ -342,6 +342,39 @@ describe('Server Endpoints: ', function() {
     });
   });
 
+  describe('api/bias - get', function() {
+    describe('waiting for request response before starting tests', function() {
+
+      var usaToday = {
+        'uri': hostname + '/api/bias',
+        'method': 'GET',
+        'followAllRedirects': true,
+      };
+
+      var usaTodayRes = {};
+
+      before(function(done) {
+
+        this.timeout(TIME_OUT);
+
+        request(usaToday, function(err, res, body) {
+          usaTodayRes = res;
+          done();
+        });
+      });
+
+      it('should return all the bias rating object', function() {
+        expect(usaTodayRes.body.data).to.be.a('object');
+        expect(usaTodayRes.body.data).to.have.property('online.wsj.com');
+        expect(usaTodayRes.body.data['online.wsj.com']).to.be.a('object');
+        expect(usaTodayRes.body.data['online.wsj.com']).to.have.property('title');
+        expect(usaTodayRes.body.data['online.wsj.com']).to.have.property('rating');
+        expect(usaTodayRes.body.data['online.wsj.com']).to.have.property('url');
+      });
+
+    });
+  });
+
 });
 
 
