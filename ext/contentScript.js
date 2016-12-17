@@ -136,7 +136,6 @@ $(document).ready(function() {
         var leaning = json.bias.bias;
         content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
 
-
         // add emotions to content
         var emotions = json.emotions.docEmotions;
         var emos = {};
@@ -160,7 +159,7 @@ $(document).ready(function() {
         content += '<p>' + '<span class="popoverTitles">' + 'Sentiment: ' + '</span>' + sentiment + '</p>';
 
         // add report card to content
-        content += '<p><a><span>View Report Card</span><span class="heart"> ♥ </span> </a></p>';
+        content += '<p><a class="viewReportCard">View Report Card</a><a class="heart"> ♥ </a></p>';
         content += '</div>';
 
         // set content to popover
@@ -184,6 +183,14 @@ $(document).ready(function() {
           .fail(function() {
             console.log('failure on post req to api/links');
           });
+        });
+
+        // ---------------
+        // Handles viewing report card
+        // ---------------
+
+        $('.viewReportCard').on('click', function() {
+          chrome.tabs.create({url: 'http:localhost:8000/'});
         });
 
       })
