@@ -1,3 +1,57 @@
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #fff1bf;
+}
+
+.headers {
+  font-family: 'Adamina', sans-serif;
+  text-align: center;
+}
+
+.left {
+  color: blue;
+}
+
+.lean-left{
+
+}
+
+.center {
+
+}
+
+.right {
+
+}
+
+.lean-right {
+
+}
+
+.positive {
+  color: green;
+}
+
+#innercard {
+  width: 75%;
+  margin: auto;
+  border: black;
+  border-style: double;
+  margin-bottom: 25px;
+}
+
+.title{
+  margin: 30px;
+}
+
+.reportcard {
+  border-color: black;
+  border-style: double;
+  width: 75%;
+  margin: auto;
+  background-color: #FFEDB0;
+}
+
+
 #app {
   background-color: rgb(74, 92, 122);
   padding: 0px 0px 0px 0px;

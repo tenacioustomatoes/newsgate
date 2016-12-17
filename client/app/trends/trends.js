@@ -1,5 +1,5 @@
 angular.module('newsgate.trends', [])
-.controller('TrendsController', function($scope, $rootScope, Data) {
+.controller('TrendsController', function($scope, $rootScope, $http, Data) {
 
   $scope.data = Data.process(Data.google[0]);
   $scope.data2 = Data.process(Data.google[1]);
@@ -15,6 +15,7 @@ angular.module('newsgate.trends', [])
 .directive('trendGraph', function() {
   // console.log('isD3 Loaded?', d3);
   // return the custom directive
+
   return {
     restrict: 'E', // only matches element name
     scope: { data: '=' }, // isolate scope. essentially removes the two way data binding
@@ -53,7 +54,7 @@ angular.module('newsgate.trends', [])
           datasets: [{
             label: title,
             data: labelValue,
-            backgroundColor: "rgba(153,255,51,0.4)"
+            backgroundColor: "rgba(160,160,160,0.4)"
           }]
         },
         options: {
