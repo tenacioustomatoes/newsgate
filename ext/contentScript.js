@@ -177,7 +177,8 @@ $(document).ready(function() {
             data: {url: hoverUrl},
             dataType: 'json'
           })
-          .done(function() {
+          .done(function(json) {
+            console.log(json);
             console.log('completed post req to api/links');
           })
           .fail(function() {
