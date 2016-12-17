@@ -38,7 +38,7 @@ function getCurrentTabUrl(callback) {
 
     callback(url);
   });
-};
+}
 
 
 // getCurrentTabUrl(function(tabUrl) {
@@ -68,7 +68,7 @@ function getCurrentTabUrl(callback) {
 var saveLink = function() {
   console.log('in save link');
   getCurrentTabUrl(function(url) {
-    console.log(url)
+    console.log(url);
     $.ajax({
       url: 'http://localhost:8000/api/links',
       type: 'POST',
@@ -76,39 +76,44 @@ var saveLink = function() {
       dataType: 'json'
     }).done(function(results) {
       if (results === 'false') {
-        console.log('please login')
+        console.log('please login');
       } else {
-        console.log(results)
-        $('#SaveLink').text('Link Saved!')
+        console.log(results);
+        $('#SaveLink').text('Link Saved!');
       }
     });
-  })
-}    
+  });
+};
+
+// var loginToFB = function() {
+//   console.log('in fb login');
+//   getCurrentTabUrl(function(url) {
+//     $.ajax({
+//       url: 'http://localhost:8000/auth/facebook',
+//       type: 'GET',
+//     }).done(function(results) {
+//       console.log(results);
+//       console.log('here!!!');
+//       if (results.status === 'success') {
+//         console.log('signed in')
+//         $('#login').toggle();
+//         $('#logout').toggle();
+//       } else {
+//         chrome.tabs.create({url: 'http://localhost:8000/auth/facebook'});
+//         window.close(); // Note: window.close(), not this.close()
+//           //console.log(results)
+//       }
+//     });
+//   })
+// }
 
 var loginToFB = function() {
-  console.log('in fb login');
-  getCurrentTabUrl(function(url) {
-    $.ajax({
-      url: 'http://localhost:8000/auth/facebook',
-      type: 'GET',
-    }).done(function(results) {
-      console.log(results)
-      if (results.status === 'success') {
-        console.log('signed in')
-        $('#login').toggle();
-        $('#logout').toggle();
-      } else {
-        chrome.tabs.create({url: 'http://localhost:8000/apitest.html'});
-        window.close(); // Note: window.close(), not this.close() 
-          //console.log(results)
-      }
-    });
-  })
-}    
+  chrome.tabs.create({url: 'http://localhost:8000/login'});
+};
 
 
 
 $(document).ready(function() {
   $('#SaveLink').on('click', saveLink);
   $('#login').on('click', loginToFB);
-})
+});

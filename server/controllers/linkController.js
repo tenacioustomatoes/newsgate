@@ -30,11 +30,11 @@ module.exports = {
     };
     console.log('linkDATA!!!!', linkData);
     var newLinkSave = new SavedLink(linkData);
-    newLinkSave.save()
-    .exec(function(err, data) {
+    newLinkSave.save(function(err, data) {
       if (err) {
         console.log(err);
       }
+      res.compoundContent = res.compoundContent || {};
       res.compoundContent['link'] = linkData;
       next();
     });
@@ -42,13 +42,14 @@ module.exports = {
 
   getLinks: function(req, res, next) {
     if (req.user.id) {
-      Link.find({fbID: req.user.id})
+      SavedLink.find({fbID: req.user.id})
       .exec(function(err, data) {
         if (err) {
           console.log(err);
         }
         if (data) {
           console.log('found link data', data);
+          res.compoundContent = res.compoundContent || {};
           res.compoundContent['link'] = data;
         }
       });
