@@ -30,7 +30,7 @@ $(document).ready(function() {
     domain = domain.replace(/www.?/, ''); //replace www. or www
     domain = domain.split('/')[0]; //Get the domain and only the domain
     //returns true or false
-    console.log(newsSites);
+    // console.log(newsSites);
     return newsSites[domain] !== undefined;
   };
 
@@ -87,9 +87,11 @@ $(document).ready(function() {
     flag = null;
     // console.log('mouseleave link');
     var $context = $(this);
-    if ( !$('.popover:hover').length ) {
-      $context.popover('hide');
-    }
+    setTimeout(function() {
+      if ( !$('.popover:hover').length ) {
+        $context.popover('hide');
+      }
+    }, 200);
   });
 
   // ---------------
@@ -104,101 +106,106 @@ $(document).ready(function() {
       if (hoverUrl[0] === '/') {
         hoverUrl = window.location.hostname + hoverUrl;
       }
-      // retrieve popover content 
-      $.ajax({
-        url: 'http://localhost:8000/api/popover/test',
-        type: 'POST',
-        data: {'url': hoverUrl},
-        dataType: 'json'
-      })
 
-      // ---------------
-      // Handles adding content to popover
-      // ---------------
-
-      .done(function(json) {
-        content = '<div>';
-        
-        // add fake news to content
-        var fakeScore = json.fake.rating.score;
-        if ((json.fake.rating.score + '') === '0') {
-          var fake = 'nope';
-        } else if ((json.fake.rating.score + '') === '100') {
-          var fake = 'yes';
-        }
-        content += '<p>' + '<span class="popoverTitles">' + 'Fake News?: ' + '</span>' + fake + '</p>';
-
-        // add bias to content
-        var leaningGifs = {
-          Right: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>',
-          Left: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>'
-        };
-        var leaning = json.bias.bias;
-        content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
-
-        // add emotions to content
-        var emotions = json.emotions.docEmotions;
-        var emos = {};
-        for (var emo in emotions) {
-          emos[emo] = emotions[emo] > 0.5;
-        }
-        content += '<p>' + '<span class="popoverTitles">' + 'Emotions: ' + '</span>';
-        for (var emo in emos) {
-          if (emos[emo]) {
-            content += emo + ', ';
-          }
-        }
-        if (content[content.length - 2] === ':') {
-          content += 'N/A';
-        } else {
-          content = content.slice(0, -2) + '</p>';
-        }
-
-        // add sentiment to content
-        var sentiment = json.sentiment.docSentiment.type;
-        content += '<p>' + '<span class="popoverTitles">' + 'Sentiment: ' + '</span>' + sentiment + '</p>';
-
-        // add report card to content
-        content += '<p><a class="viewReportCard">View Report Card</a><a class="heart"> ♥ </a></p>';
-        content += '</div>';
-
-        // set content to popover
-        $context.attr('data-content', content).data('bs.popover').setContent();
-
-        // ---------------
-        // Handles adding fav link
-        // ---------------
-
-        $('.heart').on('click', function() {
+      setTimeout(function() {
+        if (isItNews(hoverUrl) && flag === hoverUrl) {
+          // retrieve popover content 
           $.ajax({
-            url: 'http://localhost:8000/api/links',
+            url: 'http://localhost:8000/api/popover/test',
             type: 'POST',
-            data: {url: hoverUrl},
+            data: {'url': hoverUrl},
             dataType: 'json'
           })
+
+          // ---------------
+          // Handles adding content to popover
+          // ---------------
+
           .done(function(json) {
-            console.log(json);
-            console.log('completed post req to api/links');
+            console.log('got news data');
+            content = '<div>';
+            
+            // add fake news to content
+            var fakeScore = json.fake.rating.score;
+            if ((json.fake.rating.score + '') === '0') {
+              var fake = 'nope';
+            } else if ((json.fake.rating.score + '') === '100') {
+              var fake = 'yes';
+            }
+            content += '<p>' + '<span class="popoverTitles">' + 'Fake News?: ' + '</span>' + fake + '</p>';
+
+            // add bias to content
+            var leaningGifs = {
+              Right: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>',
+              Left: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>'
+            };
+            var leaning = json.bias.bias;
+            content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
+
+            // add emotions to content
+            var emotions = json.emotions.docEmotions;
+            var emos = {};
+            for (var emo in emotions) {
+              emos[emo] = emotions[emo] > 0.5;
+            }
+            content += '<p>' + '<span class="popoverTitles">' + 'Emotions: ' + '</span>';
+            for (var emo in emos) {
+              if (emos[emo]) {
+                content += emo + ', ';
+              }
+            }
+            if (content[content.length - 2] === ':') {
+              content += 'N/A';
+            } else {
+              content = content.slice(0, -2) + '</p>';
+            }
+
+            // add sentiment to content
+            var sentiment = json.sentiment.docSentiment.type;
+            content += '<p>' + '<span class="popoverTitles">' + 'Sentiment: ' + '</span>' + sentiment + '</p>';
+
+            // add report card to content
+            content += '<p><a class="viewReportCard">View Report Card</a><a class="heart"> ♥ </a></p>';
+            content += '</div>';
+
+            // set content to popover
+            $context.attr('data-content', content).data('bs.popover').setContent();
+
+            // ---------------
+            // Handles adding fav link
+            // ---------------
+
+            $('.heart').on('click', function() {
+              $.ajax({
+                url: 'http://localhost:8000/api/links',
+                type: 'POST',
+                data: {url: hoverUrl},
+                dataType: 'json'
+              })
+              .done(function(json) {
+                console.log(json);
+                console.log('completed post req to api/links');
+              })
+              .fail(function() {
+                console.log('failure on post req to api/links');
+              });
+            });
+
+            // ---------------
+            // Handles viewing report card
+            // ---------------
+
+            $('.viewReportCard').on('click', function() {
+              chrome.tabs.create({url: 'http:localhost:8000/'});
+            });
+
           })
+
           .fail(function() {
-            console.log('failure on post req to api/links');
+            console.log('post req failure');
           });
-        });
-
-        // ---------------
-        // Handles viewing report card
-        // ---------------
-
-        $('.viewReportCard').on('click', function() {
-          chrome.tabs.create({url: 'http:localhost:8000/'});
-        });
-
-      })
-
-      .fail(function() {
-        console.log('post req failure');
-      });
-      
+        }
+      }, 500);
     }
   );
 });
