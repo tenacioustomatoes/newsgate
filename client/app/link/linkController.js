@@ -1,11 +1,29 @@
 angular.module('link.controllers', ['link.services'])
 .controller('HomeController', function($scope, LinkFactory, $location) {
   $scope.starter = 'hi from link controller!';
+  $scope.action = 'Show';
+  $scope.link = [];
   $scope.getLinks = function() {
     LinkFactory.getLinks().then(response => {
-      console.log(response)
-    })
+      console.log(response.data.link)
+      $scope.linksNum = response.data.link.length;
+      $scope.links = response.data.link;
+      $scope.keywords = response.data.link.map(link => {
+        return link.keywords
+      })
+
+      console.log()
+    }) 
   }
+  $scope.showLinks = function() {
+    if ($scope.action === 'Show') {
+      $scope.action = 'Hide';
+    } else {
+      $scope.action = 'Show';
+    }
+    $scope.showLink = !$scope.showLink; 
+  }
+  var merged2 = [].concat(["$6"], ["$12"], ["$25"], ["$25"], ["$18"], ["$22"], ["$10"]);
   $scope.getLinks();
 })
 

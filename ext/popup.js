@@ -75,7 +75,8 @@ var saveLink = function() {
       data: {'url': url},
       dataType: 'json'
     }).done(function(results) {
-      if (results === 'false') {
+      console.log(results)
+      if (results === false) {
         console.log('please login');
       } else {
         console.log(results);
@@ -112,7 +113,7 @@ var loginToFB = function() {
   console.log('in fb login');
   getCurrentTabUrl(function(url) {
     $.ajax({
-      url: 'http://localhost:8000/auth/facebook',
+      url: 'http://localhost:8000/login/facebook',
       type: 'GET',
     }).done(function(results) {
       console.log(results)
@@ -121,7 +122,7 @@ var loginToFB = function() {
         $('#login').toggle();
         $('#logout').toggle();
       } else {
-        chrome.tabs.create({url: 'http://localhost:8000/auth/facebook'});
+        chrome.tabs.create({url: 'http://localhost:8000/login/facebook'});
         window.close(); // Note: window.close(), not this.close() 
       }
     });

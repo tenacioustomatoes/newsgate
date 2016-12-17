@@ -78,6 +78,10 @@ This middlware builds the response object starting with the URL expansion and ta
     res.json(res.compoundContent);
   });
 
+  app.get('/api/links/test', [linkController.getLinksTest], function(req, res, next) {
+    res.json(res.compoundContent);
+  });
+  
   // -----------------
   // Single controller routes
   // -----------------
