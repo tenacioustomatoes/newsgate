@@ -20,14 +20,26 @@ This middlware builds the response object starting with the URL expansion and ta
   // Facebook Authentication Routes
   // -----------------
 
-  app.get('/auth/facebook', passport.authenticate('facebook'), function(req, res) {
+  app.get('/login', function(req, res) {
+    res.redirect('/login/facebook');
   });
 
-  app.get('/auth/facebook/authenticated', passport.authenticate('facebook', { failureRedirect: '/login.html' }),
+  app.get('/login/facebook',
+    passport.authenticate('facebook'),
     function(req, res) {
-      console.log('im here')
-     res.json({status: 'success'});
+      console.log(req.user, ':req.user');
+      res.json({userId: req.user});
     });
+
+  app.get('/login/facebook/return', passport.authenticate('facebook', {failureRedirect: '/login'}),
+    function(req, res) {
+      res.redirect('/');
+    });
+
+  app.get('/logout', function(req, res) {
+    req.logOut();
+    res.redirect('/');
+  });
 
   // -----------------
   // Main API route
