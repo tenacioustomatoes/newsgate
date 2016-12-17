@@ -370,6 +370,8 @@ describe('Server Endpoints: ', function() {
         expect(usaTodayRes.body.data['online.wsj.com']).to.have.property('title');
         expect(usaTodayRes.body.data['online.wsj.com']).to.have.property('rating');
         expect(usaTodayRes.body.data['online.wsj.com']).to.have.property('url');
+
+        done();
       });
 
     });
