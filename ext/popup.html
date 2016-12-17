@@ -58,17 +58,28 @@
   }
 
   </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link rel="stylesheet" href="bootstrap.min.css" />
     <script src="bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="popup.js"></script>
+    <script src="facebook.js"></script>
   <body>
 <html>
 <body>
-    <ul>
+    <ul id="list">
         <li id="SaveLink">Save Link</li>
         <li id="ViewReport">View Full Report</li>
+        <li id="login">Login To Facebook</li>
+        <li hidden id="logout">Logout Facebook</li>
+        <li hidden id="login">Please login</li>
     </ul>
+    <!-- <div id="facebook"> -->
+    <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> -->
+    <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" 
+    data-auto-logout-link="true" onlogin="checkLoginState();"></div>
+    <div id="status">
+    </div>
+</div> -->
 </body>
 </html>
 

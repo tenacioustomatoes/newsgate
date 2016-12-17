@@ -17,18 +17,62 @@ var __filterKeywords = function(keywords) {
   return outputKeywords;
 };
 
-module.exports.saveToDB = function(req, res, next) {
+module.exports = {
 
-  var filtered = __filterKeywords(res.compoundContent['keywords'].keywords);
-  var linkData = {
-    url: req.body.url,
-    title: res.compoundContent.title.title,
-    keywords: filtered
-  };
+  saveToDB: function(req, res, next) {
+    var filtered = __filterKeywords(res.compoundContent['keywords'].keywords);
+    var linkData = {
+      name: req.user.displayName,
+      fbID: req.user.id,
+      url: req.body.url,
+      title: res.compoundContent.title.title,
+      keywords: filtered
+    };
+    console.log('linkDATA!!!!', linkData);
+    var newLinkSave = new SavedLink(linkData);
+    newLinkSave.save(function(err, data) {
+      if (err) {
+        console.log(err);
+      }
+      res.compoundContent = res.compoundContent || {};
+      res.compoundContent['link'] = linkData;
+      next();
+    });
+  },
 
-  var newLinkSave = new SavedLink(linkData);
-  newLinkSave.save().then(err => {
-    res.compoundContent['link'] = linkData;
-    next();
-  });
+  getLinks: function(req, res, next) {
+    if (req.user.id) {
+      SavedLink.find({fbID: req.user.id})
+      .exec(function(err, data) {
+        if (err) {
+          console.log(err);
+        }
+        if (data) {
+          console.log('found link data', data);
+          res.compoundContent = res.compoundContent || {};
+          res.compoundContent['link'] = data;
+        }
+      });
+      next();
+    } else {
+      //No user id found
+      res.sendStatus(403);
+    }
+  },
+
+  getLinksTest: function(req, res, next) {
+    SavedLink.find({fbID: '3609663193669'})
+    .exec(function(err, data) {
+      if (err) {
+        console.log(err);
+      }
+      if (data) {
+        console.log('found link data', data);
+        res.compoundContent = res.compoundContent || {};
+        res.compoundContent['link'] = data;
+        next();
+      }
+    });
+    
+  }
 };

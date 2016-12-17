@@ -1,5 +1,5 @@
 angular.module('newsgate.submit', [])
-.controller('SubmitController', function($scope, $rootScope, Response, State) {
+.controller('SubmitController', function($scope, $rootScope, Response, State, $http) {
   $scope.hideSpinner = State.hideSpinner;
   // Invoke get request to server
   $scope.sendLink = function() {
@@ -10,6 +10,15 @@ angular.module('newsgate.submit', [])
   $scope.saveLink = function() {
     console.log('Saving Link:', $scope.inputLink);
     Response.saveLink($scope.inputLink);
+  }
+
+  $scope.login = function() {
+    console.log('Saving Link:', $scope.inputLink);
+    Response.loginFB();
+    // $http.get('http://localhost:8000/')
+    // .then((res) => {
+    //   console.log(res)
+    // })
   }
 
   $rootScope.$on('updateSpinner', function() {

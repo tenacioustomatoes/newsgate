@@ -1,0 +1,25 @@
+<!-- Basic View Starter -->
+<div>
+  <div>{{starter}}</div>
+  <div>you have {{linksNum}} links saved</div>
+</div>
+<div ng-click='showLinks()'>{{action}} all Links</div>
+
+
+
+  <div>Here are your top 8 keywords</div>
+  <div ng-class='showKeywords'></div>
+    <p ng-repeat>
+    </p>
+    
+
+  </div>
+  
+  <div></div>
+
+  <div ng-class='showLinks'>
+  <div ng-show='showLink' ng-repeat='link in links'>
+    <div>{{link.title}}</div>
+    <div>{{link.url}}</div>
+  </div>
+  </div>

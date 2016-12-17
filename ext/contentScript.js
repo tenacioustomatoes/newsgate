@@ -1,8 +1,46 @@
 $(document).ready(function() {
+  var flag = null;
+  var newsSites;
 
-  // create popover
+  // ---------------
+  // Handles request for news articles
+  // ---------------
+
+  // when the doc is ready, get the json data
+  $.ajax({
+    url: 'http://localhost:8000/api/bias',
+    type: 'GET'
+  })
+  .done(function(json) {
+    console.log('json', json);
+    console.log('json.data', json.data);
+    newsSites = json.data;
+  })
+  .fail(function() {
+    console.log('get req failure');
+  });
+
+  // ---------------
+  // Handles check if url is news site
+  // ---------------
+
+  var isItNews = function(url) {
+    // convert url to just domain
+    var domain = url.replace(/^https?:\/\//, ''); // replace http and https
+    domain = domain.replace(/www.?/, ''); //replace www. or www
+    domain = domain.split('/')[0]; //Get the domain and only the domain
+    //returns true or false
+    console.log(newsSites);
+    return newsSites[domain] !== undefined;
+  };
+
+  // ---------------
+  // Handles creation of popover
+  // ---------------
+
   var gifUrl = chrome.extension.getURL('contentScriptAssets/spin.gif');
-  $('a').attr('data-toggle', 'popover').popover({
+  $('a').attr('data-toggle', 'popover')
+  .popover({
     html: true,
     animation: true,
     container: 'body',
@@ -11,40 +49,61 @@ $(document).ready(function() {
     title: 'Article Quick Stats',
     content: '<img class="gifLoading" src="' + gifUrl + '"/>'
   })
-  // keep popover open while hovering over popover
+
+  // ---------------
+  // Handles popover show
+  // ---------------
+
+  // when the user hovers over a link
   .on('mouseenter', function () {
+    var hoverUrl = $(this).attr('href');
+    if (hoverUrl[0] === '/') {
+      hoverUrl = window.location.hostname + hoverUrl;
+    }
+    flag = hoverUrl;
     var $context = $(this);
-    // slight delay on popover show
-    setTimeout(function () {
-      if ( $context.is(':hover') ) {
-        $context.popover('show');
-        $('.popover').on('mouseleave', function () {
-          $context.popover('hide');
-        });
-      }
-    }, 500);
-  // close popover on mouseleave
+    var context = this;
+
+    // if it's a news site and still hovering over link, show popover
+    if (isItNews(hoverUrl)) {
+      setTimeout(function() {
+        var currHoverUrl = $context.attr('href');
+        if (flag === hoverUrl) { 
+          $context.popover('show');
+          // hide popover when user stops hovering over popover
+          $('.popover').on('mouseleave', function() {
+            $context.popover('hide');
+          });
+        }
+      }, 500);
+    }
+
+  // ---------------
+  // Handles popover hide
+  // ---------------
+
+  // hide the popover when the user stops hovering over link
   }).on('mouseleave', function () {
+    flag = null;
+    // console.log('mouseleave link');
     var $context = $(this);
-    // delay on popover hide, when not hovering over popover itself
-    setTimeout(function () {
-      if ( !$('.popover:hover').length ) {
-        $context.popover('hide');
-      }
-    }, 200);
+    if ( !$('.popover:hover').length ) {
+      $context.popover('hide');
+    }
   });
+
+  // ---------------
+  // Handles request for popover content
+  // ---------------
 
   $('a').hover(
     function(e) {
       var $context = $(this);
       var hoverUrl = $(this).attr('href');
- 
       // if not complete url, attach to domain
       if (hoverUrl[0] === '/') {
-        console.log('hostname', window.location.hostname);
         hoverUrl = window.location.hostname + hoverUrl;
       }
-      
       // retrieve popover content 
       $.ajax({
         url: 'http://localhost:8000/api/popover/test',
@@ -53,8 +112,11 @@ $(document).ready(function() {
         dataType: 'json'
       })
 
+      // ---------------
+      // Handles adding content to popover
+      // ---------------
+
       .done(function(json) {
-        console.log(json);
         content = '<div>';
         
         // add fake news to content
@@ -74,12 +136,10 @@ $(document).ready(function() {
         var leaning = json.bias.bias;
         content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
 
-
         // add emotions to content
         var emotions = json.emotions.docEmotions;
         var emos = {};
         for (var emo in emotions) {
-          // console.log(emo, emotions[emo]);
           emos[emo] = emotions[emo] > 0.5;
         }
         content += '<p>' + '<span class="popoverTitles">' + 'Emotions: ' + '</span>';
@@ -96,15 +156,43 @@ $(document).ready(function() {
 
         // add sentiment to content
         var sentiment = json.sentiment.docSentiment.type;
-        content += '<p>' + '<span class="popoverTitles">' + 'Sentiment: ' + '</span>' + sentiment +  '</p>';
+        content += '<p>' + '<span class="popoverTitles">' + 'Sentiment: ' + '</span>' + sentiment + '</p>';
 
         // add report card to content
-        content += '<p><a>View Report Card</a><span class="heart"> ♥ </span></p>';
+        content += '<p><a class="viewReportCard">View Report Card</a><a class="heart"> ♥ </a></p>';
         content += '</div>';
-        // console.log('content', content);
 
         // set content to popover
         $context.attr('data-content', content).data('bs.popover').setContent();
+
+        // ---------------
+        // Handles adding fav link
+        // ---------------
+
+        $('.heart').on('click', function() {
+          $.ajax({
+            url: 'http://localhost:8000/api/links',
+            type: 'POST',
+            data: {url: hoverUrl},
+            dataType: 'json'
+          })
+          .done(function(json) {
+            console.log(json);
+            console.log('completed post req to api/links');
+          })
+          .fail(function() {
+            console.log('failure on post req to api/links');
+          });
+        });
+
+        // ---------------
+        // Handles viewing report card
+        // ---------------
+
+        $('.viewReportCard').on('click', function() {
+          chrome.tabs.create({url: 'http:localhost:8000/'});
+        });
+
       })
 
       .fail(function() {
@@ -113,7 +201,6 @@ $(document).ready(function() {
       
     }
   );
-
 });
 
 
