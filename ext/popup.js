@@ -64,6 +64,17 @@ var saveLink = function() {
 // Default value for userId
 var userId = null;
 
+
+var viewReport = function() {
+  getCurrentTabUrl(function(url) {
+    window.open('http://localhost:8000/?' + url);
+  });
+};
+
+var viewLinks = function() {
+  window.open('http://localhost:8000/viewlinks');
+};
+
 var showLoginButton = function(showLogin) {
   if (showLogin) {
     console.log('lets showoff some login');
@@ -132,23 +143,25 @@ var facebookLogout = function() {
   });
 };
 
- $.ajax({
-    url: 'http://localhost:8000/login/check',
-    type: 'GET',
-    dataType: 'json'
-  }).done(function(results) {
-    chrome.storage.sync.set({'userId': results.userId});
-    console.log('recieved login check results:', results);
-    userIdChangeHandler(results.userId);
-    if (results.userId) {
-      console.log('UserId found');
-    } else {
-      console.log('No userId found');
-    }
-  });
+$.ajax({
+  url: 'http://localhost:8000/login/check',
+  type: 'GET',
+  dataType: 'json'
+}).done(function(results) {
+  chrome.storage.sync.set({'userId': results.userId});
+  console.log('recieved login check results:', results);
+  userIdChangeHandler(results.userId);
+  if (results.userId) {
+    console.log('UserId found');
+  } else {
+    console.log('No userId found');
+  }
+});
 
 $(document).ready(function() {
   $('#SaveLink').on('click', saveLink);
+  $('#ViewReport').on('click', viewReport);
+  $('#ViewLinks').on('click', viewLinks);
   $('#login').on('click', facebookLogin);
   $('#logout').on('click', facebookLogout);
 
