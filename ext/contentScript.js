@@ -195,7 +195,7 @@ $(document).ready(function() {
             // ---------------
 
             $('.viewReportCard').on('click', function() {
-              window.open('http://localhost:8000/');
+                window.open('http://localhost:8000/?' + hoverUrl);
             });
 
           })
