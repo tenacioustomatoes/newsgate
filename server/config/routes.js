@@ -64,6 +64,17 @@ This middlware builds the response object starting with the URL expansion and ta
   // Dummy data for testing popover
   app.post('/api/popover/test', watsonTestController.data);
 
+
+  // -----------------
+  // Report Card route
+  // -----------------
+
+  var reportcardArr = [watsonController.getTitle, watsonController.getEmotions, watsonController.getSentiment, biasController.getData];
+
+  app.post('/api/reportcard', reportcardArr, function(req, res, next) {
+    res.json(res.compoundContent);
+  });
+
   // -----------------
   // Links routes
   // -----------------
