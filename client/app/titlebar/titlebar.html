@@ -55,12 +55,12 @@
         <!-- The check for the blacklist-->
         <div ng-show="{{!fake}}">
           <td ng-show="{{!fake}}" class="tablerow">No</td>
-  <!--         i need to fix this -->
+  <!-- not fake news -->
           <td ng-show="{{!fake}}" class="tablerow">A+</div></td>
         </div>
         <div ng-show="fake">
           <td ng-show="fake" class="tablerow">Yes</td>
-  <!--         i need to fix this -->
+  <!--if fake news -->
           <td ng-show="fake" class="tablerow">F-</div></td>
         </div>
 
@@ -68,7 +68,10 @@
       <tr ng-controller="ReportCardController">
         <td class="tablerow">Bias<sup><a href="#">[2]</a></sup></td>
         <td class="tablerow">{{bias}}</td>
-        <td class="tablerow"><div class="fa fa-star left" aria-hidden="true"></div></td>
+<!-- render the stars for the leaning -->
+        <td ng-show="lean == 'left'"class="tablerow"><div class="fa fa-star left" aria-hidden="true" ng-cloak></div></td>
+        <td ng-show="lean == 'right'"class="tablerow"><div class="fa fa-star right" aria-hidden="true" ng-cloak></div></td>
+        <td ng-show="lean == 'center'"class="tablerow"><div class="fa fa-star center" aria-hidden="true" ng-cloak></div></td>
       </tr>
       <tr ng-controller="ReportCardController">
         <td class="tablerow">Emotion</td>

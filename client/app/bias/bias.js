@@ -14,6 +14,7 @@ angular.module('newsgate.reportcard', [])
     .then(function(res) {
       console.log('res', res);
       $scope.bias = res.data.bias.bias[0];
+      $scope.leaning($scope.bias);
       $scope.sentiment = res.data.sentiment.docSentiment.type; // positive or negative
       var emos = res.data.emotions.docEmotions;
       $scope.emotions = {};  // key is emotion and value is true/false, ng-repeat, if none true, N/A
@@ -26,6 +27,16 @@ angular.module('newsgate.reportcard', [])
     });
   // };
 
-  // $scope.searchBias();
+  $scope.leaning = function(bias){
+    if ($scope.bias === 'Left' || 'Lean Left') {
+      $scope.lean = 'left';
+    }
+    if ($scope.bias === 'Right' || 'Lean Right') {
+      $scope.lean = 'right';
+    }
+    if ($scope.bias === 'Center') {
+      $scope.lean = 'center';
+    }
+  }
 
 });
