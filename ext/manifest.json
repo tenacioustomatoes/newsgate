@@ -19,7 +19,7 @@
     {
       "matches": ["http://*/*", "https://*/*"],
       "css": ["bootstrap.min.css", "contentScript.css"],
-      "js": ["jquery.min.js", "bootstrap.min.js", /*"hoverIntent.min.js",*/ "contentScript.js"]
+      "js": ["jquery.min.js", "bootstrap.min.js", "contentScript.js"]
     }
   ],
   "web_accessible_resources": [
