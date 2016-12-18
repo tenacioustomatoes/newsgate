@@ -6,7 +6,7 @@ module.exports = {
       next();
     } else {
       console.log('not authenticated');
-      res.send('false');
+      res.redirect('/login.html');
     }
   }
 };
