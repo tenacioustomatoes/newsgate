@@ -24,21 +24,31 @@ This middlware builds the response object starting with the URL expansion and ta
     res.redirect('/login/facebook');
   });
 
+  app.get('/login/check', function(req, res) {
+    if (req.user) {
+      res.json({userId: req.user.id});
+    } else {
+      res.redirect('/');
+    }
+  });
+
   app.get('/login/facebook',
     passport.authenticate('facebook'),
     function(req, res) {
-      console.log(req.user, ':req.user');
-      res.json({userId: req.user});
+      console.log(req.user.id, ':req.user.id');
+      res.json({userId: req.user.id});
     });
 
   app.get('/login/facebook/return', passport.authenticate('facebook', {failureRedirect: '/login'}),
     function(req, res) {
-      res.redirect('/linkDisplay.html');
+
+      res.json({userId: req.user.id});
+
     });
 
   app.get('/logout', function(req, res) {
     req.logOut();
-    res.redirect('/');
+    res.json({status: 'logout success'});
   });
 
   // -----------------
@@ -93,6 +103,7 @@ This middlware builds the response object starting with the URL expansion and ta
     res.json(res.compoundContent);
   });
 
+
   // -----------------
   // Authenticated Display routes
   // -----------------
@@ -100,6 +111,7 @@ This middlware builds the response object starting with the URL expansion and ta
     res.redirect('/linkDisplay.html');
   });
   
+
   // -----------------
   // Single controller routes
   // -----------------
