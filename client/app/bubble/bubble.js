@@ -7,11 +7,12 @@ angular.module('newsgate.bubble', [])
     console.log('CLIENT: updated keywords ->', $scope.data);
   });
 
+
 })
 .directive('bubbleChart', function() {
   return {
     restrict: 'E',
     scope: { data: '='},
-    template: "<div class='col-md-12' ng-repeat='keywords in data'><div class='label label-default'>{{keywords.text}}</div></div>"
+    template: "<div class='col-md-12 keywords'><div ng-repeat='keywords in data | limitTo:7'><span class='label label-default'>{{keywords.text}}&nbsp</span></div></div>"
     };
 });
