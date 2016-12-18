@@ -13,9 +13,6 @@ angular.module('newsgate.trends', [])
   });
 })
 .directive('trendGraph', function() {
-  // console.log('isD3 Loaded?', d3);
-  // return the custom directive
-
   return {
     restrict: 'E', // only matches element name
     scope: { data: '=' }, // isolate scope. essentially removes the two way data binding

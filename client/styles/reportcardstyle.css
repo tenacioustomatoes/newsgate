@@ -52,6 +52,15 @@
   background-color: #FFEDB0;
 }
 
+.mainheader {
+  font-family: 'Adamina', sans-serif;
+  text-align: center;
+  margin: 0;
+  background: black;
+  height: 50px;
+  color: #ffedb0;
+}
+
 html {
   font-family: 'Raleway', sans-serif;
   -ms-text-size-adjust: 100%;
