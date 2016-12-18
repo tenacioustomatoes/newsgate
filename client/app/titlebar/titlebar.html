@@ -53,15 +53,15 @@
         <td id="tablerow">Blacklist<sup><a href="#">[1]</a></sup></td>
 
         <!-- The check for the blacklist-->
-        <div ng-show="fake">
-          <td ng-show="fake" class="tablerow">No</td>
-  <!--         i need to fix this -->
-          <td ng-show="fake" class="tablerow"><div class="fa fa-check" aria-hidden="true"></div></td>
-        </div>
         <div ng-show="{{!fake}}">
-          <td ng-show="{{!fake}}" class="tablerow">Yes</td>
+          <td ng-show="{{!fake}}" class="tablerow">No</td>
   <!--         i need to fix this -->
-          <td ng-show="{{!fake}}" class="tablerow"><div class="fa fa-check" aria-hidden="true"></div></td>
+          <td ng-show="{{!fake}}" class="tablerow">A+</div></td>
+        </div>
+        <div ng-show="fake">
+          <td ng-show="fake" class="tablerow">Yes</td>
+  <!--         i need to fix this -->
+          <td ng-show="fake" class="tablerow">F-</div></td>
         </div>
 
       </tr>
