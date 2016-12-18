@@ -42,6 +42,7 @@ angular.module('link.controllers', ['link.services'])
   }
   //var merged2 = [].concat(["$6"], ["$12"], ["$25"], ["$25"], ["$18"], ["$22"], ["$10"]);
   $scope.getLinks();
+  console.log($location.path());
 })
 
 

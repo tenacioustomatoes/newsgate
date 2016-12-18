@@ -8,7 +8,6 @@ angular.module('newsgate', [
   'newsgate.tweets',
   'newsgate.nav',
   'newsgate.bias',
-  'newsgate.link',
   'ngRoute'
 ])
 .config(function($routeProvider) {
