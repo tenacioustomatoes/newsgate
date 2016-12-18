@@ -40,8 +40,6 @@ function getCurrentTabUrl(callback) {
   });
 }
 
-
-
 var saveLink = function() {
   console.log('in save link');
   getCurrentTabUrl(function(url) {
@@ -63,32 +61,95 @@ var saveLink = function() {
   });
 };
 
+// Default value for userId
+var userId = null;
 
+var showLoginButton = function(showLogin) {
+  if (showLogin) {
+    console.log('lets showoff some login');
+    $('#login').show();
+    $('#logout').hide();
+  } else {
+    console.log('put that login away');
+    $('#logout').show();
+    $('#login').hide();
+  }
+};
 
-var loginToFB = function() {
-  console.log('in fb login');
-  getCurrentTabUrl(function(url) {
-    $.ajax({
-      url: 'http://localhost:8000/login/facebook',
-      type: 'GET',
-    }).done(function(results) {
-      console.log('results', results);
-      if (results.status === 'success') {
-        console.log('signed in');
-        $('#login').toggle();
-        $('#logout').toggle();
-      } else {
-        chrome.tabs.create({url: 'http://localhost:8000/login/facebook'});
-        window.close(); // Note: window.close(), not this.close()
-      }
+var updateLoginButton = function() {
+  console.log('userId in updatebutton', userId);
+  if (userId) {
+    showLoginButton(false);
+  } else {
+    showLoginButton(true);
+  }
+};
+
+var userIdChangeHandler = function(newId) {
+  console.log('userIdChangeHandler');
+  console.log('comparing current', userId);
+  console.log('to new', newId);
+  if (userId === newId) {
+    console.log('same old same old');
+    //No change
+    return;
+  } else {
+    console.log('things about to get different');
+    userId = newId;
+    updateLoginButton();
+  }
+};
+
+chrome.storage.sync.get('userId', function(result) {
+  console.log('sync result', result);
+  userIdChangeHandler(userId, result);
+});
+
+var facebookLogin = function() {
+  console.log('attempt login');
+  $.ajax({
+    url: 'http://localhost:8000/login/facebook',
+    type: 'GET',
+  }).done(function(results) {
+    console.log('login results', results);
+    chrome.storage.sync.set({'userId': results.userId});
+    chrome.storage.sync.get('userId', function(result) {
+      console.log('check sync storage after settings', result);
     });
+    userIdChangeHandler(results.userId);
   });
 };
 
+var facebookLogout = function() {
+  console.log('attempt logout');
+  $.ajax({
+    url: 'http://localhost:8000/logout',
+    type: 'GET',
+  }).done(function(results) {
+    console.log('logout results', results);
+    chrome.storage.sync.set({'userId': null});
+    userIdChangeHandler(null);
+  });
+};
 
-
+ $.ajax({
+    url: 'http://localhost:8000/login/check',
+    type: 'GET',
+    dataType: 'json'
+  }).done(function(results) {
+    chrome.storage.sync.set({'userId': results.userId});
+    console.log('recieved login check results:', results);
+    userIdChangeHandler(results.userId);
+    if (results.userId) {
+      console.log('UserId found');
+    } else {
+      console.log('No userId found');
+    }
+  });
 
 $(document).ready(function() {
   $('#SaveLink').on('click', saveLink);
-  $('#login').on('click', loginToFB);
+  $('#login').on('click', facebookLogin);
+  $('#logout').on('click', facebookLogout);
+
 });
