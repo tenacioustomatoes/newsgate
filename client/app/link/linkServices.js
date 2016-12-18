@@ -3,7 +3,7 @@ angular.module('link.services', [])
   var getLinks = function () {
     return $http({
       method: 'GET',
-      url: 'http://localhost:8000/api/links/test' //i'm using the escape option for server 
+      url: 'http://localhost:8000/api/links' //i'm using the escape option for server 
     }, function(response) {
       return response;
     })
@@ -20,8 +20,12 @@ angular.module('link.services', [])
     })
   }
 
+  var login = function () {
+  }  
+
   return {
     getLinks: getLinks,
-    sendLinks: sendLinks
+    sendLinks: sendLinks, 
+    login: login
   }
 })

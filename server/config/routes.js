@@ -33,7 +33,7 @@ This middlware builds the response object starting with the URL expansion and ta
 
   app.get('/login/facebook/return', passport.authenticate('facebook', {failureRedirect: '/login'}),
     function(req, res) {
-      res.redirect('/');
+      res.redirect('/linkDisplay.html');
     });
 
   app.get('/logout', function(req, res) {
@@ -80,6 +80,13 @@ This middlware builds the response object starting with the URL expansion and ta
 
   app.get('/api/links/test', [linkController.getLinksTest], function(req, res, next) {
     res.json(res.compoundContent);
+  });
+
+  // -----------------
+  // Authenticated Display routes
+  // -----------------
+  app.get('/viewlinks', [ensureAuthenication.authenticated], function(req, res, next) {
+    res.redirect('/linkDisplay.html');
   });
   
   // -----------------

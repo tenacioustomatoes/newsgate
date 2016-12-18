@@ -40,9 +40,11 @@ angular.module('link.controllers', ['link.services'])
     $scope.showlink = true;
     $scope.showkeyword = false;      
   }
-  //var merged2 = [].concat(["$6"], ["$12"], ["$25"], ["$25"], ["$18"], ["$22"], ["$10"]);
+
+  $scope.login = function () {
+    $window.location.href = 'http://localhost:8000/login/facebook'
+  }
   $scope.getLinks();
-  console.log($location.path());
 })
 
 

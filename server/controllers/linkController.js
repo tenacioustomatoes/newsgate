@@ -66,9 +66,9 @@ module.exports = {
           console.log('found link data', data);
           res.compoundContent = res.compoundContent || {};
           res.compoundContent['link'] = data;
+          next();
         }
       });
-      next();
     } else {
       //No user id found
       res.sendStatus(403);
@@ -76,18 +76,18 @@ module.exports = {
   },
 
   getLinksTest: function(req, res, next) {
-    SavedLink.find({fbID: '3609663193669'})
-    .exec(function(err, data) {
-      if (err) {
-        console.log(err);
-      }
-      if (data) {
-        console.log('found link data', data);
-        res.compoundContent = res.compoundContent || {};
-        res.compoundContent['link'] = data;
-        next();
-      }
-    });
+    // SavedLink.find({fbID: '3609663193669'})
+    // .exec(function(err, data) {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   if (data) {
+    //     console.log('found link data', data);
+    //     res.compoundContent = res.compoundContent || {};
+    //     res.compoundContent['link'] = data;
+    //     next();
+    //   }
+    // });
     
   }
 };
