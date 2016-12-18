@@ -1,6 +1,6 @@
 <div id="titlebarContainer" ng-controller="TitlebarController">
   <!-- <div class="centerGeneric">LOADED TITLEBAR COMPONENT</div> -->
-  <div class="panel panel-default">
+ <!--  <div class="panel panel-default">
     <div class="panel-body">
       <div class="titlebarTitle" class="centerGeneric">{{title}}</div>
       <div class="alert alert-success" role="alert" ng-hide="fake">
@@ -13,4 +13,78 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<div ng-controller="TitlebarController">
+ <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="titlebarTitle" class="centerGeneric">{{title}}</div>
+      <div class="alert alert-success" role="alert" ng-hide="fake">
+        <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+        This domain is not on our blacklist. Use the report button if you think it should be.
+      </div>
+      <div class="alert alert-danger" role="alert" ng-hide="{{!fake}}">
+        <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+        This article is from a domain on our blacklist. It may contain biased or falsified content.
+      </div>
+    </div>
+  </div>
+  </div>
+ -->
+
+<div class="reportcard">
+<table class="table table-hover" id="innercard">
+<div id="innercard">
+    <div><h1 class="mainheader"><b>ARTICLE REPORT CARD</b></h1></div>
+    <div><h3 class="headers title">{{title}}</h3></div>
+</div>
+    <thead>
+      <tr>
+        <th><i>Metric</i></th>
+        <th><i>Grade</i></th>
+        <th><i>Scale</i></th>
+      </tr>
+    </thead>
+
+
+    <tbody>
+      <tr id="tablerow" ng-controller="TitlebarController">
+        <td id="tablerow">Blacklist<sup><a href="#">[1]</a></sup></td>
+
+        <!-- The check for the blacklist-->        
+        <div ng-show="fake">
+          <td ng-show="fake" class="tablerow">No</td>
+  <!--         i need to fix this -->
+          <td ng-show="fake" class="tablerow"><div class="fa fa-check" aria-hidden="true"></div></td>
+        </div>
+        <div ng-show="{{!fake}}">
+          <td ng-show="{{!fake}}" class="tablerow">Yes</td>
+  <!--         i need to fix this -->
+          <td ng-show="{{!fake}}" class="tablerow"><div class="fa fa-check" aria-hidden="true"></div></td>
+        </div>
+
+      </tr>
+      <tr ng-controller="ReportCardController">
+        <td class="tablerow">Bias<sup><a href="#">[2]</a></sup></td>
+        <td class="tablerow">{{bias}}</td>
+        <td class="tablerow"><div class="fa fa-star left" aria-hidden="true"></div></td>
+      </tr>
+      <tr ng-controller="ReportCardController">
+        <td class="tablerow">Emotion</td>
+        <td class="tablerow">{{emotions}}</td>
+        <td><div class="fa fa-check positive" aria-hidden="true"></div></td>
+      </tr>
+      <tr ng-controller="ReportCardController">
+        <td>Sentiment</td>
+        <td>{{sentiment}}</td>
+        <td><div class="fa fa-smile-o happy" aria-hidden="true"></div></td>
+      </tr>
+    </tbody>
+  </table>
+<div>
+  <div><span>Top Keywords <span class="label label-default">New</span> <span class="label label-default">New</span> <span class="label label-default">New</span> </span></div>
+</div>
+<h4>Sources</h4>
+</div>
 </div>

@@ -27,7 +27,7 @@ module.exports = {
           'bias': biasResult
         };
         res.compoundContent = res.compoundContent || {};
-        res.compoundContent['bias'] = response; // how does this work?
+        res.compoundContent['bias'] = response;
         next();
 
       } else {

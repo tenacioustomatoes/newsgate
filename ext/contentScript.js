@@ -191,11 +191,11 @@ $(document).ready(function() {
             });
 
             // ---------------
-            // Handles viewing report card
+            // Handles viewing report card in new tab
             // ---------------
 
             $('.viewReportCard').on('click', function() {
-              window.open('http://localhost:8000/');
+              window.open('http://localhost:8000/?' + hoverUrl);
             });
 
           })
