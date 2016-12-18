@@ -41,29 +41,6 @@ function getCurrentTabUrl(callback) {
 }
 
 
-// getCurrentTabUrl(function(tabUrl) {
-//   var urlData = $.ajax({
-//     url: 'http://localhost:8000/api/ext',
-//     type: 'POST',
-//     data: {'url': tabUrl},
-//     dataType: 'json'
-//   })
-//   .done(function (json) {
-//     console.log(json);
-//     var rating = '';
-//     if ((json.fake.rating.score + '') === '0') {
-//       rating = 'This page does not exist in our Fake News blacklist.';
-//     } else if ((json.fake.rating.score + '') === '100') {
-//       rating = 'WARNING: This page is hosted on a domain that has been blacklisted because of fake news.';
-//     }
-//     //$("<h1>").text(rating).appendTo('body');
-//   })
-//   .fail(function( xhr, status, errorThrown ) {
-//     console.log( "Error: " + errorThrown );
-//     console.log( "Status: " + status );
-//     console.dir( xhr );
-//   });
-// });
 
 var saveLink = function() {
   console.log('in save link');
@@ -75,7 +52,7 @@ var saveLink = function() {
       data: {'url': url},
       dataType: 'json'
     }).done(function(results) {
-      console.log(results)
+      console.log(results);
       if (results === false) {
         console.log('please login');
       } else {
@@ -86,52 +63,28 @@ var saveLink = function() {
   });
 };
 
-// var loginToFB = function() {
-//   console.log('in fb login');
-//   getCurrentTabUrl(function(url) {
-//     $.ajax({
-//       url: 'http://localhost:8000/auth/facebook',
-//       type: 'GET',
-//     }).done(function(results) {
-//       console.log(results);
-//       console.log('here!!!');
-//       if (results.status === 'success') {
-//         console.log('signed in')
-//         $('#login').toggle();
-//         $('#logout').toggle();
-//       } else {
-//         chrome.tabs.create({url: 'http://localhost:8000/auth/facebook'});
-//         window.close(); // Note: window.close(), not this.close()
-//           //console.log(results)
-//       }
-//     });
-//   })
-// }
+
 
 var loginToFB = function() {
-//<<<<<<< HEAD
   console.log('in fb login');
   getCurrentTabUrl(function(url) {
     $.ajax({
       url: 'http://localhost:8000/login/facebook',
       type: 'GET',
     }).done(function(results) {
-      console.log(results)
+      console.log('results', results);
       if (results.status === 'success') {
-        console.log('signed in')
+        console.log('signed in');
         $('#login').toggle();
         $('#logout').toggle();
       } else {
         chrome.tabs.create({url: 'http://localhost:8000/login/facebook'});
-        window.close(); // Note: window.close(), not this.close() 
+        window.close(); // Note: window.close(), not this.close()
       }
     });
-  })
-}    
-// =======
-//   chrome.tabs.create({url: 'http://localhost:8000/login'});
-// };
-//>>>>>>> a8674abc4571094fee32badb8ae88d1ef846a8e0
+  });
+};
+
 
 
 
