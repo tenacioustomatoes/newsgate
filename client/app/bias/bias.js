@@ -6,34 +6,25 @@
 //4 - right right
 //http://www.allsides.com/bias/bias-ratings
 
-angular.module('newsgate.bias', [])
-.controller('BiasController', function($scope, $rootScope, $http, Data) {
-  $scope.biasResult = '';
+angular.module('newsgate.reportcard', [])
+.controller('ReportCardController', function($scope, $rootScope, $http, Data) {
 
-  var rating = {
-    '0': "Far Left",
-    '1': 'Left',
-    '2': 'Center',
-    '3': 'Right',
-    '4': 'Far Right'
-  };
-
-  //should be fired when query is set off
-  $scope.searchBias = function(url) {
-    url = 'cbs.com';
-    url = url.toLowerCase();
-    $http.get('/api/bias')
-      .then(function(res) {
-        $scope.biasData = res.data[0];
-        console.log('bias data',$scope.biasData);
-        console.log($scope.biasData[url]);
-        if ($scope.biasData[url]) {
-          console.log('Rating: ',rating[$scope.biasData[url]]);
-        } else {
-          console.log('Bias rating not avaliable.')
-        }
-      });
-  };
+  reqUrl = location.search.substring(1);
+  $http.post('/api/reportcard', {url: reqUrl})
+    .then(function(res) {
+      console.log('res', res);
+      $scope.bias = res.data.bias.bias[0];
+      $scope.sentiment = res.data.sentiment.docSentiment.type; // positive or negative
+      var emos = res.data.emotions.docEmotions;
+      $scope.emotions = {};  // key is emotion and value is true/false, ng-repeat, if none true, N/A
+      for (var emo in emos) {
+        $scope.emotions[emo] = emos[emo] > 0.5;
+      }
+    })
+    .catch(function(err) {
+      console.log('err', err);
+    });
+  // };
 
   // $scope.searchBias();
 
