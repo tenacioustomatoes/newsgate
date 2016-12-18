@@ -14,12 +14,26 @@
 <br>
 
   <div ng-class='keywordsTab' ng-show='showkeyword'>
-    <h2>Here are your top 8 keywords</h2>
+    <h3>Here are your top 8 keywords</h3>
     <div ng-class='showKeywords'>
       <div ng-repeat='word in keywords | limitTo:8 track by $index'>
+      <!-- <div ng-repeat='word in keywords | limitTo:8 track by $index'> -->
         <div ng-click="filterByKeyword(keywords[$index])">
         {{word.text}}
         </div>
+      </div>
+      <div>...</div>
+      <br>
+      <h3>Search For Your Links by keywords</h3>
+      <input type="search" ng-model="search.text" 
+      placeholder="filter by keywords" />
+      <div ng-class='allKeyWords' ng-show='search.text.length > 2'> 
+        <div ng-repeat='word in keywords | filter:search track by $index'>
+          <div ng-click="filterByKeyword(keywords[$index])">
+          {{word.text}}
+          </div>
+        </div>
+        <br>
       </div>
     </div>
 

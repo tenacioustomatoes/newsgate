@@ -76,7 +76,7 @@ module.exports = {
   },
 
   getLinksTest: function(req, res, next) {
-    SavedLink.find({fbID: '360843914285104'})
+    SavedLink.find({fbID: '3609663193669'})
     .exec(function(err, data) {
       if (err) {
         console.log(err);
