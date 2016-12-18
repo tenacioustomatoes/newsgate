@@ -33,13 +33,18 @@
   <head>
   <style>
     body {
-      font-family: arial;
-      font-size: 12pt;
+      font-family: 'Adamina', sans-serif;
+      font-size: 11pt;
       margin: 0;
       padding: 0;
-      color: #06477D;
-      border: 2px solid #06477D;
-      border-radius: 3px;
+      color: #000000;
+      border: 2px solid  #000000;
+      background:  yellow;
+      /*color: #06477D;*/
+      /*border: 2px solid #06477D;*/
+/*      color: #fff1bf;
+      border: 2px solid  #fff1bf;*/
+      border-radius: 4px;
     }
 
     ul {
@@ -50,13 +55,18 @@
     }
 
     li {
+      border: 1px solid  #777777;
+      background:  #fcf4db;
+      /*background:  #fff1bf;*/
       text-align: center;
       padding: 5px 20px;
     }
 
     li:hover {
-      background: #06477D;
-      color: white;
+      /*background: #06477D;*/
+            background:  #fff1bf;
+      /*background:  #fcf4db;*/
+      color: black;
     }
 
   </style>
@@ -70,7 +80,8 @@
 <body>
     <ul id="list">
         <li id="SaveLink">Save Link</li>
-        <li id="ViewReport">View Full Report</li>
+        <li id="ViewLinks">View Links</li>
+        <li id="ViewReport">Report Card</li>
         <li id="login">Login To Facebook</li>
         <li hidden id="logout">Logout of Facebook</li>
     </ul>
