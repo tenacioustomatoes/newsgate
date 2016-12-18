@@ -1,13 +1,24 @@
+
 .keywords {
   display: flex;
+}
+
+.twitterContainer {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .topHeaders {
   width: 75%;
 }
 .divTable{
-	display: table;
-	width: 100%;
+  margin: 0 auto;
+  width: 75%;
+  display: table;
+  width: 100%;
 }
 .divTableRow {
 	display: table-row;
@@ -42,14 +53,12 @@
   color: green;
 }
 
-/*#innercard {
+#innercard {
   width: 75%;
-  margin: auto;
-  border: black;
-  border-style: double;
-  margin-bottom: 25px;
+  margin: 0 auto;
 }
 
+/*
 .title{
   margin: 30px;
 }
@@ -134,6 +143,7 @@
 }
 
 #trendsContainer {
+  width: 50%;
   background-color: white;
   margin: 0px;
   align-items: center;

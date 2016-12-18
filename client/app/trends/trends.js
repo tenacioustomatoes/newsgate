@@ -40,16 +40,19 @@ angular.module('newsgate.trends', [])
         labelDate.push(key);
         labelValue.push(dates[key]/7);
       }
-      // console.log(labelValue);
-      // console.log(labelDate);
+
 
       var ctx = document.getElementById('myChart').getContext('2d');
+      ctx.canvas.width = 300;
+      ctx.canvas.height = 300;
       var myChart = new Chart(ctx, {
         type: 'line',
+        labelFontSize: 20,
         data: {
           labels: labelDate,
           datasets: [{
             label: title,
+            labelFontSize: 20,
             data: labelValue,
             backgroundColor: "rgba(160,160,160,0.4)"
           }]
@@ -59,6 +62,7 @@ angular.module('newsgate.trends', [])
           scales: {
             yAxes: [{
                 ticks: {
+                fontSize: 20,
                 max: 300
               }
             }]
