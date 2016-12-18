@@ -11,6 +11,8 @@ angular.module('newsgate.submit', [])
     console.log('Saving Link:', $scope.inputLink);
     Response.saveLink($scope.inputLink);
   }
+  $scope.inputLink = location.search.substring(1);
+  $scope.sendLink();
 
   $scope.login = function() {
     console.log('Saving Link:', $scope.inputLink);

@@ -20,7 +20,6 @@ angular.module('newsgate.services', [])
   // });
 
   var sendLink = function(url) {
-    State.hideSpinner = false;
     State.hideNav = true;
     $rootScope.$emit('updateSpinner');
     $rootScope.$emit('updateNav');
@@ -54,6 +53,8 @@ angular.module('newsgate.services', [])
           toggle = true;
         }
       }
+      State.hideSpinner = false;
+
 
       $rootScope.$emit('updateSpinner');
       $rootScope.$emit('updateNav');
