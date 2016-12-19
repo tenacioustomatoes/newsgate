@@ -1,11 +1,33 @@
-html {
-  background-color: rgb(255,255,240);
+.navbarlinks {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
 }
 
-#topbar {
-  display: inline-block;
-  margin: 0 auto;
-  padding 0 0 0 0;
+.search {
+  width: 50%;
+}
+
+.words {
+  margin: 15px;
+}
+
+
+.topbar:hover {
+  background: #fff1bf;
+  cursor: pointer;
+}
+
+.topbar {
+  background: #FFF8DF;
+  padding-top: 10px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 .grade{
@@ -13,11 +35,11 @@ html {
 }
 
 .table tbody tr:hover td, .table tbody tr:hover th {
-  background-color: #fff1bf;
+    background-color: #fff1bf;
 }
 
 #tablerow {
-  border-top: 1px solid #000;
+    border-top: 1px solid #000;
 
 }
 
@@ -32,7 +54,6 @@ html {
   height: 50px;
   color: #ffedb0;
 }
-
 
 .keywords {
   display: flex;
@@ -56,27 +77,18 @@ html {
   width: 100%;
 }
 .divTableRow {
-  display: table-row;
+	display: table-row;
 }
 
 .divTableCell, .divTableHead {
-  border: 1px solid #000;
-  display: table-cell;
-  padding: 3px 10px;
+	border: 1px solid #000;
+	display: table-cell;
+	padding: 3px 10px;
 }
 
 .divTableBody {
-  display: table-row-group;
+	display: table-row-group;
 }
-
-/*.table tbody tr:hover td, .table tbody tr:hover th {
-    background-color: #fff1bf;
-}*/
-
-/*.headers {
-  font-family: 'Adamina', sans-serif;
-  text-align: center;
-}*/
 
 .left {
   color: blue;
@@ -85,6 +97,9 @@ html {
   color: green;
 }
 
+.linkbody{
+  background: rgb(255,255,240);
+}
 .center {
   color: purple;
 }
@@ -94,20 +109,13 @@ html {
   margin: 0 auto;
 }
 
-/*
-.title{
-  margin: 30px;
-}
-}*/
-
 .reportcard {
   border-color: #000 ;
   border-style: solid;
   width: 75%;
   margin: auto;
-  margin-bottom: 20px;
   background-color: #fff1bf;
-  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 #spinner {
@@ -206,7 +214,8 @@ html {
 }
 
 #titlebarContainer {
-  width: 100%;
+  width: 80%;
+  margin-left: 10%;
 }
 
 .centerGeneric {
@@ -240,7 +249,6 @@ html {
 
 #mainApp {
   margin: 0 auto;
-  background-color: rgb(255,255,240);
 }
 
 #topborder {
@@ -266,6 +274,10 @@ b.ng-binding {
   padding-bottom: 30px;
 }
 
-.divTableBody, #myChart, .reportcard, blockquote.twitter-tweet {
+.divTableBody, #myChart, .reportcard, .EmbeddedTweet {
   box-shadow: 1px 1px 5px rgb(70,70,70);
+}
+
+html, #topborder, #titlebarContainer, #mainApp {
+  background-color: rgb(255,255,240);
 }
