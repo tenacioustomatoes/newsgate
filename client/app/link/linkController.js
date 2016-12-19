@@ -11,9 +11,7 @@ angular.module('link.controllers', ['link.services'])
       console.log(response.data.link)
       $scope.linksNum = response.data.link.length;
       $scope.links = response.data.link.reverse();
-      $scope.keywords = response.data.link.map(link => {
-        return link.keywords
-      })
+      $scope.keywords = response.data.link.map(link => link.keywords)
       $scope.keywords = [].concat.apply([], $scope.keywords)
       console.log($scope.keywords)
     }) 
