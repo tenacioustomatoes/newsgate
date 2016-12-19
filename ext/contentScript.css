@@ -28,7 +28,7 @@
 }
 
 .heart:hover {
-  color: rgb(110,110,110);
+  color: rgb(120,120,120);
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
@@ -45,7 +45,8 @@
 .viewReportCard:hover {
   /*font-weight: bold;*/
   /*border: 2px solid rgb(70,70,70);*/
-  filter: brightness(90%);
+  /*filter: brightness(90%);*/
+  background-color: #fee17a;
   color: rgb(70,70,70);
   cursor: pointer;
   text-decoration: none;

@@ -30,6 +30,7 @@ angular.module('newsgate.reportcard', [])
   };
 
   reqUrl = location.search.substring(1);
+  console.log(reqUrl);
   $http.post('/api/reportcard', {url: reqUrl})
     .then(function(res) {
       console.log('res', res);

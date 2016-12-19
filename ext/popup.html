@@ -39,8 +39,6 @@
       padding: 0;
       color: rgb(70,70,70);
       border: 2px solid  rgb(70,70,70);
-      background: rgb(255,255,240);
-      /*border: 2px solid #06477D;*/
       border-radius: 4px;
       min-width: 225px;
     }
@@ -50,19 +48,28 @@
       cursor: pointer;
       padding: 0;
       margin: 0;
+      overflow: hidden;
     }
 
     li {
       color: rgb(70,70,70);
       border-bottom: 1px solid rgb(220,220,220);
-      background: rgb(255,255,240);
+      background-color: rgb(255,255,240);
       text-align: center;
       padding: 5px 8px 5px 8px;
     }
 
-    li:hover {
-      background:  #fff1bf;
+    li:hover, #login:hover, #logout:hover {
+      background-color: rgb(240,240,240);
     }
+
+    #login, #logout {
+      background-color: #fff1bf;
+    }
+
+/*    #login:hover, #logout:hover {
+      background-color: rgb(240,240,240);      
+    }*/
 
     .symbol {
       margin: 0 6px 0 0;
@@ -80,8 +87,8 @@
 <body>
     <ul id="list">
         <li id="SaveLink"><span class="symbol">♥</span>Save Link</li>
-        <li id="ViewLinks"><span class="symbol">⚯</span>View Fav Links</li>
         <li id="ViewReport"><span class="symbol">✐</span>Report Card</li>
+        <li id="ViewLinks"><span class="symbol">⚯</span>View Favorite Links</li>
         <li id="login"><span class="symbol">☛</span>Login with Facebook</li>
         <li hidden id="logout"><span class="symbol">☛</span>Logout with Facebook</li>
     </ul>
