@@ -25,12 +25,12 @@
       </div>
 
       <br>
-      <h3><center>Search Your Links By Keywords</center></h3>
+      <h3><center>Search Keywords</center></h3>
       <center><input class="search" type="search" ng-model="search.text"
       placeholder="filter by keywords" /></center>
-      <div ng-class='allKeyWords' ng-show='search.text.length > 2'>
+      <div ng-class='allKeyWords' ng-show='search.text.length > 1'>
         <div ng-repeat='result in keywords | filter:search track by $index'>
-          <div ng-click="filterByKeyword(result)">
+          <div ng-click="filterByKeyword(result);">
           <center>{{result.text}}</center>
           </div>
         </div>

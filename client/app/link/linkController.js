@@ -18,7 +18,6 @@ angular.module('link.controllers', ['link.services'])
       }
       return totalKeyWords;
     }, {});
-    console.log('keywords object --->', keywordsObj);
     keywordsArray = [];
     for (var key in keywordsObj) {
       keywordsArray.push({
@@ -29,10 +28,8 @@ angular.module('link.controllers', ['link.services'])
     keywordsArray.sort((a, b) => {
       return Number(b.relevance) - Number(a.relevance)
     })
-    console.log('key words array --->', keywordsArray);
     return keywordsArray;    
   }
-
   $scope.getLinks = function() {
     LinkFactory.getLinks().then(response => {
       console.log(response.data.link)
@@ -44,6 +41,7 @@ angular.module('link.controllers', ['link.services'])
       console.log($scope.keywords)
     }) 
   }
+
   $scope.filterByKeyword = function (keyword) {
     console.log(keyword);
     $scope.filteredLinks = $scope.links.filter(link=> {
