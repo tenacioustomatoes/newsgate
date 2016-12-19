@@ -55,7 +55,6 @@
   color: #ffedb0;
 }
 
-
 .keywords {
   display: flex;
 }
@@ -116,6 +115,7 @@
   width: 75%;
   margin: auto;
   background-color: #fff1bf;
+  margin-bottom: 20px;
 }
 
 #spinner {
@@ -253,4 +253,31 @@
 
 #topborder {
   margin-top: 20px;
+}
+
+b.ng-binding {
+  border: 1px solid rgb(70,70,70);
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 1px 1px 5px rgb(70,70,70)
+}
+
+.topKeywords, .topKeyword, .relatedTweets {
+  margin: 20px auto;
+  width: 75%;
+  border: solid 2px;
+  padding: 10px;
+  box-shadow: 1px 1px 5px rgb(70,70,70);
+}
+
+.topKeyword {
+  padding-bottom: 30px;
+}
+
+.divTableBody, #myChart, .reportcard, .EmbeddedTweet {
+  box-shadow: 1px 1px 5px rgb(70,70,70);
+}
+
+html, #topborder, #titlebarContainer, #mainApp {
+  background-color: rgb(255,255,240);
 }
