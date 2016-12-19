@@ -1,11 +1,26 @@
 .navbarlinks {
   height: 80px;
-  width: 100%;
+  width: 75%;
+  margin: auto;
   display: flex;
   justify-content: center;
   align-content: center;
   border-bottom: 1px solid;
   border-left: 1px solid;
+}
+
+.filteredLinks {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+.maindiv {
+  width: 60%;
+  margin: 0 auto;
+  border: 2px solid;
+  background: #fff1bf;
 }
 
 .search {
@@ -27,6 +42,7 @@
   width: 50%;
   display: flex;
   justify-content: center;
+  border: .2px solid #000;
 }
 
 .grade {
@@ -46,11 +62,24 @@
   text-align: center;
 }
 
+.linksTitle {
+  background: black;
+  width: 75%;
+  margin: 0 auto;
+  padding-top: 18px;
+  text-align: center;
+  color: #fff1bf;
+}
+
+.savedlinks {
+  font-size: 40px;
+}
+
 .mainheader{
   text-align: center;
   margin: 0;
   background: black;
-  height: 50px;
+  height: 40px;
   color: #ffedb0;
 }
 
@@ -259,7 +288,6 @@ b.ng-binding {
   box-shadow: 1px 1px 5px rgb(70,70,70)
 }
 
-/* Adds borders and shadows to top the below sections */
 .topKeywords, .topKeyword, .relatedTweets {
   margin: 20px auto;
   width: 75%;
