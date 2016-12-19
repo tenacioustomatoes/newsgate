@@ -164,7 +164,7 @@ $(document).ready(function() {
             content += '<p>' + '<span class="popoverTitles">' + 'Sentiment: ' + '</span>' + sentiment + '</p>';
 
             // add report card to content
-            content += '<p><a class="viewReportCard">View Report Card</a><a class="heart"> ♥ </a></p>';
+            content += '<p><a class="viewReportCard">View Report Card</a><a class="heart"> ♡ </a></p>';
             content += '</div>';
 
             // set content to popover
@@ -175,7 +175,7 @@ $(document).ready(function() {
             // ---------------
 
             $('.heart').on('click', function() {
-              $(this).toggleClass('clicked');
+              $(this).text(' ♥ ');
               $.ajax({
                 url: 'http://localhost:8000/api/links',
                 type: 'POST',

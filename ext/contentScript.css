@@ -28,7 +28,8 @@
 }
 
 .heart:hover {
-  color: rgb(120,120,120);
+  color: rgb(70,70,70);
+  text-shadow: 2px 2px 4px rgb(70,70,70);
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
@@ -47,6 +48,7 @@
   /*border: 2px solid rgb(70,70,70);*/
   /*filter: brightness(90%);*/
   background-color: #fee17a;
+  box-shadow: 2px 2px 4px rgb(70,70,70);
   color: rgb(70,70,70);
   cursor: pointer;
   text-decoration: none;
