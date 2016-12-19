@@ -40,31 +40,6 @@ function getCurrentTabUrl(callback) {
   });
 }
 
-
-// getCurrentTabUrl(function(tabUrl) {
-//   var urlData = $.ajax({
-//     url: 'http://localhost:8000/api/ext',
-//     type: 'POST',
-//     data: {'url': tabUrl},
-//     dataType: 'json'
-//   })
-//   .done(function (json) {
-//     console.log(json);
-//     var rating = '';
-//     if ((json.fake.rating.score + '') === '0') {
-//       rating = 'This page does not exist in our Fake News blacklist.';
-//     } else if ((json.fake.rating.score + '') === '100') {
-//       rating = 'WARNING: This page is hosted on a domain that has been blacklisted because of fake news.';
-//     }
-//     //$("<h1>").text(rating).appendTo('body');
-//   })
-//   .fail(function( xhr, status, errorThrown ) {
-//     console.log( "Error: " + errorThrown );
-//     console.log( "Status: " + status );
-//     console.dir( xhr );
-//   });
-// });
-
 var saveLink = function() {
   console.log('in save link');
   getCurrentTabUrl(function(url) {
@@ -75,7 +50,7 @@ var saveLink = function() {
       data: {'url': url},
       dataType: 'json'
     }).done(function(results) {
-      console.log(results)
+      console.log(results);
       if (results === false) {
         console.log('please login');
       } else {
@@ -86,56 +61,108 @@ var saveLink = function() {
   });
 };
 
-// var loginToFB = function() {
-//   console.log('in fb login');
-//   getCurrentTabUrl(function(url) {
-//     $.ajax({
-//       url: 'http://localhost:8000/auth/facebook',
-//       type: 'GET',
-//     }).done(function(results) {
-//       console.log(results);
-//       console.log('here!!!');
-//       if (results.status === 'success') {
-//         console.log('signed in')
-//         $('#login').toggle();
-//         $('#logout').toggle();
-//       } else {
-//         chrome.tabs.create({url: 'http://localhost:8000/auth/facebook'});
-//         window.close(); // Note: window.close(), not this.close()
-//           //console.log(results)
-//       }
-//     });
-//   })
-// }
+// Default value for userId
+var userId = null;
 
-var loginToFB = function() {
-//<<<<<<< HEAD
-  console.log('in fb login');
+
+var viewReport = function() {
   getCurrentTabUrl(function(url) {
-    $.ajax({
-      url: 'http://localhost:8000/login/facebook',
-      type: 'GET',
-    }).done(function(results) {
-      console.log(results)
-      if (results.status === 'success') {
-        console.log('signed in')
-        $('#login').toggle();
-        $('#logout').toggle();
-      } else {
-        chrome.tabs.create({url: 'http://localhost:8000/login/facebook'});
-        window.close(); // Note: window.close(), not this.close() 
-      }
+    window.open('http://localhost:8000/?' + url);
+  });
+};
+
+var viewLinks = function() {
+  window.open('http://localhost:8000/viewlinks');
+};
+
+var showLoginButton = function(showLogin) {
+  if (showLogin) {
+    console.log('lets showoff some login');
+    $('#login').show();
+    $('#logout').hide();
+  } else {
+    console.log('put that login away');
+    $('#logout').show();
+    $('#login').hide();
+  }
+};
+
+var updateLoginButton = function() {
+  console.log('userId in updatebutton', userId);
+  if (userId) {
+    showLoginButton(false);
+  } else {
+    showLoginButton(true);
+  }
+};
+
+var userIdChangeHandler = function(newId) {
+  console.log('userIdChangeHandler');
+  console.log('comparing current', userId);
+  console.log('to new', newId);
+  if (userId === newId) {
+    console.log('same old same old');
+    //No change
+    return;
+  } else {
+    console.log('things about to get different');
+    userId = newId;
+    updateLoginButton();
+  }
+};
+
+chrome.storage.sync.get('userId', function(result) {
+  console.log('sync result', result);
+  userIdChangeHandler(userId, result);
+});
+
+var facebookLogin = function() {
+  console.log('attempt login');
+  $.ajax({
+    url: 'http://localhost:8000/login/facebook',
+    type: 'GET',
+  }).done(function(results) {
+    console.log('login results', results);
+    chrome.storage.sync.set({'userId': results.userId});
+    chrome.storage.sync.get('userId', function(result) {
+      console.log('check sync storage after settings', result);
     });
-  })
-}    
-// =======
-//   chrome.tabs.create({url: 'http://localhost:8000/login'});
-// };
-//>>>>>>> a8674abc4571094fee32badb8ae88d1ef846a8e0
+    userIdChangeHandler(results.userId);
+  });
+};
 
+var facebookLogout = function() {
+  console.log('attempt logout');
+  $.ajax({
+    url: 'http://localhost:8000/logout',
+    type: 'GET',
+  }).done(function(results) {
+    console.log('logout results', results);
+    chrome.storage.sync.set({'userId': null});
+    userIdChangeHandler(null);
+  });
+};
 
+$.ajax({
+  url: 'http://localhost:8000/login/check',
+  type: 'GET',
+  dataType: 'json'
+}).done(function(results) {
+  chrome.storage.sync.set({'userId': results.userId});
+  console.log('recieved login check results:', results);
+  userIdChangeHandler(results.userId);
+  if (results.userId) {
+    console.log('UserId found');
+  } else {
+    console.log('No userId found');
+  }
+});
 
 $(document).ready(function() {
   $('#SaveLink').on('click', saveLink);
-  $('#login').on('click', loginToFB);
+  $('#ViewReport').on('click', viewReport);
+  $('#ViewLinks').on('click', viewLinks);
+  $('#login').on('click', facebookLogin);
+  $('#logout').on('click', facebookLogout);
+
 });

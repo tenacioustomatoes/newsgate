@@ -45,7 +45,7 @@ $(document).ready(function() {
     container: 'body',
     trigger: 'manual',
     placement: 'auto top',
-    title: 'Article Quick Stats',
+    title: 'NewsGate Quick Stats',
     content: '<img class="gifLoading" src="' + gifUrl + '"/>'
   })
 
@@ -175,6 +175,7 @@ $(document).ready(function() {
             // ---------------
 
             $('.heart').on('click', function() {
+              $(this).toggleClass('clicked');
               $.ajax({
                 url: 'http://localhost:8000/api/links',
                 type: 'POST',

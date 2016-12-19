@@ -33,13 +33,16 @@
   <head>
   <style>
     body {
-      font-family: arial;
-      font-size: 12pt;
+      font-family: 'Adamina', sans-serif;
+      font-size: 11pt;
       margin: 0;
       padding: 0;
-      color: #06477D;
-      border: 2px solid #06477D;
-      border-radius: 3px;
+      color: rgb(70,70,70);
+      border: 2px solid  rgb(70,70,70);
+      background: rgb(255,255,240);
+      /*border: 2px solid #06477D;*/
+      border-radius: 4px;
+      min-width: 225px;
     }
 
     ul {
@@ -50,13 +53,20 @@
     }
 
     li {
+      color: rgb(70,70,70);
+      border-bottom: 1px solid rgb(220,220,220);
+      background: rgb(255,255,240);
       text-align: center;
-      padding: 5px 20px;
+      padding: 5px 8px 5px 8px;
     }
 
     li:hover {
-      background: #06477D;
-      color: white;
+      background:  #fff1bf;
+    }
+
+    .symbol {
+      margin: 0 6px 0 0;
+      font-size: 20px;
     }
 
   </style>
@@ -69,15 +79,15 @@
 <html>
 <body>
     <ul id="list">
-        <li id="SaveLink">Save Link</li>
-        <li id="ViewReport">View Full Report</li>
-        <li id="login">Login To Facebook</li>
-        <li hidden id="logout">Logout Facebook</li>
-        <li hidden id="login">Please login</li>
+        <li id="SaveLink"><span class="symbol">♥</span>Save Link</li>
+        <li id="ViewLinks"><span class="symbol">⚯</span>View Fav Links</li>
+        <li id="ViewReport"><span class="symbol">✐</span>Report Card</li>
+        <li id="login"><span class="symbol">☛</span>Login with Facebook</li>
+        <li hidden id="logout"><span class="symbol">☛</span>Logout with Facebook</li>
     </ul>
     <!-- <div id="facebook"> -->
     <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> -->
-    <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" 
+    <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false"
     data-auto-logout-link="true" onlogin="checkLoginState();"></div>
     <div id="status">
     </div>
