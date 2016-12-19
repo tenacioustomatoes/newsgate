@@ -6,6 +6,37 @@ html {
   display: inline-block;
   margin: 0 auto;
   padding 0 0 0 0;
+
+.navbarlinks {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.search {
+  width: 50%;
+}
+
+.words {
+  margin: 15px;
+}
+
+
+.topbar:hover {
+  background: #fff1bf;
+  cursor: pointer;
+}
+
+.topbar {
+  background: #FFF8DF;
+  padding-top: 10px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 .grade{
@@ -69,15 +100,6 @@ html {
   display: table-row-group;
 }
 
-/*.table tbody tr:hover td, .table tbody tr:hover th {
-    background-color: #fff1bf;
-}*/
-
-/*.headers {
-  font-family: 'Adamina', sans-serif;
-  text-align: center;
-}*/
-
 .left {
   color: blue;
 }
@@ -85,6 +107,9 @@ html {
   color: green;
 }
 
+.linkbody{
+  background: rgb(255,255,240);
+}
 .center {
   color: purple;
 }
@@ -93,12 +118,6 @@ html {
   width: 75%;
   margin: 0 auto;
 }
-
-/*
-.title{
-  margin: 30px;
-}
-}*/
 
 .reportcard {
   border-color: #000 ;

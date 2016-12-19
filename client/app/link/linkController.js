@@ -5,19 +5,43 @@ angular.module('link.controllers', ['link.services'])
   $scope.showkeyword = true
   $scope.link = [];
   $scope.filteredLinks = [];
-  //s$scope.showfiltered = false; 
+  var getKeywords = function (responseObject) {
+    console.log('in function');
+    var keywordsArray = responseObject.map(link => link.keywords);
+    keywordsArray = [].concat.apply([], keywordsArray);
+    console.log(keywordsArray);
+    var keywordsObj = keywordsArray.reduce(function (totalKeyWords, keyword) {
+      if (!totalKeyWords.hasOwnProperty(keyword.text)) {
+        totalKeyWords[keyword.text] = Number(keyword.relevance);
+      } else {
+        totalKeyWords[keyword.text] = totalKeyWords[keyword.text] + Number(keyword.relevance);
+      }
+      return totalKeyWords;
+    }, {});
+    keywordsArray = [];
+    for (var key in keywordsObj) {
+      keywordsArray.push({
+        text: key, 
+        relevance: keywordsObj[key] 
+      })
+    }
+    keywordsArray.sort((a, b) => {
+      return Number(b.relevance) - Number(a.relevance)
+    })
+    return keywordsArray;    
+  }
   $scope.getLinks = function() {
     LinkFactory.getLinks().then(response => {
       console.log(response.data.link)
       $scope.linksNum = response.data.link.length;
-      $scope.links = response.data.link;
-      $scope.keywords = response.data.link.map(link => {
-        return link.keywords
-      })
-      $scope.keywords = [].concat.apply([], $scope.keywords)
+      $scope.links = response.data.link.reverse();
+      $scope.keywords = getKeywords($scope.links);
+      // $scope.keywords = response.data.link.map(link => link.keywords)
+      // $scope.keywords = [].concat.apply([], $scope.keywords)
       console.log($scope.keywords)
     }) 
   }
+
   $scope.filterByKeyword = function (keyword) {
     console.log(keyword);
     $scope.filteredLinks = $scope.links.filter(link=> {
