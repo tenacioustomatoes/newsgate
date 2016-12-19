@@ -251,6 +251,7 @@ b.ng-binding {
   border: 1px solid rgb(70,70,70);
   border-radius: 5px;
   padding: 5px;
+  box-shadow: 1px 1px 5px rgb(70,70,70)
 }
 
 .topKeywords, .topKeyword, .relatedTweets {
@@ -258,8 +259,13 @@ b.ng-binding {
   width: 75%;
   border: solid 2px;
   padding: 10px;
+  box-shadow: 1px 1px 5px rgb(70,70,70);
 }
 
 .topKeyword {
   padding-bottom: 30px;
+}
+
+.divTableBody, #myChart, .reportcard, blockquote.twitter-tweet {
+  box-shadow: 1px 1px 5px rgb(70,70,70);
 }
