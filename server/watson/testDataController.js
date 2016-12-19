@@ -4,7 +4,7 @@ module.exports.data = function(req, res) {
   var testData = [
     {
       bias: {
-        bias: ['Left']
+        bias: 'Left'
       },
       emotions: {
         docEmotions: {
@@ -29,7 +29,7 @@ module.exports.data = function(req, res) {
 
     {
       bias: {
-        bias: ['Right']
+        bias: 'Right'
       },
       emotions: {
         docEmotions: {
@@ -54,7 +54,7 @@ module.exports.data = function(req, res) {
 
     {
       bias: {
-        bias: ['Left']
+        bias: 'Left'
       },
       emotions: {
         docEmotions: {
