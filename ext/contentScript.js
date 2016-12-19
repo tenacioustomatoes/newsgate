@@ -110,7 +110,7 @@ $(document).ready(function() {
         if (isItNews(hoverUrl) && flag === hoverUrl) {
           // retrieve popover content 
           $.ajax({
-            url: 'http://localhost:8000/api/popover/test',
+            url: 'http://localhost:8000/api/popover',
             type: 'POST',
             data: {'url': hoverUrl},
             dataType: 'json'
@@ -138,7 +138,8 @@ $(document).ready(function() {
               Right: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>',
               Left: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>'
             };
-            var leaning = json.bias.bias;
+            var leaning = json.bias.bias[0];
+            // console.log('leaning', leaning);
             content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
 
             // add emotions to content
@@ -164,7 +165,7 @@ $(document).ready(function() {
             content += '<p>' + '<span class="popoverTitles">' + 'Sentiment: ' + '</span>' + sentiment + '</p>';
 
             // add report card to content
-            content += '<p><a class="viewReportCard">View Report Card</a><a class="heart"> ♥ </a></p>';
+            content += '<p><a class="viewReportCard">View Report Card</a><a class="heart"> ♡ </a></p>';
             content += '</div>';
 
             // set content to popover
@@ -175,7 +176,7 @@ $(document).ready(function() {
             // ---------------
 
             $('.heart').on('click', function() {
-              $(this).toggleClass('clicked');
+              $(this).text(' ♥ ');
               $.ajax({
                 url: 'http://localhost:8000/api/links',
                 type: 'POST',
