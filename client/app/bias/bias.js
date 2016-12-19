@@ -9,6 +9,21 @@
 angular.module('newsgate.reportcard', [])
 .controller('ReportCardController', function($scope, $rootScope, $http, Data) {
 
+  $scope.validEmos = function(emoObj){
+    $scope.emoBool = [];
+    for (var emo in emoObj){
+      console.log(emoObj);
+      if (emoObj[emo] === true){
+        $scope.emoBool.push(emo)
+      }
+    }
+    console.log($scope.emoBool);
+    if ($scope.emoBool.length === 0){
+      $scope.emoBool.push('No significant emotions detected');
+    }
+    console.log('emo bools',$scope.emoBool);
+  };
+
   reqUrl = location.search.substring(1);
   $http.post('/api/reportcard', {url: reqUrl})
     .then(function(res) {
@@ -42,8 +57,5 @@ angular.module('newsgate.reportcard', [])
     }
   }
 
-  $scope.validEmos = function(emoObj){
-    //todo
-  };
 
 });

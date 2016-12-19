@@ -175,6 +175,7 @@ $(document).ready(function() {
             // ---------------
 
             $('.heart').on('click', function() {
+              $(this).toggleClass('clicked');
               $.ajax({
                 url: 'http://localhost:8000/api/links',
                 type: 'POST',

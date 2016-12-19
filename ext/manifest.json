@@ -28,8 +28,6 @@
     }
   ],
   "web_accessible_resources": [
-    "contentScriptAssets/spin.gif",
-    "contentScriptAssets/donkey.gif",
-    "contentScriptAssets/elephant.gif"
+    "contentScriptAssets/spin.gif"
   ]
 }
