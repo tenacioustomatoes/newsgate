@@ -56,17 +56,17 @@ html {
   width: 100%;
 }
 .divTableRow {
-	display: table-row;
+  display: table-row;
 }
 
 .divTableCell, .divTableHead {
-	border: 1px solid #000;
-	display: table-cell;
-	padding: 3px 10px;
+  border: 1px solid #000;
+  display: table-cell;
+  padding: 3px 10px;
 }
 
 .divTableBody {
-	display: table-row-group;
+  display: table-row-group;
 }
 
 /*.table tbody tr:hover td, .table tbody tr:hover th {
@@ -251,4 +251,15 @@ b.ng-binding {
   border: 1px solid rgb(70,70,70);
   border-radius: 5px;
   padding: 5px;
+}
+
+.topKeywords, .topKeyword, .relatedTweets {
+  margin: 20px auto;
+  width: 75%;
+  border: solid 2px;
+  padding: 10px;
+}
+
+.topKeyword {
+  padding-bottom: 30px;
 }
