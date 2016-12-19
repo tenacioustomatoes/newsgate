@@ -37,14 +37,12 @@
       font-size: 11pt;
       margin: 0;
       padding: 0;
-      color: #000000;
-      border: 2px solid  #000000;
-      background:  yellow;
-      /*color: #06477D;*/
+      color: rgb(70,70,70);
+      border: 2px solid  rgb(70,70,70);
+      background: rgb(255,255,240);
       /*border: 2px solid #06477D;*/
-/*      color: #fff1bf;
-      border: 2px solid  #fff1bf;*/
       border-radius: 4px;
+      min-width: 200px;
     }
 
     ul {
@@ -55,18 +53,19 @@
     }
 
     li {
-      border: 1px solid  #777777;
-      background:  #fcf4db;
-      /*background:  #fff1bf;*/
+      color: rgb(70,70,70);
+      border-bottom: 1px solid rgb(220,220,220);
+      background: rgb(255,255,240);
       text-align: center;
-      padding: 5px 20px;
+      padding: 5px 10px;
     }
 
     li:hover {
-      /*background: #06477D;*/
-            background:  #fff1bf;
-      /*background:  #fcf4db;*/
-      color: black;
+      background:  #fff1bf;
+    }
+
+    .symbol {
+      margin: 0 7px 0 7px;
     }
 
   </style>
@@ -79,11 +78,11 @@
 <html>
 <body>
     <ul id="list">
-        <li id="SaveLink">Save Link</li>
-        <li id="ViewLinks">View Links</li>
-        <li id="ViewReport">Report Card</li>
-        <li id="login">Login To Facebook</li>
-        <li hidden id="logout">Logout of Facebook</li>
+        <li id="SaveLink"><span class="symbol">♥</span>Save Link</li>
+        <li id="ViewLinks"><span class="symbol">⚯</span>View Fav Links</li>
+        <li id="ViewReport"><span class="symbol">✐</span>Report Card</li>
+        <li id="login"><span class="symbol">☛</span>Login with Facebook</li>
+        <li hidden id="logout"><span class="symbol">☛</span>Logout with Facebook</li>
     </ul>
     <!-- <div id="facebook"> -->
     <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> -->
