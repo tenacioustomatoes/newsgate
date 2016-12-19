@@ -31,7 +31,6 @@
   margin: 15px;
 }
 
-
 .topbar:hover {
   background: #fff1bf;
   cursor: pointer;
@@ -46,16 +45,16 @@
   border: .2px solid #000;
 }
 
-.grade{
-  color:red;
+.grade {
+  color: red;
 }
 
 .table tbody tr:hover td, .table tbody tr:hover th {
-    background-color: #fff1bf;
+  background-color: #fff1bf;
 }
 
 #tablerow {
-    border-top: 1px solid #000;
+  border-top: 1px solid #000;
 
 }
 
@@ -174,10 +173,7 @@
 }
 
 .vert-center-disabled {
-
   top: 9%;
-
-
 }
 
 .fixed-header {
@@ -284,15 +280,12 @@
   margin-top: 20px;
 }
 
+/* Adds border and shadow to each keyword*/
 b.ng-binding {
   border: 1px solid rgb(70,70,70);
   border-radius: 5px;
   padding: 5px;
   box-shadow: 1px 1px 5px rgb(70,70,70)
-}
-
-#app h4 {
-  background-color: rgb(255,255,240);
 }
 
 .topKeywords, .topKeyword, .relatedTweets {
@@ -303,14 +296,17 @@ b.ng-binding {
   box-shadow: 1px 1px 5px rgb(70,70,70);
 }
 
+/* Fixes padding for top keyword section */
 .topKeyword {
   padding-bottom: 30px;
 }
 
+/* Adds shadows to reportcard, chart, table, and tweets */
 .divTableBody, #myChart, .reportcard, .EmbeddedTweet {
   box-shadow: 1px 1px 5px rgb(70,70,70);
 }
 
+/* Applies light yellow background color */
 html, #topborder, #titlebarContainer, #mainApp {
   background-color: rgb(255,255,240);
 }
