@@ -105,7 +105,9 @@ html {
   border-style: solid;
   width: 75%;
   margin: auto;
+  margin-bottom: 20px;
   background-color: #fff1bf;
+  padding-bottom: 10px;
 }
 
 #spinner {
@@ -243,4 +245,10 @@ html {
 
 #topborder {
   margin-top: 20px;
+}
+
+b.ng-binding {
+  border: 1px solid rgb(70,70,70);
+  border-radius: 5px;
+  padding: 5px;
 }
