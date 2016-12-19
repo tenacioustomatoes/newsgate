@@ -110,7 +110,7 @@ $(document).ready(function() {
         if (isItNews(hoverUrl) && flag === hoverUrl) {
           // retrieve popover content 
           $.ajax({
-            url: 'http://localhost:8000/api/popover',
+            url: 'http://localhost:8000/api/popover/test',
             type: 'POST',
             data: {'url': hoverUrl},
             dataType: 'json'
