@@ -5,6 +5,9 @@ angular.module('link.controllers', ['link.services'])
   $scope.showkeyword = true
   $scope.link = [];
   $scope.filteredLinks = [];
+  $scope.search = {
+    title: ''
+  };
   var getKeywords = function (responseObject) {
     console.log('in function');
     var keywordsArray = responseObject.map(link => link.keywords);
@@ -53,6 +56,24 @@ angular.module('link.controllers', ['link.services'])
 
   $scope.goToLink = function (url) {
     $window.location.href = url
+  }
+
+  var hasKeyWord = function(keyWordsArray) {
+    return keyWordsArray.map(keyword=>keyword.text).some(word => {
+      return word.toLowerCase().includes($scope.search.keyword.toLowerCase());
+    });
+  };
+
+  $scope.searchFunc = function (value, index, array) {
+    if (value.title.toLowerCase().includes($scope.search.title.toLowerCase())) {
+      return true;
+    } else if (value.url.toLowerCase().includes($scope.search.url.toLowerCase())) {
+      return true;
+    } else if (hasKeyWord(value.keywords)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   $scope.showKeywords = function () {

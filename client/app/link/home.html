@@ -27,7 +27,7 @@
       <br>
       <h3><center>Search Keywords</center></h3>
       <center><input class="search" type="search" ng-model="search.text"
-      placeholder="filter by keywords" /></center>
+      placeholder="search keywords" /></center>
       <div ng-class='allKeyWords' ng-show='search.text.length > 1'>
         <div ng-repeat='result in keywords | filter:search track by $index'>
           <div ng-click="filterByKeyword(result);">
@@ -51,7 +51,9 @@
 
   <div ng-class='showLinks' ng-show='showlink'>
     <div>All Saved Links</div>
-    <div ng-repeat='link in links'>
+
+    <center><input class="search" type="search" ng-model="search.title" ng-change='search.keyword = search.title; search.url = search.title' placeholder="search links by title or keyword or url" /></center>
+    <div ng-repeat='link in links | filter:searchFunc'>
       <center><a href="http://{{link.url}}" target="_blank"><div>{{link.title}}</div></a></center>
     </div>
   </div>
