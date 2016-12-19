@@ -19,9 +19,9 @@
   <div class="divTableRow" ng-controller="TitlebarController">
     <div class="divTableCell">Blacklist</div>
     <div class="divTableCell" ng-show="{{!fake}}">No</div>
-    <div class="divTableCell" ng-show="{{!fake}}">A+</div>
+    <div class="divTableCell grade" ng-show="{{!fake}}">A+</div>
     <div class="divTableCell" ng-show="fake">Yes</div>
-    <div class="divTableCell" ng-show="fake">F-</div>
+    <div class="divTableCell grade" ng-show="fake">F-</div>
   </div>
   <div class="divTableRow"  ng-controller="ReportCardController">
     <div class="divTableCell">Bias</div>
@@ -34,21 +34,23 @@
   <div class="divTableRow" ng-controller="ReportCardController">
     <div class="divTableCell">Emotions</div>
     <div class="divTableCell"><span ng-repeat="emos in emoBool">{{emos}} &nbsp;</span></div>
-    <div class="divTableCell" ng-show="emos=='joy'"><span class="fa fa-check positive" aria-hidden="true"></span></div>
-    <div class="divTableCell" ng-show="emos!=='joy'"><span class="fa fa-check negative" aria-hidden="true"></span></div>
+    <div class="divTableCell" ng-show="joy"><span class="fa fa-check positive" aria-hidden="true"></span></div>
+    <div class="divTableCell" ng-hide="joy"><span class="fa fa-check negative" aria-hidden="true"></span></div>
   </div>
   <div class="divTableRow" ng-controller="ReportCardController">
     <div class="divTableCell">Sentiment</div>
     <div class="divTableCell">{{sentiment}}</div>
-    <div class="divTableCell" ng-show="sentiment=='negative'"><span class="fa fa-frown-o" aria-hidden="true"></span>
-    <div class="divTableCell" ng-show="sentiment=='positive'"><span class="fa fa-smile-o happy" aria-hidden="true"></span>
-
+    <div class="divTableCell" ng-show="sentiment=='negative'"><span class="fa fa-frown-o" aria-hidden="true"></span></div>
+    <div class="divTableCell" ng-show="sentiment=='positive'"><span class="fa fa-smile-o happy" aria-hidden="true"></span></div>
   </div>
+<!-- <div class="divTableRow" ng-controller="ReportCardController"><div ng-include="'/app/bubble/bubble.html'"></div></div> -->
   </div>
-  </div>
 
 
 
+</div>
+<div ng-include="'/app/bubble/bubble.html'"></div>
+<div ng-include="'/app/tweets/tweets.html'"></div>
 
 </div>
 </div>
