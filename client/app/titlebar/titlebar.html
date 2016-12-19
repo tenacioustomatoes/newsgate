@@ -32,14 +32,17 @@
     <div class="divTableCell" ng-show="lean=='center'"><span class="fa fa-star center" aria-hidden="true" ng-cloak></span></div>
   </div>
   <div class="divTableRow" ng-controller="ReportCardController">
-    <div class="divTableCell">Emotion</div>
-    <div class="divTableCell">{{emotions}}</div>
-    <div class="divTableCell"><span class="fa fa-check positive" aria-hidden="true"></span></div>
+    <div class="divTableCell">Emotions</div>
+    <div class="divTableCell"><span ng-repeat="emos in emoBool">{{emos}} &nbsp;</span></div>
+    <div class="divTableCell" ng-show="emos=='joy'"><span class="fa fa-check positive" aria-hidden="true"></span></div>
+    <div class="divTableCell" ng-show="emos!=='joy'"><span class="fa fa-check negative" aria-hidden="true"></span></div>
   </div>
   <div class="divTableRow" ng-controller="ReportCardController">
     <div class="divTableCell">Sentiment</div>
     <div class="divTableCell">{{sentiment}}</div>
-    <div class="divTableCell"><span class="fa fa-smile-o happy" aria-hidden="true"></span>
+    <div class="divTableCell" ng-show="sentiment=='negative'"><span class="fa fa-frown-o" aria-hidden="true"></span>
+    <div class="divTableCell" ng-show="sentiment=='positive'"><span class="fa fa-smile-o happy" aria-hidden="true"></span>
+
   </div>
   </div>
   </div>
