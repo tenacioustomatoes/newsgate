@@ -10,15 +10,20 @@ angular.module('newsgate.reportcard', [])
 .controller('ReportCardController', function($scope, $rootScope, $http, Data) {
 
   $scope.validEmos = function(emoObj){
+    $scope.joy = false;
     $scope.emoBool = [];
     for (var emo in emoObj){
       console.log(emoObj);
       if (emoObj[emo] === true){
+        if (emoObj[emo] === 'joy'){
+          $scope.joy = true;
+        }
         $scope.emoBool.push(emo)
       }
     }
-    console.log($scope.emoBool);
+    console.log('joy',$scope.joy);
     if ($scope.emoBool.length === 0){
+      $scope.joy = true;
       $scope.emoBool.push('No significant emotions detected');
     }
     console.log('emo bools',$scope.emoBool);
