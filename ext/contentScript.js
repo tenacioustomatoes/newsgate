@@ -45,7 +45,7 @@ $(document).ready(function() {
     container: 'body',
     trigger: 'manual',
     placement: 'auto top',
-    title: 'Article Quick Stats',
+    title: 'NewsGate Quick Stats',
     content: '<img class="gifLoading" src="' + gifUrl + '"/>'
   })
 
