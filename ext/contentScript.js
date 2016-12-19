@@ -139,7 +139,7 @@ $(document).ready(function() {
               Left: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>'
             };
             var leaning = json.bias.bias[0];
-            // console.log('leaning', leaning);
+            console.log('leaning', leaning);
             content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
 
             // add emotions to content
