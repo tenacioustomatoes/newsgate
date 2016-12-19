@@ -110,7 +110,7 @@ $(document).ready(function() {
         if (isItNews(hoverUrl) && flag === hoverUrl) {
           // retrieve popover content 
           $.ajax({
-            url: 'http://localhost:8000/api/popover',
+            url: 'http://localhost:8000/api/popover/test',
             type: 'POST',
             data: {'url': hoverUrl},
             dataType: 'json'
@@ -139,7 +139,7 @@ $(document).ready(function() {
               Left: '<img class="gifLeaning" src="' + chrome.extension.getURL("contentScriptAssets/elephant.gif") + '"/>'
             };
             var leaning = json.bias.bias[0];
-            // console.log('leaning', leaning);
+            console.log('leaning', leaning);
             content += '<p>' + '<span class="popoverTitles">' + 'Leaning: ' + '</span>' + leaning.toLowerCase() + '</p>';
 
             // add emotions to content
