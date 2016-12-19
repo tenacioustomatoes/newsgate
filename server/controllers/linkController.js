@@ -1,21 +1,28 @@
 var url = require('url');
 var SavedLink = require('../models/linkModel.js');
 
-var __filterKeywords = function(keywords) {
-  var outputKeywords = [];
-  outputKeywords = keywords.slice(0, 5);
-  outputKeywords = outputKeywords.map(keyword => {
-    var newkeyword = {};
-    newkeyword.relevance = keyword.relevance;
-    newkeyword.text = keyword.text.toLowerCase();
-    var solutations = /\b(m[rs]s*)\b\.*/gi;
-    newkeyword.text = newkeyword.text.replace(solutations, ''); //get rid of mr. and mrs.
-    newkeyword.text = newkeyword.text.trim();
 
-    return newkeyword;
+
+var __filterKeywords = function(keywords) {
+  console.log('keywords ---> ', keywords)
+  var outputKeywords = [];
+  var solutations = /\b(m[rs]s*)\b\.*/gi;
+  keywords.forEach(keyword => {
+    keywordWordTextArray = keyword.text.toLowerCase().replace(solutations, '').trim().split(' '); //get rid of mr. and mrs.
+    keywordWordTextArray.forEach(word => {
+      var newkeyword = {
+        relevance: keyword.relevance, 
+        text: word
+      };
+      if (outputKeywords.map(keyword=>keyword.text).indexOf(word) === -1) {
+        outputKeywords.push(newkeyword);
+      } else {
+        console.log('already in there');
+      }
+    })
   });
-  //outputKeywords = keywords.filter(keyword => keyword.relevance > 0.75)
-  return outputKeywords;
+  console.log('processed keyword ---->', outputKeywords);
+  return outputKeywords.slice(0, 8);
 };
 
 module.exports = {
@@ -32,6 +39,7 @@ module.exports = {
       title: res.compoundContent.title.title,
       keywords: filtered
     };
+    console.log('link data!!! ---->', linkData);
 
     // if the link doesn't exist for that user, create it
     SavedLink.findOne({fbID: linkData.fbID, title: linkData.title, url: linkData.url}, function(err, link) {
@@ -51,6 +59,7 @@ module.exports = {
       } else {
         console.log('link', link);
         console.log('User already saved this link');
+        res.compoundContent['link'] = linkData;
       }
     });
   },

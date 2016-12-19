@@ -10,7 +10,7 @@ angular.module('link.controllers', ['link.services'])
     LinkFactory.getLinks().then(response => {
       console.log(response.data.link)
       $scope.linksNum = response.data.link.length;
-      $scope.links = response.data.link;
+      $scope.links = response.data.link.reverse();
       $scope.keywords = response.data.link.map(link => {
         return link.keywords
       })

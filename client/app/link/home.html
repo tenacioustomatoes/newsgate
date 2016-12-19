@@ -27,10 +27,10 @@
       <h3>Search For Your Links by keywords</h3>
       <input type="search" ng-model="search.text" 
       placeholder="filter by keywords" />
-      <div ng-class='allKeyWords' ng-show='search.text.length > 2'> 
-        <div ng-repeat='word in keywords | filter:search track by $index'>
-          <div ng-click="filterByKeyword(keywords[$index])">
-          {{word.text}}
+      <div ng-class='allKeyWords' ng-show='search.text.length > 1'> 
+        <div ng-repeat='result in keywords | filter:search track by $index'>
+          <div ng-click="filterByKeyword(result)">
+          {{result.text}}
           </div>
         </div>
         <br>
