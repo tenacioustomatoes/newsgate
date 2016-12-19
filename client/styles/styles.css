@@ -1,4 +1,29 @@
 
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #fff1bf;
+}
+
+#tablerow {
+    border-top: 1px solid #000;
+
+}
+
+.headers {
+  font-family: 'Adamina', sans-serif;
+  text-align: center;
+}
+
+.mainheader{
+  font-family: 'Adamina', sans-serif;
+  text-align: center;
+  margin: 0;
+  background: black;
+  height: 50px;
+  color: #ffedb0;
+}
+
+
 .keywords {
   display: flex;
 }
@@ -23,12 +48,9 @@
 .divTableRow {
 	display: table-row;
 }
-.divTableHeading {
-	background-color: #EEE;
-	display: table-header-group;
-}
+
 .divTableCell, .divTableHead {
-	border: 1px solid #999999;
+	border: 1px double #000;
 	display: table-cell;
 	padding: 3px 10px;
 }
@@ -37,9 +59,9 @@
 	display: table-row-group;
 }
 
-.table tbody tr:hover td, .table tbody tr:hover th {
+/*.table tbody tr:hover td, .table tbody tr:hover th {
     background-color: #fff1bf;
-}
+}*/
 
 /*.headers {
   font-family: 'Adamina', sans-serif;
@@ -62,14 +84,15 @@
 .title{
   margin: 30px;
 }
+}*/
 
 .reportcard {
-  border-color: black;
+  border-color: #000 ;
   border-style: double;
   width: 75%;
   margin: auto;
-  background-color: #FFEDB0;
-}*/
+  background-color: #fff1bf;
+}
 
 #spinner {
   /*color: #fff;*/
@@ -198,4 +221,15 @@
 
 .loaded-header {
   color: white;
+}
+
+#mainApp {
+  width: 85%;
+  margin: 0 auto;
+  background: #fff1bf;
+  border: 3px double navy;
+}
+
+#topborder {
+  margin-top: 20px;
 }
