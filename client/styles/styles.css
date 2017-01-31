@@ -1,0 +1,312 @@
+.navbarlinks {
+  height: 80px;
+  width: 75%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.filteredLinks {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+.maindiv {
+  width: 60%;
+  margin: 0 auto;
+  border: 2px solid;
+  background: #fff1bf;
+}
+
+.search {
+  width: 50%;
+}
+
+.words {
+  margin: 15px;
+}
+
+.topbar:hover {
+  background: #fff1bf;
+  cursor: pointer;
+}
+
+.topbar {
+  background: #FFF8DF;
+  padding-top: 10px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  border: .2px solid #000;
+}
+
+.grade {
+  color: red;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+  background-color: #fff1bf;
+}
+
+#tablerow {
+  border-top: 1px solid #000;
+
+}
+
+.headers {
+  text-align: center;
+}
+
+.linksTitle {
+  background: black;
+  width: 75%;
+  margin: 0 auto;
+  padding-top: 18px;
+  text-align: center;
+  color: #fff1bf;
+}
+
+.savedlinks {
+  font-size: 40px;
+}
+
+.mainheader{
+  text-align: center;
+  margin: 0;
+  background: black;
+  height: 40px;
+  color: #ffedb0;
+}
+
+.keywords {
+  display: flex;
+}
+
+.twitterContainer {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.topHeaders {
+  width: 75%;
+}
+.divTable{
+  margin: 0 auto;
+  width: 75%;
+  display: table;
+  width: 100%;
+}
+.divTableRow {
+	display: table-row;
+}
+
+.divTableCell, .divTableHead {
+	border: 1px solid #000;
+	display: table-cell;
+	padding: 3px 10px;
+}
+
+.divTableBody {
+	display: table-row-group;
+}
+
+.left {
+  color: blue;
+}
+.positive {
+  color: green;
+}
+
+.linkbody{
+  background: rgb(255,255,240);
+}
+.center {
+  color: purple;
+}
+
+#innercard {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.reportcard {
+  border-color: #000 ;
+  border-style: solid;
+  width: 75%;
+  margin: auto;
+  background-color: #fff1bf;
+  margin-bottom: 20px;
+}
+
+#spinner {
+  /*color: #fff;*/
+  text-shadow: 1px 1px 1px #ccc;
+  /*font-size: 1.5em;*/
+}
+
+
+#mainContainer {
+  transform: translate(-50%, -50%);
+  position: fixed;
+  padding: 1em;
+  left: 50%;
+  margin-right: -50%;
+  width: 60%;
+  height: 20%;
+  /*transition-property: top, background-color, border-color, transform;*/
+  /*transition-duration: 350ms, 0.8s, 0.8s, 0.1s;*/
+  /*transition-timing-function: ease-out, linear, linear;*/
+}
+
+.vert-center {
+  top: 50%;
+  background-color: rgba(255,255,255,1);
+
+}
+
+.vert-center-disabled {
+  top: 9%;
+}
+
+.fixed-header {
+  position: fixed;
+}
+
+.chartTitle {
+  margin-left: 50px;
+  font-weight: bolder;
+  font-size: 150%;
+  color: white;
+}
+
+.titlebarTitle {
+  /*margin-left: 50px;*/
+  font-weight: bolder;
+  font-size: 120%;
+  color: steelblue;
+}
+
+.top-pad {
+  padding-top: 10%;
+  position: relative;
+  z-index: -1;
+}
+
+.mid-pad {
+  padding-top: 5%;
+  position: relative;
+  z-index: -1;
+}
+
+#formContainer {
+  padding: 0px 5% 0px 5%;
+  margin: 0px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+#trendsContainer {
+  width: 50%;
+  background-color: white;
+  margin: 0px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+#bubbleContainer {
+  margin: 0px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+#spinnerContainer {
+  margin: 0px;
+  position: relative;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+#titlebarContainer {
+  width: 80%;
+  margin-left: 10%;
+}
+
+.centerGeneric {
+  color: white;
+  margin: 0px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+}
+
+.centerHeader {
+  margin: 0px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+  font-size: 300%;
+  width: 100%;
+  transition-property: color;
+  transition-duration: 0.5s;
+}
+
+.loaded-header-disable {
+  color: rgb(8, 84, 135);
+}
+
+.loaded-header {
+  color: white;
+}
+
+#mainApp {
+  margin: 0 auto;
+}
+
+#topborder {
+  margin-top: 20px;
+}
+
+/* Adds border and shadow to each keyword*/
+b.ng-binding {
+  border: 1px solid rgb(70,70,70);
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 1px 1px 5px rgb(70,70,70)
+}
+
+.topKeywords, .topKeyword, .relatedTweets {
+  margin: 20px auto;
+  width: 75%;
+  border: solid 2px;
+  padding: 10px;
+  box-shadow: 1px 1px 5px rgb(70,70,70);
+}
+
+/* Fixes padding for top keyword section */
+.topKeyword {
+  padding-bottom: 30px;
+}
+
+/* Adds shadows to reportcard, chart, table, and tweets */
+.divTableBody, #myChart, .reportcard, .EmbeddedTweet {
+  box-shadow: 1px 1px 5px rgb(70,70,70);
+}
+
+/* Applies light yellow background color */
+html, #topborder, #titlebarContainer, #mainApp {
+  background-color: rgb(255,255,240);
+}

@@ -1,0 +1,65 @@
+<!-- <div class="navbarlinks">
+  <div class="topbar" ng-click='showKeywords()'><h3>Main</h2></div>
+  <div class="topbar" ng-click='showLinks()'><h3>All Links</h3></div>
+</div> -->
+
+
+<!-- Basic View Starter -->
+
+
+
+<div class='maindiv'>
+  <div class="linksTitle savedlinks"><b class="savedlinks">SAVED LINKS</b></div>
+  <div class="navbarlinks">
+    <div class="topbar" ng-click='showKeywords()'><h3>Main</h3></div>
+    <div class="topbar" ng-click='showLinks()'><h3>All Links</h3></div>
+  </div>
+  <div ng-class='keywordsTab' ng-show='showkeyword'>
+    <h3><center>Your Top 8 Keywords</center></h3>
+    <div ng-class='showKeywords'>
+      <div ng-repeat='word in keywords | limitTo:9 track by $index'>
+      <!-- <div ng-repeat='word in keywords | limitTo:8 track by $index'> -->
+        <span ng-click="filterByKeyword(keywords[$index])">
+        <div class="words">  <center><b>{{word.text.toUpperCase()}}<b></center></div>
+        </span>
+      </div>
+<div><center>You have {{linksNum}} links saved.</center></div>
+      <br>
+      <h3><center>Search Keywords</center></h3>
+      <center><input class="search" type="search" ng-model="searchkey.text"
+      placeholder="search keywords" /></center>
+      <div ng-class='allKeyWords' ng-show='searchkey.text.length > 1'>
+        <div ng-repeat='result in keywords | filter:searchkey track by $index'>
+          <div ng-click="filterByKeyword(result);">
+          <center>{{result.text}}</center>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="filteredLinks" ng-class='filteredLinks' ng-show='showfiltered'>
+      <div ng-repeat='link in filteredLinks track by $index'>
+        <a href="http://{{link.url}}" target="_blank"><div>{{link.title}}</div></a>
+      </div>
+    </div>
+  </div>
+
+
+  <div ng-class='showLinks' ng-show='showlink'>
+    <div>All Saved Links</div>
+
+    <center><input class="search" type="search" ng-model="search.title" ng-change='search.keyword = search.title; search.url = search.title' placeholder="search links by title or keyword or url" /></center>
+    <div class="bottomlinks" ng-repeat='link in links | filter:searchFunc'>
+
+<div class="col-md-6">
+      <center><a href="http://{{link.url}}" target="_blank"><div>{{link.title}}</div></a></center>
+
+</div>
+    </div>
+  </div>
+
+</div>

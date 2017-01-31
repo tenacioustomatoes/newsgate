@@ -1,0 +1,67 @@
+.popover {
+  border: 2px solid rgb(70,70,70);
+  color: rgb(70,70,70);
+  font-family: 'Adamina', sans-serif;
+  background-color: #fff1bf;
+}
+
+.popover-title {
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #fff1bf;
+  border-bottom: 1px solid rgb(70,70,70);
+}
+
+.popover-content {
+  color: rgb(70,70,70);
+  background-color: rgb(255,255,240);
+}
+
+.popoverTitles {
+  font-weight: bold;
+}
+
+.heart {
+  color: rgb(70,70,70);
+  font-size: 22px;
+  margin: auto 3px auto 3px;
+}
+
+.heart:hover {
+  color: rgb(70,70,70);
+  text-shadow: 1px 1px 5px rgb(70,70,70);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.viewReportCard {
+  color: rgb(70,70,70);
+  border: 1px solid rgb(70,70,70);
+  border-radius: 5px;
+  background-color: #fff1bf;
+  padding: 5px; 
+}
+
+.viewReportCard:hover {
+  /*font-weight: bold;*/
+  /*border: 2px solid rgb(70,70,70);*/
+  /*filter: brightness(90%);*/
+  background-color: #fee17a;
+  box-shadow: 1px 1px 5px rgb(70,70,70);
+  color: rgb(70,70,70);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/*.gifLeaning {
+  height: 20px; 
+  width: auto;
+}*/
+
+.gifLoading {
+  height: 40%;
+  width: 40%;
+  display: block;
+  margin: 0 auto;
+}

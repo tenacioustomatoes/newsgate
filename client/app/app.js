@@ -7,6 +7,7 @@ angular.module('newsgate', [
   'newsgate.bubble',
   'newsgate.tweets',
   'newsgate.nav',
+  'newsgate.reportcard',
   'ngRoute'
 ])
 .config(function($routeProvider) {
@@ -29,7 +30,6 @@ angular.module('newsgate', [
     templateUrl : 'app/tweets/tweets.html',
     controller: 'TweetsController'
   });
-
 })
 .run(['$anchorScroll', function($anchorScroll) {
   $anchorScroll.yOffset = 50;
